@@ -14,7 +14,8 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
       <div
         className='fixed inset-0'
         style={{
-          background: 'linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)',
+          background:
+            'linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)',
         }}
       />
 

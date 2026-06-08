@@ -8,6 +8,8 @@ Realistic practice exams for AWS and Claude certifications.
 - **AWS Certified Developer – Associate**
 - **Claude Certified Architect - Foundations (CCA-F)**
 
+- **IELTS Academic**
+
 ## Getting Started
 
 ### Prerequisites
