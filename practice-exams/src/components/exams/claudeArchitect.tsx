@@ -1,49 +1,84 @@
 export default function ClaudeArchitect({ onBack }: { onBack: () => void }) {
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-6'>
-        <button onClick={onBack} className='btn btn-ghost'>
+    <div className='relative min-h-screen overflow-hidden'>
+      <div
+        className='absolute inset-0 bg-cover'
+        style={{
+          backgroundImage: 'url(/bg.jpg)',
+          backgroundPosition: 'center 30%',
+          filter: 'brightness(0.7) saturate(1.1)',
+        }}
+      />
+
+      <div
+        className='absolute inset-0'
+        style={{
+          background: 'linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)',
+        }}
+      />
+
+      <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
+        <button
+          onClick={onBack}
+          className='mb-8 text-base tracking-wide transition-colors hover:text-[#f2d8e8]'
+          style={{ color: '#b89ab8' }}
+        >
           ← Back to Dashboard
         </button>
-      </div>
 
-      <div className='card bg-base-100 shadow-xl'>
-        <div className='card-body'>
-          <div className='flex items-center gap-4 mb-4'>
-            <div className='w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-3xl'>🤖</div>
-            <div>
-              <h1 className='text-4xl font-bold'>Claude Certified Architect - Foundations</h1>
-              <div className='badge badge-primary mt-2'>CCA-F</div>
-            </div>
-          </div>
-
-          <div className='divider'></div>
-
-          <div className='alert alert-info'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='stroke-current shrink-0 w-6 h-6'
+        <div className='bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] border-l-4 border-l-[#c9a8e0] p-8 backdrop-blur-sm'>
+          <div className='mb-8'>
+            <span
+              className='inline-block text-sm px-3 py-2 border border-[rgba(180,140,200,0.3)] bg-[rgba(10,5,20,0.6)] tracking-wider'
+              style={{ color: '#c9a8e0' }}
             >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-              ></path>
-            </svg>
-            <span>Practice exam content coming soon!</span>
+              CCA-F
+            </span>
+            <h1
+              className='text-4xl mt-4 mb-2 tracking-wider'
+              style={{
+                color: '#f2d8e8',
+                textShadow: '2px 2px 0 #3a1040, 0 0 12px rgba(200,140,220,0.4)',
+              }}
+            >
+              Claude Architect Foundations
+            </h1>
           </div>
 
-          <div className='mt-6'>
-            <h2 className='text-2xl font-bold mb-4'>Exam Details</h2>
-            <ul className='space-y-2'>
-              <li>✓ 50 questions</li>
-              <li>✓ 90 minutes</li>
-              <li>✓ Multiple choice and multiple response</li>
-              <li>✓ Focus on prompt engineering and API integration</li>
-            </ul>
+          <div className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-6 mb-8'>
+            <p className='text-base tracking-wide' style={{ color: '#9a88b8' }}>
+              Practice exam content coming soon!
+            </p>
+          </div>
+
+          <div>
+            <h2
+              className='text-2xl mb-4 tracking-wide'
+              style={{
+                color: '#ede0f5',
+                textShadow: '1px 1px 0 #3a1040',
+              }}
+            >
+              Exam Details
+            </h2>
+            <div className='space-y-3 text-base tracking-wide' style={{ color: '#9a88b8' }}>
+              <div className='flex items-start gap-3'>
+                <span style={{ color: '#c9a8e0' }}>•</span>
+                <span>50 questions</span>
+              </div>
+              <div className='flex items-start gap-3'>
+                <span style={{ color: '#c9a8e0' }}>•</span>
+                <span>90 minutes</span>
+              </div>
+              <div className='flex items-start gap-3'>
+                <span style={{ color: '#c9a8e0' }}>•</span>
+                <span>Multiple choice and multiple response</span>
+              </div>
+              <div className='flex items-start gap-3'>
+                <span style={{ color: '#c9a8e0' }}>•</span>
+                <span>Focus on prompt engineering and API integration</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
