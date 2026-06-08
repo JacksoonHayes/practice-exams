@@ -23,11 +23,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-base-200">
+    <div className='min-h-screen bg-base-200'>
       <Suspense
         fallback={
-          <div className="flex items-center justify-center min-h-screen">
-            <span className="loading loading-spinner loading-lg"></span>
+          <div className='flex items-center justify-center min-h-screen'>
+            <span className='loading loading-spinner loading-lg'></span>
           </div>
         }
       >
