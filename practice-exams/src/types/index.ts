@@ -8,3 +8,15 @@ export type ExamCard = {
   icon: string;
   color: string;
 };
+
+export type Question = {
+  domain: string;
+  multi: number;
+  q: string;
+  opts: string[];
+  ans: number[];
+  exp: {
+    correct: string[];
+    incorrect: string[];
+  };
+};
