@@ -31,8 +31,8 @@ function App() {
               className='absolute inset-0 bg-cover'
               style={{
                 backgroundImage: 'url(/bg.jpg)',
-                backgroundPosition: 'center 30%',
-                filter: 'brightness(0.7) saturate(1.1)',
+                backgroundPosition: 'center 0%',
+                filter: 'brightness(1) saturate(1)',
               }}
             />
             <div
