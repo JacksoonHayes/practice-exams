@@ -1,17 +1,18 @@
 export default function AWSCloudPractitioner({ onBack }: { onBack: () => void }) {
   return (
-    <div className='relative min-h-screen overflow-hidden'>
+    <div className='relative min-h-screen'>
       <div
-        className='absolute inset-0 bg-cover'
+        className='fixed inset-0 bg-cover'
         style={{
           backgroundImage: 'url(/bg.jpg)',
           backgroundPosition: 'center 0%',
+          backgroundAttachment: 'fixed',
           filter: 'brightness(1) saturate(1)',
         }}
       />
 
       <div
-        className='absolute inset-0'
+        className='fixed inset-0'
         style={{
           background: 'linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)',
         }}

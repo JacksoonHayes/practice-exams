@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Academic — NZ Practice Exam</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f5f4f1;
+    --bg-info: #e6f1fb;
+    --text: #1a1a18;
+    --text-secondary: #5f5e5a;
+    --text-info: #185fa5;
+    --border: rgba(0,0,0,0.12);
+    --border-secondary: rgba(0,0,0,0.22);
+    --border-info: #378add;
+    --green-bg: #EAF3DE; --green-text: #3B6D11; --green-border: #639922;
+    --red-bg: #FCEBEB; --red-text: #A32D2D; --red-border: #E24B4A;
+    --radius: 8px; --radius-lg: 12px;
+    --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a; --bg-secondary: #252523; --bg-info: #0c2a45;
+      --text: #f0efea; --text-secondary: #9b9a94; --text-info: #85b7eb;
+      --border: rgba(255,255,255,0.10); --border-secondary: rgba(255,255,255,0.18);
+      --green-bg: #173404; --green-text: #C0DD97; --green-border: #3B6D11;
+      --red-bg: #501313; --red-text: #F7C1C1; --red-border: #A32D2D;
+    }
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-secondary);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .exam-header {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .exam-header h1 {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+  .exam-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 4px;
+    margin-bottom: 1.5rem;
+  }
+  .tab {
+    flex: 1;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-radius: var(--radius);
+    transition: background 0.15s, color 0.15s;
+    font-family: var(--font);
+  }
+  .tab:hover { color: var(--text); background: var(--bg-secondary); }
+  .tab.active { color: var(--text); background: var(--bg-secondary); }
+
+  /* Section */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .card-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .section-badge {
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 0.5px solid var(--border);
+    margin-bottom: 1rem;
+  }
+
+  /* Passage */
+  .passage {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--text);
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 0.5px solid var(--border);
+  }
+  .passage p { margin-bottom: 0.8rem; }
+  .passage p:last-child { margin-bottom: 0; }
+
+  /* Questions */
+  .q-block { margin-bottom: 1.25rem; }
+  .q-block:last-child { margin-bottom: 0; }
+  .q-num {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+  }
+  .q-text {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  /* Options */
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 12px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text);
+    transition: background 0.12s;
+    user-select: none;
+  }
+  .option:hover { background: var(--bg-secondary); }
+  .option .opt-letter {
+    font-weight: 500;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    min-width: 16px;
+  }
+  .option.selected { background: var(--bg-info); border-color: var(--border-info); color: var(--text-info); }
+  .option.correct { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); }
+  .option.wrong { background: var(--red-bg); border-color: var(--red-border); color: var(--red-text); }
+  .option.correct .opt-letter, .option.wrong .opt-letter { color: inherit; }
+
+  /* TF buttons */
+  .tf-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tf-btn {
+    padding: 7px 18px;
+    border: 0.5px solid var(--border-secondary);
+    border-radius: var(--radius);
+    font-size: 13px;
+    cursor: pointer;
+    background: none;
+    color: var(--text);
+    font-family: var(--font);
+    transition: background 0.12s;
+  }
+  .tf-btn:hover { background: var(--bg-secondary); }
+  .tf-btn.correct { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); }
+  .tf-btn.wrong { background: var(--red-bg); border-color: var(--red-border); color: var(--red-text); }
+
+  /* Inputs */
+  input[type=text], textarea {
+    width: 100%;
+    border: 0.5px solid var(--border-secondary);
+    border-radius: var(--radius);
+    padding: 9px 12px;
+    font-size: 14px;
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  input[type=text]:focus, textarea:focus { border-color: var(--border-info); }
+  textarea { resize: vertical; line-height: 1.6; }
+
+  /* Buttons */
+  .btn {
+    padding: 8px 18px;
+    border: 0.5px solid var(--border-secondary);
+    border-radius: var(--radius);
+    font-size: 13px;
+    cursor: pointer;
+    background: none;
+    color: var(--text);
+    font-family: var(--font);
+    transition: background 0.12s;
+  }
+  .btn:hover { background: var(--bg-secondary); }
+
+  .action-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
+
+  /* Feedback */
+  .feedback {
+    font-size: 13px;
+    padding: 9px 12px;
+    border-radius: var(--radius);
+    margin-top: 8px;
+    display: none;
+    line-height: 1.6;
+  }
+  .feedback.correct { background: var(--green-bg); color: var(--green-text); border: 0.5px solid var(--green-border); }
+  .feedback.wrong { background: var(--red-bg); color: var(--red-text); border: 0.5px solid var(--red-border); }
+
+  /* Tip */
+  .tip {
+    border-left: 3px solid #378add;
+    padding: 10px 14px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--bg-secondary);
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 1.25rem;
+  }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+  .data-table th {
+    padding: 9px 10px;
+    border: 0.5px solid var(--border);
+    background: var(--bg-secondary);
+    font-weight: 500;
+    text-align: left;
+    color: var(--text-secondary);
+  }
+  .data-table td { padding: 9px 10px; border: 0.5px solid var(--border); color: var(--text); }
+  .data-table td.right { text-align: right; }
+  .pos { color: var(--green-text); }
+  .neg { color: var(--red-text); }
+
+  /* Word count */
+  .word-count { font-size: 12px; color: var(--text-secondary); text-align: right; margin-top: 4px; }
+
+  /* Divider */
+  hr { border: none; border-top: 0.5px solid var(--border); margin: 1.25rem 0; }
+
+  /* Heading styles used inside cards */
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  /* Speaking cue card */
+  .cue-card {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .cue-card strong { font-weight: 500; }
+
+  /* Score summary */
+  .score-summary {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .score-big { font-size: 36px; font-weight: 500; color: var(--text); }
+  .score-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+  /* Inline input for heading match */
+  .inline-input {
+    display: inline-block;
+    width: 80px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .match-row { font-size: 14px; margin-bottom: 10px; color: var(--text); }
+
+  @media (max-width: 480px) {
+    body { padding: 1rem 0.75rem; }
+    .tab { font-size: 12px; padding: 8px 6px; }
+    .card { padding: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="exam-header">
+    <h1>IELTS Academic — NZ practice exam</h1>
+    <p>New Zealand context · Four sections · Check answers as you go</p>
+    <div class="header-meta">
+      <span class="meta-pill">Listening · ~30 min</span>
+      <span class="meta-pill">Reading · ~60 min</span>
+      <span class="meta-pill">Writing · ~60 min</span>
+      <span class="meta-pill">Speaking · ~14 min</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('listening')">Listening</button>
+    <button class="tab" onclick="switchTab('reading')">Reading</button>
+    <button class="tab" onclick="switchTab('writing')">Writing</button>
+    <button class="tab" onclick="switchTab('speaking')">Speaking</button>
+  </div>
+
+  <!-- ===================== LISTENING ===================== -->
+  <div id="listening" class="section active">
+    <div class="section-badge">Section 1 — 10 questions · ~30 min</div>
+
+    <div class="card">
+      <div class="card-title">Enrolling in a community class</div>
+      <div class="card-subtitle">Read the scenario, then answer questions 1–5 as if you heard the audio. Imagine you are a student enrolling in a Te Reo Māori evening class in Hamilton.</div>
+
+      <div class="passage">
+        <p><strong>Scenario:</strong> Wiremu calls the Hamilton Community Learning Centre to enrol in a Te Reo Māori evening class. The receptionist, Sarah, takes down his details and explains the course.</p>
+        <p><strong>Key details from the call:</strong> The course runs every Tuesday from 6:30 pm to 8:00 pm. It starts on the 14th of July and runs for 10 weeks. The fee is $180 in total or $20 per session. Wiremu's student ID number is WH-4472. The venue is Room 3B at the Claudelands Community Hub. Students must bring a notebook and a pen. The tutor's name is Aroha Ngāti.</p>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">What time does the class finish each week?</div>
+        <input type="text" id="l1" placeholder="Write your answer">
+        <div class="action-row"><button class="btn" onclick="checkText('l1','8:00 pm','8pm','8:00pm','8.00 pm','8 pm')">Check</button></div>
+        <div class="feedback" id="l1-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">How many weeks does the course run for?</div>
+        <input type="text" id="l2" placeholder="Write your answer">
+        <div class="action-row"><button class="btn" onclick="checkText('l2','10','ten')">Check</button></div>
+        <div class="feedback" id="l2-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">What is Wiremu's student ID number?</div>
+        <input type="text" id="l3" placeholder="Write your answer">
+        <div class="action-row"><button class="btn" onclick="checkText('l3','wh-4472','wh4472')">Check</button></div>
+        <div class="feedback" id="l3-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">Where is the class held? (Building and room)</div>
+        <input type="text" id="l4" placeholder="Write your answer">
+        <div class="action-row"><button class="btn" onclick="checkText('l4','room 3b','3b','claudelands community hub room 3b','room 3b claudelands')">Check</button></div>
+        <div class="feedback" id="l4-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">What is the total course fee?</div>
+        <input type="text" id="l5" placeholder="Write your answer">
+        <div class="action-row"><button class="btn" onclick="checkText('l5','$180','180','180 dollars')">Check</button></div>
+        <div class="feedback" id="l5-fb"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Section 2 — Multiple choice</div>
+      <div class="card-subtitle">A radio presenter is discussing tourism in Queenstown, New Zealand. Choose the correct answer for each question.</div>
+
+      <div class="q-block">
+        <div class="q-num">Question 6</div>
+        <div class="q-text">According to the presenter, what is Queenstown's main draw for international tourists?</div>
+        <div class="option" onclick="selectMC('l6','A',this)"><span class="opt-letter">A</span> Its mild year-round climate</div>
+        <div class="option" onclick="selectMC('l6','B',this)"><span class="opt-letter">B</span> Adventure tourism and stunning scenery</div>
+        <div class="option" onclick="selectMC('l6','C',this)"><span class="opt-letter">C</span> World-class restaurants and nightlife</div>
+        <div class="option" onclick="selectMC('l6','D',this)"><span class="opt-letter">D</span> Māori cultural experiences</div>
+        <div class="feedback" id="l6-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 7</div>
+        <div class="q-text">The presenter says visitor numbers to Queenstown have:</div>
+        <div class="option" onclick="selectMC('l7','A',this)"><span class="opt-letter">A</span> Remained stable since 2019</div>
+        <div class="option" onclick="selectMC('l7','B',this)"><span class="opt-letter">B</span> Declined due to poor infrastructure</div>
+        <div class="option" onclick="selectMC('l7','C',this)"><span class="opt-letter">C</span> Recovered strongly after the pandemic</div>
+        <div class="option" onclick="selectMC('l7','D',this)"><span class="opt-letter">D</span> Dropped due to high accommodation costs</div>
+        <div class="feedback" id="l7-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 8</div>
+        <div class="q-text">Which activity does the presenter NOT mention?</div>
+        <div class="option" onclick="selectMC('l8','A',this)"><span class="opt-letter">A</span> Bungee jumping</div>
+        <div class="option" onclick="selectMC('l8','B',this)"><span class="opt-letter">B</span> Skydiving</div>
+        <div class="option" onclick="selectMC('l8','C',this)"><span class="opt-letter">C</span> White-water rafting</div>
+        <div class="option" onclick="selectMC('l8','D',this)"><span class="opt-letter">D</span> Surfing</div>
+        <div class="feedback" id="l8-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 9</div>
+        <div class="q-text">The presenter recommends visiting Queenstown in winter primarily for:</div>
+        <div class="option" onclick="selectMC('l9','A',this)"><span class="opt-letter">A</span> Cheaper accommodation prices</div>
+        <div class="option" onclick="selectMC('l9','B',this)"><span class="opt-letter">B</span> Skiing and snowboarding at The Remarkables</div>
+        <div class="option" onclick="selectMC('l9','C',this)"><span class="opt-letter">C</span> Fewer crowds at popular attractions</div>
+        <div class="option" onclick="selectMC('l9','D',this)"><span class="opt-letter">D</span> The annual winter food festival</div>
+        <div class="feedback" id="l9-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Question 10</div>
+        <div class="q-text">What does the presenter say about sustainable tourism in Queenstown?</div>
+        <div class="option" onclick="selectMC('l10','A',this)"><span class="opt-letter">A</span> It is no longer a priority for local operators</div>
+        <div class="option" onclick="selectMC('l10','B',this)"><span class="opt-letter">B</span> Operators are introducing eco-friendly initiatives</div>
+        <div class="option" onclick="selectMC('l10','C',this)"><span class="opt-letter">C</span> The government has banned single-use plastics</div>
+        <div class="option" onclick="selectMC('l10','D',this)"><span class="opt-letter">D</span> Tourist numbers must be capped to protect the environment</div>
+        <div class="feedback" id="l10-fb"></div>
+      </div>
+
+      <div class="tip">Listening tip: In the real exam, you hear the audio once. Practise by reading scenarios carefully and predicting likely answers before you check.</div>
+    </div>
+  </div>
+
+  <!-- ===================== READING ===================== -->
+  <div id="reading" class="section">
+    <div class="section-badge">Academic Reading — 2 passages · ~60 min</div>
+
+    <div class="card">
+      <div class="card-title">Passage 1 — New Zealand's geothermal energy</div>
+      <div class="passage">
+        <p>New Zealand sits on the Pacific Ring of Fire, giving it access to one of the world's most reliable sources of renewable energy: geothermal power. The Waikato region, in particular, hosts the Wairakei Geothermal Power Station — one of the oldest in the world, having generated electricity since 1958. Today, geothermal energy accounts for roughly 17 percent of New Zealand's electricity generation, making it a cornerstone of the country's push toward 100 percent renewable electricity by 2030.</p>
+        <p>Geothermal energy is extracted by drilling wells into the earth's crust to access superheated steam and hot water reservoirs. This steam drives turbines connected to generators. Unlike solar or wind power, geothermal plants operate around the clock regardless of weather conditions, providing what energy planners call "baseload" power — the steady minimum level of generation needed to meet constant demand.</p>
+        <p>However, geothermal development is not without controversy in New Zealand. Several active geothermal fields overlap with areas of deep cultural significance to Māori iwi (tribes). Rotorua's famous geothermal landscape, for example, is considered taonga — a treasure — by local Māori, and any development proposals require extensive consultation under the Resource Management Act 1991 and Treaty of Waitangi principles. Critics argue that past geothermal extraction near Rotorua caused measurable subsidence and the loss of natural geysers, underscoring the need for careful management.</p>
+        <p>Despite these challenges, the New Zealand government has signalled support for expanding geothermal capacity. Proponents argue that its minimal land footprint, low greenhouse gas emissions, and reliability make it an ideal complement to variable renewable sources such as wind and solar. With climate change placing mounting pressure on fossil fuel alternatives, New Zealand's geothermal sector is widely seen as a model for other volcanic nations including Iceland and Kenya.</p>
+      </div>
+
+      <div class="section-label">Questions 1–4 · True / False / Not Given</div>
+
+      <div class="q-block">
+        <div class="q-text">1. The Wairakei Geothermal Power Station began operating before 1960.</div>
+        <div class="tf-opts">
+          <button class="tf-btn" onclick="checkTF(this,'r1','True','True')">True</button>
+          <button class="tf-btn" onclick="checkTF(this,'r1','False','True')">False</button>
+          <button class="tf-btn" onclick="checkTF(this,'r1','Not Given','True')">Not given</button>
+        </div>
+        <div class="feedback" id="r1-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">2. Geothermal power currently provides more than 20 percent of New Zealand's electricity.</div>
+        <div class="tf-opts">
+          <button class="tf-btn" onclick="checkTF(this,'r2','True','False')">True</button>
+          <button class="tf-btn" onclick="checkTF(this,'r2','False','False')">False</button>
+          <button class="tf-btn" onclick="checkTF(this,'r2','Not Given','False')">Not given</button>
+        </div>
+        <div class="feedback" id="r2-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">3. The Resource Management Act 1991 requires consultation with Māori before geothermal development.</div>
+        <div class="tf-opts">
+          <button class="tf-btn" onclick="checkTF(this,'r3','True','True')">True</button>
+          <button class="tf-btn" onclick="checkTF(this,'r3','False','True')">False</button>
+          <button class="tf-btn" onclick="checkTF(this,'r3','Not Given','True')">Not given</button>
+        </div>
+        <div class="feedback" id="r3-fb"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">4. Iceland imports geothermal technology from New Zealand.</div>
+        <div class="tf-opts">
+          <button class="tf-btn" onclick="checkTF(this,'r4','True','Not Given')">True</button>
+          <button class="tf-btn" onclick="checkTF(this,'r4','False','Not Given')">False</button>
+          <button class="tf-btn" onclick="checkTF(this,'r4','Not Given','Not Given')">Not given</button>
+        </div>
+        <div class="feedback" id="r4-fb"></div>
+      </div>
+
+      <hr>
+      <div class="section-label">Question 5 · Multiple choice</div>
+
+      <div class="q-block">
+        <div class="q-text">What is the main advantage of geothermal energy over solar and wind power according to the passage?</div>
+        <div class="option" onclick="selectMC('r5','A',this)"><span class="opt-letter">A</span> It produces no greenhouse gas emissions</div>
+        <div class="option" onclick="selectMC('r5','B',this)"><span class="opt-letter">B</span> It can operate continuously as baseload power</div>
+        <div class="option" onclick="selectMC('r5','C',this)"><span class="opt-letter">C</span> It requires less investment to build</div>
+        <div class="option" onclick="selectMC('r5','D',this)"><span class="opt-letter">D</span> It has no environmental impact</div>
+        <div class="feedback" id="r5-fb"></div>
+      </div>
+
+      <hr>
+      <div class="section-label">Question 6 · Short answer (max 3 words)</div>
+
+      <div class="q-block">
+        <div class="q-text">What word does the passage use to describe Rotorua's geothermal landscape in terms of Māori cultural value?</div>
+        <input type="text" id="r6" placeholder="Write your answer (max 3 words)">
+        <div class="action-row"><button class="btn" onclick="checkText('r6','taonga')">Check</button></div>
+        <div class="feedback" id="r6-fb"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Passage 2 — The kiwi bird and conservation</div>
+      <div class="passage">
+        <p>The kiwi, New Zealand's most iconic bird, is in trouble. Once widespread across both the North and South Islands, kiwi populations have plummeted by roughly 70 percent since European colonisation began in the 19th century. Today, fewer than 70,000 kiwi remain in the wild, with all five species listed as either vulnerable or endangered on the International Union for Conservation of Nature (IUCN) Red List.</p>
+        <p>The primary threat to kiwi survival is predation by introduced mammalian predators — stoats, ferrets, rats, and possums — which were brought to New Zealand deliberately or accidentally by European settlers. These animals were absent from New Zealand's ecosystems for millions of years, meaning native birds had no evolutionary defences against them. Kiwi, being flightless and ground-nesting, are particularly vulnerable; chick survival rates in areas without predator control can be as low as 5 percent.</p>
+        <p>To combat this crisis, the New Zealand government launched Predator Free 2050 (PF2050) — an ambitious goal to eradicate rats, stoats, and possums from the entire country by mid-century. The programme employs a combination of trapping, 1080 poison aerial drops, and cutting-edge genetic biocontrol research. Community groups, Māori organisations, schools, and businesses have all been enlisted as partners, reflecting a broad societal commitment to ecological restoration.</p>
+        <p>Some conservationists remain cautious about timelines. Eradicating predators from large, rugged terrain — including Fiordland's steep valleys — presents enormous logistical difficulties. Critics of 1080 also argue that the poison affects non-target native species such as kea, though the Department of Conservation maintains that the overall benefits of 1080 far outweigh its risks. Kiwi sanctuaries such as Zealandia in Wellington and Maungatautari in the Waikato have demonstrated that, in predator-free enclosures, kiwi populations can recover rapidly.</p>
+      </div>
+
+      <div class="section-label">Questions 7–9 · Matching headings</div>
+      <div class="q-block">
+        <div class="q-text">Match each paragraph (A–C) to the correct heading below. Write the Roman numeral (i–iv).</div>
+        <div class="passage" style="margin-bottom:12px">
+          <strong>Headings:</strong><br>
+          i. A bold national eradication programme<br>
+          ii. The scale of kiwi's decline<br>
+          iii. Debate over methods and cautious optimism<br>
+          iv. Why introduced species are so deadly
+        </div>
+        <div class="match-row">Paragraph A (first paragraph): <input type="text" id="r7" placeholder="i – iv" class="inline-input"></div>
+        <div class="match-row">Paragraph B (second paragraph): <input type="text" id="r8" placeholder="i – iv" class="inline-input"></div>
+        <div class="match-row">Paragraph C (third paragraph): <input type="text" id="r9" placeholder="i – iv" class="inline-input"></div>
+        <div class="action-row">
+          <button class="btn" onclick="checkText('r7','ii')">Check Q7</button>
+          <button class="btn" onclick="checkText('r8','iv')">Check Q8</button>
+          <button class="btn" onclick="checkText('r9','i')">Check Q9</button>
+        </div>
+        <div class="feedback" id="r7-fb"></div>
+        <div class="feedback" id="r8-fb" style="margin-top:6px"></div>
+        <div class="feedback" id="r9-fb" style="margin-top:6px"></div>
+      </div>
+
+      <hr>
+      <div class="section-label">Question 10 · Multiple choice</div>
+      <div class="q-block">
+        <div class="q-text">What does the passage suggest about kiwi sanctuaries like Zealandia and Maungatautari?</div>
+        <div class="option" onclick="selectMC('r10','A',this)"><span class="opt-letter">A</span> They prove eradication nationwide is impossible</div>
+        <div class="option" onclick="selectMC('r10','B',this)"><span class="opt-letter">B</span> They show kiwi can recover when predators are removed</div>
+        <div class="option" onclick="selectMC('r10','C',this)"><span class="opt-letter">C</span> They rely entirely on 1080 poison drops</div>
+        <div class="option" onclick="selectMC('r10','D',this)"><span class="opt-letter">D</span> They were established by Māori iwi alone</div>
+        <div class="feedback" id="r10-fb"></div>
+      </div>
+
+      <div class="tip">Reading tip: For True/False/Not Given questions, "Not Given" means the passage neither confirms nor denies the statement — not that it's unknown in real life.</div>
+    </div>
+  </div>
+
+  <!-- ===================== WRITING ===================== -->
+  <div id="writing" class="section">
+    <div class="section-badge">Academic Writing — Task 1 + Task 2 · 60 min total</div>
+
+    <div class="card">
+      <div class="card-title">Task 1 — Data description</div>
+      <div class="card-subtitle">Spend about 20 minutes on this task. Write at least 150 words.</div>
+
+      <p style="font-size:14px;color:var(--text);margin-bottom:10px;line-height:1.6">The table below shows the number of international visitors to New Zealand from five countries in 2019 and 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</p>
+
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th style="text-align:right">2019 (thousands)</th>
+              <th style="text-align:right">2023 (thousands)</th>
+              <th style="text-align:right">Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Australia</td><td class="right">1,520</td><td class="right">1,380</td><td class="right neg">−9.2%</td></tr>
+            <tr><td>USA</td><td class="right">390</td><td class="right">420</td><td class="right pos">+7.7%</td></tr>
+            <tr><td>China</td><td class="right">410</td><td class="right">210</td><td class="right neg">−48.8%</td></tr>
+            <tr><td>UK</td><td class="right">270</td><td class="right">290</td><td class="right pos">+7.4%</td></tr>
+            <tr><td>India</td><td class="right">90</td><td class="right">170</td><td class="right pos">+88.9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <textarea id="w1" rows="9" placeholder="Write your Task 1 response here (at least 150 words)..." style="margin-top:14px"></textarea>
+      <div class="word-count" id="w1-count">0 words</div>
+      <div class="tip">Task 1 tip: Open with an overview sentence identifying the most striking trends. Do not give personal opinions or explain causes — just describe what the data shows. Use language like "overall", "notably", "by contrast", and "the most striking change".</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Task 2 — Academic essay</div>
+      <div class="card-subtitle">Spend about 40 minutes on this task. Write at least 250 words.</div>
+
+      <div class="cue-card">
+        <strong>Some people believe that New Zealand should prioritise economic development over environmental conservation. Others argue that protecting the natural environment must come first.</strong>
+        <br><br>
+        Discuss both views and give your own opinion.
+      </div>
+
+      <textarea id="w2" rows="13" placeholder="Write your Task 2 essay here (at least 250 words)..."></textarea>
+      <div class="word-count" id="w2-count">0 words</div>
+      <div class="tip">Task 2 tip: Aim for 4–5 paragraphs — Introduction → View 1 → View 2 → Your opinion → Conclusion. Each body paragraph needs a clear topic sentence, development, and a specific example. Avoid listing points; develop each one fully.</div>
+    </div>
+  </div>
+
+  <!-- ===================== SPEAKING ===================== -->
+  <div id="speaking" class="section">
+    <div class="section-badge">Speaking — 3 parts · 11–14 min</div>
+
+    <div class="card">
+      <div class="card-title">Part 1 — Introduction and interview</div>
+      <div class="card-subtitle">Answer these questions as you would in the exam. Aim for 2–4 natural sentences per answer.</div>
+
+      <div class="q-block">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">Where are you from, and what do you like most about your hometown?</div>
+      </div>
+      <div class="q-block">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">Do you prefer spending time outdoors or indoors? Why?</div>
+      </div>
+      <div class="q-block">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">How do people in New Zealand typically spend their weekends?</div>
+      </div>
+      <div class="q-block">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">Are you studying or working at the moment?</div>
+      </div>
+
+      <div class="tip">Part 1 tip: Keep answers natural and conversational. Extend with a reason or brief example. Avoid one-word answers, but don't over-prepare a script — the examiner will notice.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Part 2 — Individual long turn</div>
+      <div class="card-subtitle">You have 1 minute to prepare notes, then speak for 1–2 minutes without interruption.</div>
+
+      <div class="cue-card">
+        <strong>Describe a natural place in New Zealand that you have visited or would like to visit.</strong><br><br>
+        You should say:<br>
+        · where this place is<br>
+        · what it looks like<br>
+        · what you can do there<br><br>
+        and explain why this place is special to you or appeals to you.
+      </div>
+
+      <div class="card-subtitle" style="margin-bottom:0">Use the space below to jot 1-minute preparation notes:</div>
+      <textarea id="sp2-notes" rows="4" placeholder="Preparation notes..." style="margin-top:8px"></textarea>
+
+      <div class="tip">Part 2 tip: Use signpost phrases to sound structured and fluent — "The place I'd like to talk about is…", "One thing that really strikes me about it is…", "What makes it particularly special is…". Keep talking for the full 2 minutes.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Part 3 — Two-way discussion</div>
+      <div class="card-subtitle">Give extended, well-reasoned answers. Aim for 4–6 sentences each, considering different perspectives.</div>
+
+      <div class="q-block">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">How important is it for countries to protect their natural landscapes from the effects of tourism?</div>
+      </div>
+      <div class="q-block">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">Do you think future generations will have less access to natural environments than people do today? Why or why not?</div>
+      </div>
+      <div class="q-block">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">Some people say technology is damaging people's relationship with nature. To what extent do you agree?</div>
+      </div>
+
+      <div class="tip">Part 3 tip: Start with a clear position, support it with a reason and example, then acknowledge the other side briefly. Phrases like "That said…" or "However, one could argue…" signal sophisticated thinking to the examiner.</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  const mcAnswers = {
+    l6:'B', l7:'C', l8:'D', l9:'B', l10:'B',
+    r5:'B', r10:'B'
+  };
+
+  function switchTab(id) {
+    const ids = ['listening','reading','writing','speaking'];
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      t.classList.toggle('active', ids[i] === id);
+    });
+    document.querySelectorAll('.section').forEach(s => {
+      s.classList.toggle('active', s.id === id);
+    });
+  }
+
+  function checkText(inputId, ...answers) {
+    const val = (document.getElementById(inputId).value || '').trim().toLowerCase();
+    const fb = document.getElementById(inputId + '-fb');
+    if (!val) {
+      fb.style.display = 'block';
+      fb.className = 'feedback wrong';
+      fb.textContent = 'Please write an answer first.';
+      return;
+    }
+    const correct = answers.some(a => val === a.toLowerCase() || val.includes(a.toLowerCase()));
+    fb.style.display = 'block';
+    if (correct) {
+      fb.className = 'feedback correct';
+      fb.textContent = 'Correct! Well done.';
+    } else {
+      fb.className = 'feedback wrong';
+      fb.textContent = 'Not quite. The correct answer is: ' + answers[0];
+    }
+  }
+
+  function checkTF(btn, id, chosen, correct) {
+    const fb = document.getElementById(id + '-fb');
+    btn.parentElement.querySelectorAll('.tf-btn').forEach(b => { b.className = 'tf-btn'; });
+    fb.style.display = 'block';
+    if (chosen === correct) {
+      btn.classList.add('correct');
+      fb.className = 'feedback correct';
+      fb.textContent = 'Correct! The answer is ' + correct + '.';
+    } else {
+      btn.classList.add('wrong');
+      fb.className = 'feedback wrong';
+      fb.textContent = 'Incorrect. The correct answer is: ' + correct + '.';
+    }
+  }
+
+  function selectMC(id, choice, el) {
+    const fb = document.getElementById(id + '-fb');
+    el.parentElement.querySelectorAll('.option').forEach(o => { o.className = 'option'; });
+    fb.style.display = 'block';
+    const correctLetter = mcAnswers[id];
+    if (choice === correctLetter) {
+      el.classList.add('correct');
+      fb.className = 'feedback correct';
+      fb.textContent = 'Correct!';
+    } else {
+      el.classList.add('wrong');
+      const letters = ['A','B','C','D'];
+      const ci = letters.indexOf(correctLetter);
+      const opts = el.parentElement.querySelectorAll('.option');
+      if (ci >= 0) opts[ci].classList.add('correct');
+      fb.className = 'feedback wrong';
+      fb.textContent = 'Incorrect. The correct answer is ' + correctLetter + '.';
+    }
+  }
+
+  ['w1','w2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', function () {
+        const words = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+        document.getElementById(id + '-count').textContent = words + ' words';
+      });
+    }
+  });
+</script>
+</body>
+</html>

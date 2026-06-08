@@ -5,6 +5,7 @@ import type { ExamId } from './types';
 const AWSCloudPractitioner = lazy(() => import('./components/exams/awsCloudPractitioner'));
 const AWSDeveloper = lazy(() => import('./components/exams/awsDeveloper'));
 const ClaudeArchitect = lazy(() => import('./components/exams/claudeArchitect'));
+const IELTSAcademic = lazy(() => import('./components/exams/ieltsAcademic'));
 
 function App() {
   const [currentView, setCurrentView] = useState<ExamId | 'dashboard'>('dashboard');
@@ -17,6 +18,8 @@ function App() {
         return <AWSDeveloper onBack={() => setCurrentView('dashboard')} />;
       case 'claude-architect':
         return <ClaudeArchitect onBack={() => setCurrentView('dashboard')} />;
+      case 'ielts-academic':
+        return <IELTSAcademic onBack={() => setCurrentView('dashboard')} />;
       default:
         return <Dashboard onSelectExam={setCurrentView} />;
     }
@@ -26,17 +29,18 @@ function App() {
     <div className='min-h-screen'>
       <Suspense
         fallback={
-          <div className='relative min-h-screen overflow-hidden'>
+          <div className='relative min-h-screen'>
             <div
-              className='absolute inset-0 bg-cover'
+              className='fixed inset-0 bg-cover'
               style={{
                 backgroundImage: 'url(/bg.jpg)',
                 backgroundPosition: 'center 0%',
+                backgroundAttachment: 'fixed',
                 filter: 'brightness(1) saturate(1)',
               }}
             />
             <div
-              className='absolute inset-0'
+              className='fixed inset-0'
               style={{
                 background:
                   'linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)',
