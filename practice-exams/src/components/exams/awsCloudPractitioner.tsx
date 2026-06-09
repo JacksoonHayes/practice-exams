@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import type { Question } from "../../types";
 
-const RAW_QUESTIONS: Question[] = [
+const rawQuestions: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 2,
-    q: "When an organization leverages the AWS Cloud Adoption Framework (AWS CAF) for migrating to the cloud, which TWO of the following would most likely be the primary stakeholders involved?",
+    question:
+      "When an organization leverages the AWS Cloud Adoption Framework (AWS CAF) for migrating to the cloud, which TWO of the following would most likely be the primary stakeholders involved?",
     opts: [
       "Chief Information Officers (CIOs)",
       "Engineers",
@@ -29,7 +30,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 2,
-    q: "When a company moves an on-premises, internet-facing website to the AWS Cloud, what benefits does it obtain? (Select TWO.)",
+    question:
+      "When a company moves an on-premises, internet-facing website to the AWS Cloud, what benefits does it obtain? (Select TWO.)",
     opts: [
       "Data stored in AWS is automatically encrypted",
       "Website capacity can expand or contract as website traffic changes",
@@ -53,7 +55,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 1,
-    q: "Which AWS Cloud design principle states that systems should be able to withstand the failure of a single component and continue operating normally?",
+    question:
+      "Which AWS Cloud design principle states that systems should be able to withstand the failure of a single component and continue operating normally?",
     opts: ["Elasticity", "Fault tolerance", "High availability", "Scalability"],
     ans: [1],
     exp: {
@@ -70,7 +73,7 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 2,
-    q: "Which AWS services are delivered globally rather than regionally? (Select TWO.)",
+    question: "Which AWS services are delivered globally rather than regionally? (Select TWO.)",
     opts: ["Amazon EC2", "Amazon CloudFront", "Amazon Route 53", "Amazon VPC", "Amazon RDS"],
     ans: [1, 2],
     exp: {
@@ -88,7 +91,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 1,
-    q: "A startup wants to move quickly, experiment, and innovate without large upfront costs. Which characteristic of AWS Cloud computing BEST supports this objective?",
+    question:
+      "A startup wants to move quickly, experiment, and innovate without large upfront costs. Which characteristic of AWS Cloud computing BEST supports this objective?",
     opts: [
       "Trade fixed expense for variable expense",
       "Benefit from massive economies of scale",
@@ -110,7 +114,7 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 1,
-    q: "Which of the following MOST accurately describes an AWS Local Zone?",
+    question: "Which of the following MOST accurately describes an AWS Local Zone?",
     opts: [
       "A separate AWS region designed for government workloads",
       "An extension of an AWS Region that places compute, storage, and database services closer to end-users in specific metropolitan areas",
@@ -132,7 +136,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 1,
-    q: "A company is planning to move to AWS and wants to understand the full economic benefit compared with their current on-premises costs. Which AWS program or tool is BEST suited for this analysis?",
+    question:
+      "A company is planning to move to AWS and wants to understand the full economic benefit compared with their current on-premises costs. Which AWS program or tool is BEST suited for this analysis?",
     opts: ["AWS Pricing Calculator", "AWS Migration Evaluator (TCO Calculator)", "AWS Cost Explorer", "AWS Budgets"],
     ans: [1],
     exp: {
@@ -149,7 +154,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 1,
-    q: "According to the AWS Well-Architected Framework, which pillar focuses on the ability of a workload to recover from infrastructure or service disruptions and dynamically acquire resources to meet demand?",
+    question:
+      "According to the AWS Well-Architected Framework, which pillar focuses on the ability of a workload to recover from infrastructure or service disruptions and dynamically acquire resources to meet demand?",
     opts: ["Security", "Performance Efficiency", "Reliability", "Operational Excellence"],
     ans: [2],
     exp: {
@@ -166,7 +172,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 1,
-    q: "Which of the six Rs of cloud migration describes rebuilding an application from scratch to take full advantage of cloud-native features such as serverless and microservices?",
+    question:
+      "Which of the six Rs of cloud migration describes rebuilding an application from scratch to take full advantage of cloud-native features such as serverless and microservices?",
     opts: [
       "Rehost (Lift and Shift)",
       "Replatform (Lift, Tinker, Shift)",
@@ -188,7 +195,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 1,
-    q: "Which of the following describes the 'Operational Excellence' pillar of the AWS Well-Architected Framework?",
+    question:
+      "Which of the following describes the 'Operational Excellence' pillar of the AWS Well-Architected Framework?",
     opts: [
       "Protecting information and systems from unauthorized access",
       "The ability to run and monitor systems to deliver business value and continually improve supporting processes and procedures",
@@ -210,7 +218,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Cloud Concepts",
     multi: 2,
-    q: "A company is evaluating whether to build a new application on AWS or in their own data center. Which TWO characteristics of cloud computing would MOST help them avoid large upfront capital expenditures? (Select TWO.)",
+    question:
+      "A company is evaluating whether to build a new application on AWS or in their own data center. Which TWO characteristics of cloud computing would MOST help them avoid large upfront capital expenditures? (Select TWO.)",
     opts: [
       "High availability",
       "Pay-as-you-go pricing",
@@ -234,7 +243,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 2,
-    q: "A company is looking to centrally configure and manage firewall rules across their entire AWS environment. Which TWO AWS services can assist in applying firewall rules consistently across AWS VPCs and accounts? (Select TWO.)",
+    question:
+      "A company is looking to centrally configure and manage firewall rules across their entire AWS environment. Which TWO AWS services can assist in applying firewall rules consistently across AWS VPCs and accounts? (Select TWO.)",
     opts: [
       "AWS Web Application Firewall (AWS WAF)",
       "AWS Firewall Manager",
@@ -258,7 +268,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 1,
-    q: "Which AWS service supports a fully managed, durable, in-memory database compatible with Redis, delivering sub-millisecond latency for caching, session stores, and real-time analytics?",
+    question:
+      "Which AWS service supports a fully managed, durable, in-memory database compatible with Redis, delivering sub-millisecond latency for caching, session stores, and real-time analytics?",
     opts: ["Amazon DynamoDB", "Amazon RDS", "Amazon MemoryDB for Redis", "Amazon Redshift"],
     ans: [2],
     exp: {
@@ -275,7 +286,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 2,
-    q: "Which AWS services facilitate building secure and scalable mobile and web applications with features such as real-time data synchronization and offline functionality? (Select TWO.)",
+    question:
+      "Which AWS services facilitate building secure and scalable mobile and web applications with features such as real-time data synchronization and offline functionality? (Select TWO.)",
     opts: ["AWS Lambda", "AWS AppSync", "AWS Amplify", "AWS CodeDeploy", "Amazon API Gateway"],
     ans: [1, 2],
     exp: {
@@ -293,7 +305,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 1,
-    q: "A security engineer needs to store and automatically rotate database credentials, API keys, and OAuth tokens on a schedule. Which AWS service is BEST suited for this?",
+    question:
+      "A security engineer needs to store and automatically rotate database credentials, API keys, and OAuth tokens on a schedule. Which AWS service is BEST suited for this?",
     opts: ["AWS KMS", "AWS Secrets Manager", "AWS Systems Manager Parameter Store", "AWS Certificate Manager"],
     ans: [1],
     exp: {
@@ -310,7 +323,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 1,
-    q: "Which AWS service provides a unified view of security alerts and compliance status across multiple AWS accounts, aggregating findings from GuardDuty, Amazon Inspector, and Amazon Macie into a single dashboard?",
+    question:
+      "Which AWS service provides a unified view of security alerts and compliance status across multiple AWS accounts, aggregating findings from GuardDuty, Amazon Inspector, and Amazon Macie into a single dashboard?",
     opts: ["AWS Config", "Amazon Detective", "AWS Security Hub", "AWS Trusted Advisor"],
     ans: [2],
     exp: {
@@ -327,7 +341,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 1,
-    q: "An IAM policy contains: Effect: Deny, Action: s3:*, Resource: *. This policy is attached to a user who also has a separate Allow policy granting full S3 access. What is the effective result?",
+    question:
+      "An IAM policy contains: Effect: Deny, Action: s3:*, Resource: *. This policy is attached to a user who also has a separate Allow policy granting full S3 access. What is the effective result?",
     opts: [
       "The Allow policy takes precedence and the user can access S3",
       "The Deny takes precedence and the user cannot perform any S3 actions",
@@ -349,7 +364,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 2,
-    q: "A company wants to protect its web application from SQL injection and XSS attacks, AND scan its EC2 instances for software vulnerabilities. Which TWO AWS services should they use? (Select TWO.)",
+    question:
+      "A company wants to protect its web application from SQL injection and XSS attacks, AND scan its EC2 instances for software vulnerabilities. Which TWO AWS services should they use? (Select TWO.)",
     opts: ["AWS Shield Standard", "AWS WAF", "Amazon Inspector", "Amazon GuardDuty", "AWS Config"],
     ans: [1, 2],
     exp: {
@@ -367,7 +383,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 1,
-    q: "A company with multiple AWS accounts needs a central mechanism to restrict what actions can be performed in child accounts -- even by account administrators and the root user. Which feature should they use?",
+    question:
+      "A company with multiple AWS accounts needs a central mechanism to restrict what actions can be performed in child accounts -- even by account administrators and the root user. Which feature should they use?",
     opts: [
       "IAM Permission Boundaries",
       "AWS Organizations Service Control Policies (SCPs)",
@@ -389,7 +406,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 1,
-    q: "Which AWS service uses machine learning to automatically discover, classify, and protect sensitive data such as Personally Identifiable Information (PII) stored in Amazon S3?",
+    question:
+      "Which AWS service uses machine learning to automatically discover, classify, and protect sensitive data such as Personally Identifiable Information (PII) stored in Amazon S3?",
     opts: ["Amazon GuardDuty", "Amazon Inspector", "Amazon Macie", "AWS Config"],
     ans: [2],
     exp: {
@@ -406,7 +424,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security & Compliance",
     multi: 1,
-    q: "A company's security team wants immediate notifications whenever the AWS root account is used to sign in to the AWS Management Console. Which combination of services achieves this MOST effectively?",
+    question:
+      "A company's security team wants immediate notifications whenever the AWS root account is used to sign in to the AWS Management Console. Which combination of services achieves this MOST effectively?",
     opts: [
       "Amazon GuardDuty + Amazon SNS",
       "AWS CloudTrail + Amazon CloudWatch Alarms + Amazon SNS",
@@ -428,7 +447,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 2,
-    q: "A company needs to ingest and process large volumes of real-time streaming data from IoT devices for immediate analysis. Which TWO AWS services are MOST appropriate? (Select TWO.)",
+    question:
+      "A company needs to ingest and process large volumes of real-time streaming data from IoT devices for immediate analysis. Which TWO AWS services are MOST appropriate? (Select TWO.)",
     opts: [
       "Amazon Kinesis Data Streams",
       "AWS Snowball",
@@ -452,7 +472,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "A solutions architect needs to deploy a consistent AWS CloudFormation stack across 15 AWS accounts in 3 different regions simultaneously. Which AWS service enables this?",
+    question:
+      "A solutions architect needs to deploy a consistent AWS CloudFormation stack across 15 AWS accounts in 3 different regions simultaneously. Which AWS service enables this?",
     opts: ["AWS Elastic Beanstalk", "AWS CloudFormation StackSets", "AWS Service Catalog", "AWS OpsWorks"],
     ans: [1],
     exp: {
@@ -469,7 +490,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which Amazon S3 storage class is MOST cost-effective for data that is accessed once a month, requires millisecond retrieval, and has unpredictable access patterns?",
+    question:
+      "Which Amazon S3 storage class is MOST cost-effective for data that is accessed once a month, requires millisecond retrieval, and has unpredictable access patterns?",
     opts: [
       "S3 Standard",
       "S3 Standard-Infrequent Access (S3 Standard-IA)",
@@ -491,7 +513,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "A company wants to run containerized microservices on AWS with the LEAST operational overhead, without managing EC2 instances or Kubernetes control planes. Which option achieves this?",
+    question:
+      "A company wants to run containerized microservices on AWS with the LEAST operational overhead, without managing EC2 instances or Kubernetes control planes. Which option achieves this?",
     opts: [
       "Amazon EC2 with Docker installed manually",
       "Amazon ECS on EC2 launch type",
@@ -513,7 +536,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 2,
-    q: "A developer is building an event-driven architecture where one component needs to broadcast events to multiple downstream services simultaneously. Which TWO AWS services are MOST appropriate? (Select TWO.)",
+    question:
+      "A developer is building an event-driven architecture where one component needs to broadcast events to multiple downstream services simultaneously. Which TWO AWS services are MOST appropriate? (Select TWO.)",
     opts: ["Amazon SQS", "Amazon SNS", "Amazon EventBridge", "Amazon MQ", "AWS Step Functions"],
     ans: [1, 2],
     exp: {
@@ -531,7 +555,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which AWS service provides a managed Apache Hadoop and Spark framework for processing vast amounts of data using tools like Hive, Presto, and HBase?",
+    question:
+      "Which AWS service provides a managed Apache Hadoop and Spark framework for processing vast amounts of data using tools like Hive, Presto, and HBase?",
     opts: ["Amazon Redshift", "Amazon Athena", "Amazon EMR", "AWS Glue"],
     ans: [2],
     exp: {
@@ -548,7 +573,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which AWS service allows you to run standard SQL queries directly against data stored in Amazon S3, without loading it into a database or managing any infrastructure?",
+    question:
+      "Which AWS service allows you to run standard SQL queries directly against data stored in Amazon S3, without loading it into a database or managing any infrastructure?",
     opts: ["Amazon Redshift Spectrum", "Amazon Athena", "Amazon EMR", "AWS Glue DataBrew"],
     ans: [1],
     exp: {
@@ -565,7 +591,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 2,
-    q: "A global company wants to improve performance and availability of its dynamic web application for users worldwide while protecting against DDoS attacks. Which TWO AWS services should they combine? (Select TWO.)",
+    question:
+      "A global company wants to improve performance and availability of its dynamic web application for users worldwide while protecting against DDoS attacks. Which TWO AWS services should they combine? (Select TWO.)",
     opts: [
       "Amazon CloudFront",
       "AWS Global Accelerator",
@@ -589,7 +616,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "A workload must run on EC2 for exactly 3 years, continuously, and the specific instance type and region cannot change. Which EC2 pricing option provides the MAXIMUM discount?",
+    question:
+      "A workload must run on EC2 for exactly 3 years, continuously, and the specific instance type and region cannot change. Which EC2 pricing option provides the MAXIMUM discount?",
     opts: [
       "On-Demand Instances",
       "Compute Savings Plans",
@@ -611,7 +639,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "A company needs to interconnect hundreds of VPCs across multiple AWS accounts and connect them to on-premises networks through a single centrally managed hub. Which AWS service is BEST suited?",
+    question:
+      "A company needs to interconnect hundreds of VPCs across multiple AWS accounts and connect them to on-premises networks through a single centrally managed hub. Which AWS service is BEST suited?",
     opts: ["VPC Peering", "AWS Direct Connect", "AWS Transit Gateway", "AWS PrivateLink"],
     ans: [2],
     exp: {
@@ -628,7 +657,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which AWS service provides a managed message broker supporting industry-standard protocols such as JMS, AMQP, STOMP, and MQTT -- making it ideal for migrating existing on-premises message broker workloads?",
+    question:
+      "Which AWS service provides a managed message broker supporting industry-standard protocols such as JMS, AMQP, STOMP, and MQTT -- making it ideal for migrating existing on-premises message broker workloads?",
     opts: ["Amazon SQS", "Amazon SNS", "Amazon MQ", "Amazon Kinesis Data Streams"],
     ans: [2],
     exp: {
@@ -645,7 +675,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 2,
-    q: "A company wants to migrate its VMware-based virtual machines from an on-premises data center to AWS with minimal changes. Which TWO AWS services or features support this type of migration? (Select TWO.)",
+    question:
+      "A company wants to migrate its VMware-based virtual machines from an on-premises data center to AWS with minimal changes. Which TWO AWS services or features support this type of migration? (Select TWO.)",
     opts: [
       "AWS Application Migration Service (AWS MGN)",
       "AWS Database Migration Service (AWS DMS)",
@@ -669,7 +700,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which AWS storage service provides a fully managed elastic NFS file system that can be simultaneously mounted by multiple EC2 instances across multiple Availability Zones?",
+    question:
+      "Which AWS storage service provides a fully managed elastic NFS file system that can be simultaneously mounted by multiple EC2 instances across multiple Availability Zones?",
     opts: ["Amazon EBS", "Amazon S3", "Amazon EFS", "Amazon FSx for Windows File Server"],
     ans: [2],
     exp: {
@@ -686,7 +718,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which AWS service provides a fully managed graph database supporting Property Graph (Gremlin) and RDF (SPARQL) models, ideal for social networks, fraud detection, and recommendation engines?",
+    question:
+      "Which AWS service provides a fully managed graph database supporting Property Graph (Gremlin) and RDF (SPARQL) models, ideal for social networks, fraud detection, and recommendation engines?",
     opts: ["Amazon DynamoDB", "Amazon RDS for PostgreSQL", "Amazon Neptune", "Amazon Keyspaces"],
     ans: [2],
     exp: {
@@ -703,7 +736,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "A company needs its EC2 instances in a private subnet to download software updates from the internet without allowing inbound connections from the internet. Which VPC resource should they configure?",
+    question:
+      "A company needs its EC2 instances in a private subnet to download software updates from the internet without allowing inbound connections from the internet. Which VPC resource should they configure?",
     opts: ["Internet Gateway", "VPC Peering Connection", "NAT Gateway", "AWS Direct Connect Gateway"],
     ans: [2],
     exp: {
@@ -720,7 +754,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 2,
-    q: "A retail company wants to add a product recommendation engine and a conversational chatbot for customer support to its e-commerce platform. Which TWO AWS AI/ML services are MOST directly applicable? (Select TWO.)",
+    question:
+      "A retail company wants to add a product recommendation engine and a conversational chatbot for customer support to its e-commerce platform. Which TWO AWS AI/ML services are MOST directly applicable? (Select TWO.)",
     opts: ["Amazon Personalize", "Amazon Rekognition", "Amazon Lex", "Amazon Textract", "Amazon Translate"],
     ans: [0, 2],
     exp: {
@@ -738,7 +773,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which AWS service allows developers to build, train, tune, and deploy machine learning models at scale using a fully managed infrastructure, without needing deep ML expertise to set up environments?",
+    question:
+      "Which AWS service allows developers to build, train, tune, and deploy machine learning models at scale using a fully managed infrastructure, without needing deep ML expertise to set up environments?",
     opts: ["Amazon Comprehend", "AWS DeepRacer", "Amazon SageMaker", "Amazon Rekognition"],
     ans: [2],
     exp: {
@@ -755,7 +791,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 1,
-    q: "Which AWS service is a managed, serverless data integration service that makes it easy to discover, prepare, move, and integrate data from multiple sources using a visual ETL interface and a centralized data catalog?",
+    question:
+      "Which AWS service is a managed, serverless data integration service that makes it easy to discover, prepare, move, and integrate data from multiple sources using a visual ETL interface and a centralized data catalog?",
     opts: ["AWS Glue", "Amazon EMR", "AWS Data Pipeline", "Amazon Kinesis Data Analytics"],
     ans: [0],
     exp: {
@@ -772,7 +809,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Technology",
     multi: 2,
-    q: "A company wants to improve application resilience by automatically routing traffic away from unhealthy endpoints. Which TWO AWS services natively support health-check-based automatic traffic routing? (Select TWO.)",
+    question:
+      "A company wants to improve application resilience by automatically routing traffic away from unhealthy endpoints. Which TWO AWS services natively support health-check-based automatic traffic routing? (Select TWO.)",
     opts: [
       "Amazon Route 53",
       "Elastic Load Balancing (ELB)",
@@ -796,7 +834,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 1,
-    q: "A company runs a fault-tolerant batch processing job every night for 4 hours. The job can be safely restarted if interrupted. Which EC2 purchasing option provides the LOWEST cost?",
+    question:
+      "A company runs a fault-tolerant batch processing job every night for 4 hours. The job can be safely restarted if interrupted. Which EC2 purchasing option provides the LOWEST cost?",
     opts: ["On-Demand Instances", "Reserved Instances (1-year, No Upfront)", "Spot Instances", "Dedicated Hosts"],
     ans: [2],
     exp: {
@@ -813,7 +852,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 2,
-    q: "Which TWO AWS Cost Management tools allow you to proactively SET LIMITS or ALERTS on spending, rather than simply analyzing past costs? (Select TWO.)",
+    question:
+      "Which TWO AWS Cost Management tools allow you to proactively SET LIMITS or ALERTS on spending, rather than simply analyzing past costs? (Select TWO.)",
     opts: [
       "AWS Cost Explorer",
       "AWS Budgets",
@@ -837,7 +877,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 1,
-    q: "Account A in AWS Organizations has 10 Reserved Instances (RIs) but only uses 6. Account B uses 8 On-Demand instances of the same type. Consolidated Billing is enabled. What is the outcome?",
+    question:
+      "Account A in AWS Organizations has 10 Reserved Instances (RIs) but only uses 6. Account B uses 8 On-Demand instances of the same type. Consolidated Billing is enabled. What is the outcome?",
     opts: [
       "Each account is billed separately; RIs only apply to the account that purchased them",
       "Account B receives no benefit from Account A's unused RIs",
@@ -859,7 +900,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 1,
-    q: "Which AWS Support plan is the MINIMUM tier required to receive access to the full set of AWS Trusted Advisor checks, including all cost optimization and security checks?",
+    question:
+      "Which AWS Support plan is the MINIMUM tier required to receive access to the full set of AWS Trusted Advisor checks, including all cost optimization and security checks?",
     opts: ["Basic", "Developer", "Business", "Enterprise On-Ramp"],
     ans: [2],
     exp: {
@@ -876,7 +918,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 1,
-    q: "A company wants to reduce S3 storage costs by automatically moving objects to cheaper storage tiers as access frequency decreases, without writing manual lifecycle rules per object. Which S3 feature is BEST suited?",
+    question:
+      "A company wants to reduce S3 storage costs by automatically moving objects to cheaper storage tiers as access frequency decreases, without writing manual lifecycle rules per object. Which S3 feature is BEST suited?",
     opts: ["S3 Lifecycle Policies", "S3 Intelligent-Tiering", "S3 Cross-Region Replication", "S3 Object Lock"],
     ans: [1],
     exp: {
@@ -893,7 +936,7 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 2,
-    q: "Which TWO factors directly incur data transfer CHARGES in AWS? (Select TWO.)",
+    question: "Which TWO factors directly incur data transfer CHARGES in AWS? (Select TWO.)",
     opts: [
       "Data transferred INTO AWS from the internet",
       "Data transferred OUT from AWS to the internet",
@@ -917,7 +960,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 1,
-    q: "Which AWS service provides the most granular, line-by-line report of all AWS usage and costs that can be delivered to S3 and integrated with Amazon Athena or Redshift for custom business intelligence analysis?",
+    question:
+      "Which AWS service provides the most granular, line-by-line report of all AWS usage and costs that can be delivered to S3 and integrated with Amazon Athena or Redshift for custom business intelligence analysis?",
     opts: ["AWS Cost Explorer", "AWS Budgets", "AWS Cost and Usage Report (CUR)", "AWS Trusted Advisor"],
     ans: [2],
     exp: {
@@ -934,7 +978,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 1,
-    q: "Which AWS tool helps a solutions architect estimate the monthly cost of a planned AWS deployment BEFORE provisioning any resources?",
+    question:
+      "Which AWS tool helps a solutions architect estimate the monthly cost of a planned AWS deployment BEFORE provisioning any resources?",
     opts: ["AWS Cost Explorer", "AWS Trusted Advisor", "AWS Pricing Calculator", "AWS Cost and Usage Report"],
     ans: [2],
     exp: {
@@ -951,7 +996,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Billing & Pricing",
     multi: 1,
-    q: "Which AWS feature allows an organization to flag specific EC2 instances as 'savings plans commitments' that automatically apply a discounted rate across EC2, Lambda, and Fargate usage regardless of instance family, size, or region?",
+    question:
+      "Which AWS feature allows an organization to flag specific EC2 instances as 'savings plans commitments' that automatically apply a discounted rate across EC2, Lambda, and Fargate usage regardless of instance family, size, or region?",
     opts: [
       "Standard Reserved Instances",
       "Convertible Reserved Instances",
@@ -1025,7 +1071,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
   }, [examStarted, paused, done]);
 
   const startExam = () => {
-    const shuffled = buildShuffledExam(RAW_QUESTIONS);
+    const shuffled = buildShuffledExam(rawQuestions);
     setQuestions(shuffled);
     setAnswers(shuffled.map(() => new Set()));
     setChecked(new Array(shuffled.length).fill(false));
@@ -1051,11 +1097,11 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
   const pickOption = (optionIndex: number) => {
     if (checked[currentQuestion] || review || paused) return;
 
-    const q = questions[currentQuestion];
+    const question = questions[currentQuestion];
     const newAnswers = [...answers];
     const sel = new Set(newAnswers[currentQuestion]);
 
-    if (q.multi === 1) {
+    if (question.multi === 1) {
       sel.clear();
       sel.add(optionIndex);
       newAnswers[currentQuestion] = sel;
@@ -1149,7 +1195,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
         <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
           <button
             onClick={onBack}
-            className='mb-8 text-base tracking-wide transition-colors hover:text-[#f2d8e8]'
+            className='mb-8 text-base tracking-wide transition-all hover:text-[#f2d8e8] hover:translate-x-[-4px]'
             style={{ color: "#b89ab8" }}
           >
             ← Back to Dashboard
@@ -1230,8 +1276,8 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
   if (done && !review) {
     const total = questions.length;
     let correct = 0;
-    questions.forEach((q, i) => {
-      if (q.ans.length === answers[i].size && q.ans.every((a) => answers[i].has(a))) {
+    questions.forEach((question, i) => {
+      if (question.ans.length === answers[i].size && question.ans.every((a) => answers[i].has(a))) {
         correct++;
       }
     });
@@ -1243,13 +1289,13 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
     const scs = used % 60;
 
     const domainScores: Record<string, { correct: number; total: number }> = {};
-    questions.forEach((q, i) => {
-      if (!domainScores[q.domain]) {
-        domainScores[q.domain] = { correct: 0, total: 0 };
+    questions.forEach((question, i) => {
+      if (!domainScores[question.domain]) {
+        domainScores[question.domain] = { correct: 0, total: 0 };
       }
-      domainScores[q.domain].total++;
-      if (q.ans.length === answers[i].size && q.ans.every((a) => answers[i].has(a))) {
-        domainScores[q.domain].correct++;
+      domainScores[question.domain].total++;
+      if (question.ans.length === answers[i].size && question.ans.every((a) => answers[i].has(a))) {
+        domainScores[question.domain].correct++;
       }
     });
 
@@ -1379,11 +1425,11 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
     );
   }
 
-  const q = questions[currentQuestion];
+  const question = questions[currentQuestion];
   const sel = answers[currentQuestion];
   const locked = checked[currentQuestion] || review;
   const progress = Math.round(((currentQuestion + 1) / questions.length) * 100);
-  const multi = q.multi > 1;
+  const multi = question.multi > 1;
 
   return (
     <div className='relative min-h-screen'>
@@ -1504,13 +1550,13 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           <div className='flex items-start justify-between mb-4'>
             <div className='flex items-center gap-3 flex-wrap'>
               <span className='text-xs uppercase tracking-wider' style={{ color: "#9a88b8" }}>
-                Q{currentQuestion + 1}
+                question{currentQuestion + 1}
               </span>
               <span
                 className='text-xs px-3 py-1 border border-[rgba(180,140,200,0.3)] bg-[rgba(10,5,20,0.6)]'
                 style={{ color: "#7bc8ea" }}
               >
-                {q.domain}
+                {question.domain}
               </span>
               {multi && (
                 <span
@@ -1521,7 +1567,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
                     borderColor: "#ffcc80",
                   }}
                 >
-                  Select {q.multi}
+                  Select {question.multi}
                 </span>
               )}
             </div>
@@ -1535,31 +1581,31 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           </div>
 
           <div className='text-base leading-relaxed mb-6' style={{ color: "#ede0f5" }}>
-            {q.q}
+            {question.question}
           </div>
 
           {multi && (
             <div className='text-sm italic mb-4' style={{ color: "#9a88b8" }}>
-              Select exactly {q.multi} answers.
+              Select exactly {question.multi} answers.
             </div>
           )}
 
           <div className='space-y-3'>
-            {q.opts.map((opt, i) => {
+            {question.opts.map((opt, i) => {
               let bgColor = "rgba(10,5,20,0.6)";
               let borderColor = "rgba(180,140,200,0.3)";
               let textColor = "#ede0f5";
 
               if (locked) {
-                if (q.ans.includes(i) && sel.has(i)) {
+                if (question.ans.includes(i) && sel.has(i)) {
                   bgColor = "rgba(29,158,117,0.2)";
                   borderColor = "#1D9E75";
                   textColor = "#b4f2d1";
-                } else if (q.ans.includes(i) && !sel.has(i)) {
+                } else if (question.ans.includes(i) && !sel.has(i)) {
                   bgColor = "rgba(243,156,18,0.2)";
                   borderColor = "#f39c12";
                   textColor = "#f8c471";
-                } else if (!q.ans.includes(i) && sel.has(i)) {
+                } else if (!question.ans.includes(i) && sel.has(i)) {
                   bgColor = "rgba(192,57,43,0.2)";
                   borderColor = "#c0392b";
                   textColor = "#f1948a";
@@ -1613,7 +1659,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
               className='w-full mt-4 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(74,144,217,0.2)] hover:bg-[rgba(74,144,217,0.3)] border'
               style={{ color: "#4a90d9", borderColor: "#4a90d9" }}
             >
-              Check Answer (select {q.multi})
+              Check Answer (select {question.multi})
             </button>
           )}
 
@@ -1635,7 +1681,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
                   color: "#b4f2d1",
                 }}
               >
-                {q.exp.correct.map((exp, idx) => (
+                {question.exp.correct.map((exp, idx) => (
                   <div key={idx} className='mb-3'>
                     <span className='font-semibold' style={{ color: "#1D9E75" }}>
                       CORRECT:
@@ -1643,7 +1689,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
                     {exp}
                   </div>
                 ))}
-                {q.exp.incorrect.map((exp, idx) => (
+                {question.exp.incorrect.map((exp, idx) => (
                   <div key={idx} className='mb-3'>
                     <span className='font-semibold' style={{ color: "#c0392b" }}>
                       INCORRECT:

@@ -1,4 +1,4 @@
-export type ExamId = 'aws-cloud-practitioner' | 'aws-developer' | 'claude-architect' | 'ielts-academic';
+export type ExamId = "aws-cloud-practitioner" | "aws-developer" | "claude-architect" | "ielts-academic";
 
 export type ExamCard = {
   id: ExamId;
@@ -12,7 +12,7 @@ export type ExamCard = {
 export type Question = {
   domain: string;
   multi: number;
-  q: string;
+  question: string;
   opts: string[];
   ans: number[];
   exp: {

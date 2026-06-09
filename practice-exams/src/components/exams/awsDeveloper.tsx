@@ -1,23 +1,13 @@
 import { useEffect, useState } from "react";
+import type { Question } from "../../types";
 
-interface Question {
-  domain: string;
-  multi: number;
-  q: string;
-  opts: string[];
-  ans: number[];
-  exp: {
-    correct: string[];
-    incorrect: string[];
-  };
-}
-
-const RAW_QUESTIONS: Question[] = [
+const rawQuestions: Question[] = [
   // ─── DOMAIN 1: Development with AWS Services ───────────────────────────────
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer is building a Lambda function that must read a large JSON configuration file (500 KB) on every cold start. The file rarely changes. What is the MOST performance-efficient approach?",
+    question:
+      "A developer is building a Lambda function that must read a large JSON configuration file (500 KB) on every cold start. The file rarely changes. What is the MOST performance-efficient approach?",
     opts: [
       "Store the file in S3 and download it inside the handler function on every invocation",
       "Package the file inside the Lambda deployment package",
@@ -39,7 +29,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A Lambda function needs to process S3 events but is frequently hitting its 15-minute timeout due to slow downstream processing. The downstream system cannot be optimized. What is the BEST architectural fix?",
+    question:
+      "A Lambda function needs to process S3 events but is frequently hitting its 15-minute timeout due to slow downstream processing. The downstream system cannot be optimized. What is the BEST architectural fix?",
     opts: [
       "Increase the Lambda timeout beyond 15 minutes",
       "Refactor the function to write a task to an SQS queue and process asynchronously with a separate Lambda",
@@ -61,7 +52,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 2,
-    q: "A developer wants to invoke a Lambda function from an API Gateway REST API endpoint. The function must receive the full HTTP request including headers and query string parameters. Which TWO integration types support passing the full request context? (Select TWO.)",
+    question:
+      "A developer wants to invoke a Lambda function from an API Gateway REST API endpoint. The function must receive the full HTTP request including headers and query string parameters. Which TWO integration types support passing the full request context? (Select TWO.)",
     opts: [
       "Lambda Proxy Integration",
       "Lambda Custom Integration (non-proxy)",
@@ -85,7 +77,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer needs to grant a Lambda function permission to write to a specific DynamoDB table. What is the CORRECT and MOST secure way to achieve this?",
+    question:
+      "A developer needs to grant a Lambda function permission to write to a specific DynamoDB table. What is the CORRECT and MOST secure way to achieve this?",
     opts: [
       "Embed IAM access keys in the Lambda environment variables",
       "Attach an IAM role with the required DynamoDB permissions to the Lambda execution role",
@@ -107,7 +100,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "An API Gateway REST API is deployed in a region. A mobile client in another continent is experiencing high latency. The API returns dynamic, personalized responses so caching is not appropriate. Which API Gateway feature BEST reduces latency for globally distributed clients?",
+    question:
+      "An API Gateway REST API is deployed in a region. A mobile client in another continent is experiencing high latency. The API returns dynamic, personalized responses so caching is not appropriate. Which API Gateway feature BEST reduces latency for globally distributed clients?",
     opts: [
       "Enable API Gateway caching with a 5-minute TTL",
       "Deploy the API as an Edge-Optimized endpoint",
@@ -129,7 +123,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer is implementing a DynamoDB table for a social media app. User posts need to be retrieved by user ID sorted by post timestamp descending. The table uses userId as the partition key. What must the developer add to support this access pattern efficiently?",
+    question:
+      "A developer is implementing a DynamoDB table for a social media app. User posts need to be retrieved by user ID sorted by post timestamp descending. The table uses userId as the partition key. What must the developer add to support this access pattern efficiently?",
     opts: [
       "A Global Secondary Index (GSI) on userId",
       "A Sort Key of postTimestamp on the base table",
@@ -151,7 +146,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 2,
-    q: "A developer must ensure that write operations to a DynamoDB table fail if an item with the same primary key already exists. Which TWO approaches enforce this constraint? (Select TWO.)",
+    question:
+      "A developer must ensure that write operations to a DynamoDB table fail if an item with the same primary key already exists. Which TWO approaches enforce this constraint? (Select TWO.)",
     opts: [
       "Use a PutItem call with a ConditionExpression: 'attribute_not_exists(pk)'",
       "Use a TransactWriteItems call with a ConditionCheck verifying the item does not exist",
@@ -175,7 +171,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer needs to store session data for a web application. The data must be accessible with sub-millisecond latency, expire automatically after 30 minutes of inactivity, and support high throughput. Which solution BEST meets these requirements?",
+    question:
+      "A developer needs to store session data for a web application. The data must be accessible with sub-millisecond latency, expire automatically after 30 minutes of inactivity, and support high throughput. Which solution BEST meets these requirements?",
     opts: [
       "Amazon RDS with a sessions table and scheduled cleanup Lambda",
       "Amazon DynamoDB with TTL enabled on the session items",
@@ -197,7 +194,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer is using the AWS SDK for Python (boto3) to call DynamoDB. Occasionally the call fails with a ProvisionedThroughputExceededException. What is the CORRECT way to handle this in the application code?",
+    question:
+      "A developer is using the AWS SDK for Python (boto3) to call DynamoDB. Occasionally the call fails with a ProvisionedThroughputExceededException. What is the CORRECT way to handle this in the application code?",
     opts: [
       "Catch the exception, log it, and immediately retry the request",
       "Implement exponential backoff with jitter before retrying",
@@ -219,7 +217,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer is building a serverless application using AWS SAM. They define a Lambda function with an S3 event source. After deploying with 'sam deploy', the Lambda is not triggered by S3 uploads. What is the MOST likely cause?",
+    question:
+      "A developer is building a serverless application using AWS SAM. They define a Lambda function with an S3 event source. After deploying with 'sam deploy', the Lambda is not triggered by S3 uploads. What is the MOST likely cause?",
     opts: [
       "SAM does not support S3 event sources; CloudFormation must be used directly",
       "The S3 bucket must be in the same AWS account but a different region than the Lambda",
@@ -241,7 +240,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer is building a REST API with API Gateway and Lambda. The application requires WebSocket connections for real-time notifications. Which API Gateway type supports this?",
+    question:
+      "A developer is building a REST API with API Gateway and Lambda. The application requires WebSocket connections for real-time notifications. Which API Gateway type supports this?",
     opts: [
       "REST API with long-polling enabled",
       "HTTP API with Server-Sent Events (SSE) integration",
@@ -263,7 +263,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer is using Amazon Cognito User Pools to authenticate users in a mobile app. After successful login, the app must call a protected API Gateway endpoint. What does the app need to pass to authorize API calls?",
+    question:
+      "A developer is using Amazon Cognito User Pools to authenticate users in a mobile app. After successful login, the app must call a protected API Gateway endpoint. What does the app need to pass to authorize API calls?",
     opts: [
       "The Cognito user's username and password in the Authorization header",
       "The Cognito ID token or Access token as a Bearer token in the Authorization header, with API Gateway configured to use a Cognito User Pool Authorizer",
@@ -287,7 +288,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 1,
-    q: "A developer needs to retrieve a database password at runtime inside a Lambda function. The password is stored in AWS Secrets Manager. What is the MOST secure approach to avoid unnecessary Secrets Manager API calls on every invocation?",
+    question:
+      "A developer needs to retrieve a database password at runtime inside a Lambda function. The password is stored in AWS Secrets Manager. What is the MOST secure approach to avoid unnecessary Secrets Manager API calls on every invocation?",
     opts: [
       "Retrieve the secret in the Lambda handler on every invocation",
       "Cache the secret in a Lambda environment variable after the first retrieval",
@@ -309,7 +311,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 1,
-    q: "A developer's Lambda function must encrypt sensitive data before storing it in S3 and decrypt it on retrieval. The encryption key must be managed and audited by AWS, and the developer must control key usage policies. Which AWS service should be used?",
+    question:
+      "A developer's Lambda function must encrypt sensitive data before storing it in S3 and decrypt it on retrieval. The encryption key must be managed and audited by AWS, and the developer must control key usage policies. Which AWS service should be used?",
     opts: [
       "AWS Certificate Manager (ACM)",
       "AWS Key Management Service (KMS) with a Customer Managed Key (CMK)",
@@ -331,7 +334,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 2,
-    q: "A developer needs to grant a third-party application running in another AWS account access to an S3 bucket. Which TWO methods can be used? (Select TWO.)",
+    question:
+      "A developer needs to grant a third-party application running in another AWS account access to an S3 bucket. Which TWO methods can be used? (Select TWO.)",
     opts: [
       "Create an IAM user in the bucket owner's account and share the access keys",
       "Create a cross-account IAM role in the bucket owner's account and allow the third-party account to assume it",
@@ -355,7 +359,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 1,
-    q: "A Lambda function uses an IAM execution role with an attached policy containing: Effect: Allow, Action: s3:*, Resource: arn:aws:s3:::my-bucket/*. A second policy contains: Effect: Deny, Action: s3:DeleteObject, Resource: *. The function attempts to delete an object from my-bucket. What happens?",
+    question:
+      "A Lambda function uses an IAM execution role with an attached policy containing: Effect: Allow, Action: s3:*, Resource: arn:aws:s3:::my-bucket/*. A second policy contains: Effect: Deny, Action: s3:DeleteObject, Resource: *. The function attempts to delete an object from my-bucket. What happens?",
     opts: [
       "The delete succeeds because the Allow policy explicitly grants s3:* on my-bucket",
       "The delete fails because Deny policies always override Allow policies",
@@ -377,7 +382,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 1,
-    q: "A web application uses Amazon Cognito User Pools. After authentication, users should be able to call AWS services (e.g., DynamoDB) directly from the client app. What Cognito component enables this?",
+    question:
+      "A web application uses Amazon Cognito User Pools. After authentication, users should be able to call AWS services (e.g., DynamoDB) directly from the client app. What Cognito component enables this?",
     opts: [
       "Cognito User Pool Groups",
       "Cognito Identity Pools (Federated Identities)",
@@ -399,7 +405,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 1,
-    q: "A developer needs to implement API authorization where different users have access to different API Gateway routes based on custom claims in their JWT. Which API Gateway authorizer type is BEST suited?",
+    question:
+      "A developer needs to implement API authorization where different users have access to different API Gateway routes based on custom claims in their JWT. Which API Gateway authorizer type is BEST suited?",
     opts: [
       "Cognito User Pool Authorizer",
       "Lambda Authorizer (TOKEN type)",
@@ -423,7 +430,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 1,
-    q: "A developer uses AWS CodeDeploy to deploy a Lambda function. They want to shift 10% of traffic to the new version immediately and then 100% after 10 minutes if no alarms fire. Which deployment configuration achieves this?",
+    question:
+      "A developer uses AWS CodeDeploy to deploy a Lambda function. They want to shift 10% of traffic to the new version immediately and then 100% after 10 minutes if no alarms fire. Which deployment configuration achieves this?",
     opts: [
       "CodeDeployDefault.LambdaAllAtOnce",
       "CodeDeployDefault.LambdaCanary10Percent10Minutes",
@@ -445,7 +453,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 1,
-    q: "A developer is using AWS Elastic Beanstalk to deploy a web application. An update needs to be deployed with zero downtime and zero capacity reduction. Which deployment policy should be used?",
+    question:
+      "A developer is using AWS Elastic Beanstalk to deploy a web application. An update needs to be deployed with zero downtime and zero capacity reduction. Which deployment policy should be used?",
     opts: ["All at once", "Rolling", "Rolling with additional batch", "Immutable"],
     ans: [2],
     exp: {
@@ -462,7 +471,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 1,
-    q: "A team uses AWS CodePipeline with CodeBuild and CodeDeploy. They want the pipeline to require a manual approval before deploying to production. Where is this configured?",
+    question:
+      "A team uses AWS CodePipeline with CodeBuild and CodeDeploy. They want the pipeline to require a manual approval before deploying to production. Where is this configured?",
     opts: [
       "In the CodeBuild buildspec.yml file as a pause step",
       "As an Approval action stage in CodePipeline",
@@ -484,7 +494,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 2,
-    q: "A developer wants to use AWS CloudFormation to create a stack that provisions an S3 bucket, a Lambda function, and an API Gateway. Which TWO statements about CloudFormation are TRUE? (Select TWO.)",
+    question:
+      "A developer wants to use AWS CloudFormation to create a stack that provisions an S3 bucket, a Lambda function, and an API Gateway. Which TWO statements about CloudFormation are TRUE? (Select TWO.)",
     opts: [
       "CloudFormation templates can be written in JSON or YAML",
       "CloudFormation automatically detects and repairs configuration drift without any additional services",
@@ -508,7 +519,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 1,
-    q: "A developer needs to deploy the same application to Dev, Staging, and Prod environments. Each environment needs different instance types and database endpoints. What is the BEST approach in CloudFormation?",
+    question:
+      "A developer needs to deploy the same application to Dev, Staging, and Prod environments. Each environment needs different instance types and database endpoints. What is the BEST approach in CloudFormation?",
     opts: [
       "Create three separate templates with hardcoded values per environment",
       "Use CloudFormation Parameters and Mappings with a single template and separate parameter files per environment",
@@ -530,7 +542,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 1,
-    q: "A developer needs to build, test, and package a Lambda function written in Python. The buildspec.yml in CodeBuild must install dependencies and create a deployment package. Which step installs dependencies into the correct directory for Lambda packaging?",
+    question:
+      "A developer needs to build, test, and package a Lambda function written in Python. The buildspec.yml in CodeBuild must install dependencies and create a deployment package. Which step installs dependencies into the correct directory for Lambda packaging?",
     opts: [
       "pip install -r requirements.txt",
       "pip install -r requirements.txt -t ./package",
@@ -554,7 +567,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 1,
-    q: "A Lambda function is timing out intermittently under high load. The function connects to an RDS database. What is the MOST likely root cause and the BEST fix?",
+    question:
+      "A Lambda function is timing out intermittently under high load. The function connects to an RDS database. What is the MOST likely root cause and the BEST fix?",
     opts: [
       "Lambda's memory is too low; increase memory to 3008 MB",
       "Lambda is creating a new database connection on every invocation; implement connection pooling using RDS Proxy",
@@ -576,7 +590,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 1,
-    q: "A developer's Lambda function is logging data to CloudWatch Logs but cannot see the logs in the console. What is the MOST likely cause?",
+    question:
+      "A developer's Lambda function is logging data to CloudWatch Logs but cannot see the logs in the console. What is the MOST likely cause?",
     opts: [
       "CloudWatch Logs is a paid service and must be explicitly enabled",
       "The Lambda execution role is missing logs:CreateLogGroup, logs:CreateLogStream, and logs:PutLogEvents permissions",
@@ -598,7 +613,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 2,
-    q: "A developer notices their Lambda function has high cold start latency. The function uses Java and loads a large Spring Boot framework. Which TWO options MOST effectively reduce cold start time? (Select TWO.)",
+    question:
+      "A developer notices their Lambda function has high cold start latency. The function uses Java and loads a large Spring Boot framework. Which TWO options MOST effectively reduce cold start time? (Select TWO.)",
     opts: [
       "Enable Provisioned Concurrency for the Lambda function",
       "Use AWS Lambda SnapStart for Java functions",
@@ -622,7 +638,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 1,
-    q: "A developer uses X-Ray to trace a distributed application. The traces show a high latency segment labeled 'Initialization' in Lambda. What does this indicate?",
+    question:
+      "A developer uses X-Ray to trace a distributed application. The traces show a high latency segment labeled 'Initialization' in Lambda. What does this indicate?",
     opts: [
       "The Lambda function is downloading its code package from S3 on every invocation",
       "The Lambda function is experiencing cold starts; the initialization segment represents the execution environment setup",
@@ -644,7 +661,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 1,
-    q: "A developer wants to trace API calls to DynamoDB within their Lambda function using AWS X-Ray. What must the developer do in their Python code?",
+    question:
+      "A developer wants to trace API calls to DynamoDB within their Lambda function using AWS X-Ray. What must the developer do in their Python code?",
     opts: [
       "Import boto3 and enable X-Ray tracing in the Lambda console; no code changes needed",
       "Wrap the boto3 client with the aws_xray_sdk's patch_all() or patch(['boto3']) call",
@@ -666,7 +684,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 1,
-    q: "An SQS-triggered Lambda function is failing to process messages. Failing messages appear repeatedly in the queue. What is the BEST approach to isolate these poison pill messages without losing them?",
+    question:
+      "An SQS-triggered Lambda function is failing to process messages. Failing messages appear repeatedly in the queue. What is the BEST approach to isolate these poison pill messages without losing them?",
     opts: [
       "Increase the Lambda function timeout so it has more time to process difficult messages",
       "Configure a Dead Letter Queue (DLQ) on the SQS queue and set an appropriate maxReceiveCount on the redrive policy",
@@ -688,7 +707,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 1,
-    q: "A developer notices that a DynamoDB table has one partition receiving a disproportionate amount of reads and writes (a 'hot partition'). What is the BEST design change to resolve this?",
+    question:
+      "A developer notices that a DynamoDB table has one partition receiving a disproportionate amount of reads and writes (a 'hot partition'). What is the BEST design change to resolve this?",
     opts: [
       "Enable DynamoDB Auto Scaling to increase capacity automatically",
       "Add a random suffix or prefix to the partition key to distribute load across multiple partitions",
@@ -712,7 +732,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 1,
-    q: "A developer is designing an order processing system. An order must trigger both an inventory update service and an email notification service simultaneously. Both services process independently. What is the BEST architecture?",
+    question:
+      "A developer is designing an order processing system. An order must trigger both an inventory update service and an email notification service simultaneously. Both services process independently. What is the BEST architecture?",
     opts: [
       "Use SQS FIFO queue and have both services poll the same queue",
       "Use SNS topic with two SQS queue subscriptions, one per downstream service",
@@ -734,7 +755,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 1,
-    q: "A developer uses SQS to decouple a web frontend from a processing backend. The messages contain sensitive financial data. The developer must ensure messages are encrypted at rest. What is the CORRECT approach?",
+    question:
+      "A developer uses SQS to decouple a web frontend from a processing backend. The messages contain sensitive financial data. The developer must ensure messages are encrypted at rest. What is the CORRECT approach?",
     opts: [
       "Encode message bodies in Base64 before sending",
       "Enable Server-Side Encryption (SSE) on the SQS queue using AWS KMS",
@@ -756,7 +778,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 1,
-    q: "A developer needs to guarantee that messages in an SQS queue are processed in the EXACT order they were sent, and that duplicate messages are never processed. Which queue type and feature should be used?",
+    question:
+      "A developer needs to guarantee that messages in an SQS queue are processed in the EXACT order they were sent, and that duplicate messages are never processed. Which queue type and feature should be used?",
     opts: [
       "SQS Standard queue with message deduplication in the consumer",
       "SQS FIFO queue with content-based deduplication enabled",
@@ -778,7 +801,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 2,
-    q: "A developer needs to build an event-driven pipeline where an S3 upload triggers a Lambda to process the file. The Lambda occasionally fails. Failed events must be retried automatically and eventually written to a DLQ after 2 failed attempts. Which TWO configurations enable this? (Select TWO.)",
+    question:
+      "A developer needs to build an event-driven pipeline where an S3 upload triggers a Lambda to process the file. The Lambda occasionally fails. Failed events must be retried automatically and eventually written to a DLQ after 2 failed attempts. Which TWO configurations enable this? (Select TWO.)",
     opts: [
       "Configure an S3 event notification directly to Lambda with Lambda's async invocation DLQ set to an SQS queue",
       "Configure EventBridge to receive S3 event notifications, then route to Lambda with retry and DLQ settings",
@@ -802,7 +826,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 1,
-    q: "A developer is using Amazon Kinesis Data Streams to process clickstream events. The consumer Lambda function is falling behind the producers. Which feature should the developer enable to scale consumer throughput without managing multiple consumer applications?",
+    question:
+      "A developer is using Amazon Kinesis Data Streams to process clickstream events. The consumer Lambda function is falling behind the producers. Which feature should the developer enable to scale consumer throughput without managing multiple consumer applications?",
     opts: [
       "Increase the number of shards in the Kinesis stream",
       "Enable Enhanced Fan-Out for the Lambda consumer",
@@ -824,7 +849,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 1,
-    q: "A developer is building a Step Functions state machine for an order fulfillment workflow with 8 steps. Some steps call external APIs that can take up to 24 hours to respond (callback pattern). Which integration pattern should be used for these long-running external steps?",
+    question:
+      "A developer is building a Step Functions state machine for an order fulfillment workflow with 8 steps. Some steps call external APIs that can take up to 24 hours to respond (callback pattern). Which integration pattern should be used for these long-running external steps?",
     opts: [
       "Express Workflow with Lambda invocation",
       "Standard Workflow with .waitForTaskToken integration pattern",
@@ -848,7 +874,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Storage & Databases",
     multi: 1,
-    q: "A developer needs to allow a web browser to upload files directly to an S3 bucket from a different domain. The browser receives a CORS error. What must be configured?",
+    question:
+      "A developer needs to allow a web browser to upload files directly to an S3 bucket from a different domain. The browser receives a CORS error. What must be configured?",
     opts: [
       "Enable Transfer Acceleration on the S3 bucket",
       "Set the S3 bucket ACL to public-read",
@@ -870,7 +897,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Storage & Databases",
     multi: 1,
-    q: "A developer needs to generate a pre-signed URL to allow an unauthenticated user to download a private S3 object for 1 hour. Which SDK call creates this?",
+    question:
+      "A developer needs to generate a pre-signed URL to allow an unauthenticated user to download a private S3 object for 1 hour. Which SDK call creates this?",
     opts: [
       "s3.get_object() with an Expires header",
       "s3.generate_presigned_url('get_object', Params={'Bucket': bucket, 'Key': key}, ExpiresIn=3600)",
@@ -892,7 +920,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Storage & Databases",
     multi: 2,
-    q: "A developer is designing a DynamoDB table for an e-commerce app. The most common queries are: (1) Get all orders for a customer sorted by date, (2) Get a single order by orderId. Which TWO table design choices support BOTH access patterns efficiently? (Select TWO.)",
+    question:
+      "A developer is designing a DynamoDB table for an e-commerce app. The most common queries are: (1) Get all orders for a customer sorted by date, (2) Get a single order by orderId. Which TWO table design choices support BOTH access patterns efficiently? (Select TWO.)",
     opts: [
       "Partition key: customerId, Sort key: orderDate",
       "Partition key: orderId (no sort key) as a separate table",
@@ -916,7 +945,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Storage & Databases",
     multi: 1,
-    q: "A developer is using S3 versioning. A user accidentally deleted an important object. How can the object be recovered?",
+    question:
+      "A developer is using S3 versioning. A user accidentally deleted an important object. How can the object be recovered?",
     opts: [
       "Restore from an S3 Glacier archive automatically created during deletion",
       "Delete the delete marker that was created when the object was deleted; the previous version becomes current",
@@ -938,7 +968,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Storage & Databases",
     multi: 1,
-    q: "A developer needs to run a DynamoDB query that retrieves all items where a non-key attribute 'status' equals 'PENDING'. The table has 10 million items. What is the MOST efficient approach?",
+    question:
+      "A developer needs to run a DynamoDB query that retrieves all items where a non-key attribute 'status' equals 'PENDING'. The table has 10 million items. What is the MOST efficient approach?",
     opts: [
       "Use a DynamoDB Scan with a FilterExpression on status='PENDING'",
       "Create a Global Secondary Index (GSI) with 'status' as the partition key and query the GSI",
@@ -962,7 +993,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Monitoring & Observability",
     multi: 1,
-    q: "A developer wants to receive an alert when the number of Lambda errors exceeds 10 in a 5-minute period. Which combination of services achieves this?",
+    question:
+      "A developer wants to receive an alert when the number of Lambda errors exceeds 10 in a 5-minute period. Which combination of services achieves this?",
     opts: [
       "CloudWatch Logs Insights query + SNS notification",
       "CloudWatch Metric Alarm on the Lambda Errors metric + SNS topic as the alarm action",
@@ -984,7 +1016,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Monitoring & Observability",
     multi: 1,
-    q: "A developer wants to search Lambda function logs for all lines containing 'ERROR' across a 24-hour period and see the count per hour. Which service and feature provides this capability?",
+    question:
+      "A developer wants to search Lambda function logs for all lines containing 'ERROR' across a 24-hour period and see the count per hour. Which service and feature provides this capability?",
     opts: [
       "CloudWatch Metrics with a filter dimension for ERROR",
       "CloudWatch Logs Insights with a query using filter and stats commands",
@@ -1006,7 +1039,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Monitoring & Observability",
     multi: 2,
-    q: "A developer needs to monitor a serverless application end-to-end, correlating logs from multiple Lambda functions across a single user request. Which TWO AWS services/features should be used together? (Select TWO.)",
+    question:
+      "A developer needs to monitor a serverless application end-to-end, correlating logs from multiple Lambda functions across a single user request. Which TWO AWS services/features should be used together? (Select TWO.)",
     opts: [
       "AWS X-Ray for distributed tracing with trace IDs propagated across function calls",
       "CloudWatch Container Insights for Lambda function correlation",
@@ -1032,7 +1066,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "CI/CD & Developer Tools",
     multi: 1,
-    q: "A developer commits code to a CodeCommit repository. The team wants CodeBuild to automatically start a build on every push to the main branch. How is this configured?",
+    question:
+      "A developer commits code to a CodeCommit repository. The team wants CodeBuild to automatically start a build on every push to the main branch. How is this configured?",
     opts: [
       "CodeBuild polls the CodeCommit repository every minute for changes",
       "Configure an Amazon EventBridge rule that matches CodeCommit repository state change events on the main branch and targets the CodeBuild project",
@@ -1054,7 +1089,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "CI/CD & Developer Tools",
     multi: 1,
-    q: "A developer's CodeBuild project needs to access a private RDS database during integration tests. The RDS database is inside a VPC. What must be configured?",
+    question:
+      "A developer's CodeBuild project needs to access a private RDS database during integration tests. The RDS database is inside a VPC. What must be configured?",
     opts: [
       "Make the RDS database publicly accessible and add a security group rule for CodeBuild's IP range",
       "Configure the CodeBuild project to run inside the same VPC, subnet, and security group with access to the RDS database",
@@ -1076,7 +1112,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "CI/CD & Developer Tools",
     multi: 1,
-    q: "A team has a CodePipeline that deploys to production. The pipeline sometimes fails at the CodeDeploy stage. A developer wants to automatically roll back the deployment to the previous version if the deployment fails. How is this configured?",
+    question:
+      "A team has a CodePipeline that deploys to production. The pipeline sometimes fails at the CodeDeploy stage. A developer wants to automatically roll back the deployment to the previous version if the deployment fails. How is this configured?",
     opts: [
       "In CodePipeline, add a rollback stage after the deploy stage",
       "In the CodeDeploy deployment group, enable automatic rollback on deployment failure",
@@ -1098,7 +1135,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "CI/CD & Developer Tools",
     multi: 1,
-    q: "A developer is writing a buildspec.yml for a CodeBuild project. The build produces a JAR file that must be uploaded to S3 and made available to the next stage in CodePipeline. Where is the output artifact location defined in the buildspec?",
+    question:
+      "A developer is writing a buildspec.yml for a CodeBuild project. The build produces a JAR file that must be uploaded to S3 and made available to the next stage in CodePipeline. Where is the output artifact location defined in the buildspec?",
     opts: [
       "In the environment section with the ARTIFACT_PATH variable",
       "In the artifacts section with the files key listing the JAR file",
@@ -1122,7 +1160,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer needs to run a Lambda function inside a VPC but also needs to call the DynamoDB API. Outbound internet access is not available from the VPC. What must be provisioned?",
+    question:
+      "A developer needs to run a Lambda function inside a VPC but also needs to call the DynamoDB API. Outbound internet access is not available from the VPC. What must be provisioned?",
     opts: [
       "A NAT Gateway in the VPC",
       "A VPC Endpoint for DynamoDB (Gateway endpoint)",
@@ -1144,7 +1183,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 1,
-    q: "A developer stores application configuration in AWS Systems Manager Parameter Store. Some parameters contain database passwords. What parameter type should be used and which AWS service should encrypt them?",
+    question:
+      "A developer stores application configuration in AWS Systems Manager Parameter Store. Some parameters contain database passwords. What parameter type should be used and which AWS service should encrypt them?",
     opts: [
       "String parameter type; encrypted manually by the developer before storing",
       "SecureString parameter type; encrypted automatically using AWS KMS",
@@ -1166,7 +1206,7 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 1,
-    q: "A developer is using the AWS CDK to define infrastructure. After running 'cdk synth', what is produced?",
+    question: "A developer is using the AWS CDK to define infrastructure. After running 'cdk synth', what is produced?",
     opts: [
       "A deployed CloudFormation stack in the AWS account",
       "A CloudFormation template (YAML or JSON) representing the infrastructure",
@@ -1188,7 +1228,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 1,
-    q: "A Lambda function is triggered by an SQS queue. The function processes 5 messages per batch and occasionally fails on individual messages within a batch. The developer wants failed messages to go to a DLQ without losing successfully processed messages. What feature enables this?",
+    question:
+      "A Lambda function is triggered by an SQS queue. The function processes 5 messages per batch and occasionally fails on individual messages within a batch. The developer wants failed messages to go to a DLQ without losing successfully processed messages. What feature enables this?",
     opts: [
       "Configure the Lambda function to delete each message manually after processing",
       "Enable SQS partial batch response by returning a batchItemFailures list in the Lambda response",
@@ -1210,7 +1251,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 2,
-    q: "A developer is building a serverless API. Some Lambda functions need to share common utility code (logging, validation helpers). The utility code is 50 MB. Which TWO options enable code sharing across Lambda functions? (Select TWO.)",
+    question:
+      "A developer is building a serverless API. Some Lambda functions need to share common utility code (logging, validation helpers). The utility code is 50 MB. Which TWO options enable code sharing across Lambda functions? (Select TWO.)",
     opts: [
       "Include the utility code in each Lambda function's deployment package",
       "Create a Lambda Layer containing the utility code and attach it to each function",
@@ -1234,7 +1276,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Troubleshooting & Optimization",
     multi: 1,
-    q: "A developer's API Gateway + Lambda application returns a 502 Bad Gateway error intermittently. What is the MOST likely cause?",
+    question:
+      "A developer's API Gateway + Lambda application returns a 502 Bad Gateway error intermittently. What is the MOST likely cause?",
     opts: [
       "The API Gateway is throttling requests due to exceeding the account-level rate limit",
       "The Lambda function returned a malformed response that API Gateway cannot interpret (missing statusCode or non-JSON body)",
@@ -1256,7 +1299,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Storage & Databases",
     multi: 1,
-    q: "A developer's application requires strongly consistent reads from DynamoDB. By default, DynamoDB reads are eventually consistent. How does a developer request strongly consistent reads?",
+    question:
+      "A developer's application requires strongly consistent reads from DynamoDB. By default, DynamoDB reads are eventually consistent. How does a developer request strongly consistent reads?",
     opts: [
       "Use TransactGetItems for all read operations",
       "Set ConsistentRead=True in the GetItem, Query, or Scan operation",
@@ -1278,7 +1322,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 1,
-    q: "A developer's application calls the STS AssumeRole API to get temporary credentials for a cross-account role. The credentials expire after 1 hour. The application runs for 8 hours. What should the developer implement?",
+    question:
+      "A developer's application calls the STS AssumeRole API to get temporary credentials for a cross-account role. The credentials expire after 1 hour. The application runs for 8 hours. What should the developer implement?",
     opts: [
       "Request a 12-hour session duration in the initial AssumeRole call",
       "Implement credential refresh by calling AssumeRole again before the current credentials expire, using a background refresh timer",
@@ -1300,7 +1345,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Deployment",
     multi: 2,
-    q: "A developer needs to deploy a containerized application to AWS with auto-scaling, load balancing, and minimal infrastructure management. Which TWO options meet these requirements? (Select TWO.)",
+    question:
+      "A developer needs to deploy a containerized application to AWS with auto-scaling, load balancing, and minimal infrastructure management. Which TWO options meet these requirements? (Select TWO.)",
     opts: [
       "Amazon ECS with Fargate launch type behind an Application Load Balancer",
       "Amazon EC2 instances with Docker manually installed and a custom load balancer",
@@ -1324,7 +1370,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Monitoring & Observability",
     multi: 1,
-    q: "A developer wants to create a custom CloudWatch metric to track the number of failed payment transactions processed by a Lambda function. How should this be implemented?",
+    question:
+      "A developer wants to create a custom CloudWatch metric to track the number of failed payment transactions processed by a Lambda function. How should this be implemented?",
     opts: [
       "Parse Lambda logs with a CloudWatch Logs metric filter on the word 'payment_failed'",
       "Call the CloudWatch PutMetricData API from the Lambda function code whenever a payment failure occurs",
@@ -1346,7 +1393,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Development with AWS Services",
     multi: 1,
-    q: "A developer is building a Lambda function that must process Kinesis Data Streams records in order. The function sometimes fails on specific records, causing the entire shard to stop processing. What is the BEST approach to handle record failures while continuing to process newer records?",
+    question:
+      "A developer is building a Lambda function that must process Kinesis Data Streams records in order. The function sometimes fails on specific records, causing the entire shard to stop processing. What is the BEST approach to handle record failures while continuing to process newer records?",
     opts: [
       "Configure the Lambda event source mapping with BisectBatchOnFunctionError enabled and a destination for failed records",
       "Wrap all record processing in try/catch and always return success from the Lambda handler",
@@ -1368,7 +1416,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Storage & Databases",
     multi: 1,
-    q: "A developer needs to implement a leaderboard for a real-time gaming application. The leaderboard stores player scores and must return the top 100 players, sorted by score, in under 1 millisecond. Which AWS service is BEST suited?",
+    question:
+      "A developer needs to implement a leaderboard for a real-time gaming application. The leaderboard stores player scores and must return the top 100 players, sorted by score, in under 1 millisecond. Which AWS service is BEST suited?",
     opts: [
       "Amazon DynamoDB with a GSI sorted by score",
       "Amazon RDS MySQL with an ORDER BY score DESC LIMIT 100 query",
@@ -1390,7 +1439,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Messaging & Integration",
     multi: 1,
-    q: "A developer uses Amazon EventBridge to route events from a custom application to multiple targets. The developer needs to ensure that only events where the 'status' field equals 'ERROR' AND the 'service' field equals 'payments' are routed to a specific Lambda. How is this configured?",
+    question:
+      "A developer uses Amazon EventBridge to route events from a custom application to multiple targets. The developer needs to ensure that only events where the 'status' field equals 'ERROR' AND the 'service' field equals 'payments' are routed to a specific Lambda. How is this configured?",
     opts: [
       "Create a Lambda function that filters events and routes manually",
       "Define an EventBridge rule with an event pattern matching both conditions: { 'detail': { 'status': ['ERROR'], 'service': ['payments'] } }",
@@ -1412,7 +1462,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "CI/CD & Developer Tools",
     multi: 1,
-    q: "A developer wants to run unit tests in CodeBuild and fail the build if code coverage drops below 80%. The test framework outputs a coverage report. What is the CORRECT approach?",
+    question:
+      "A developer wants to run unit tests in CodeBuild and fail the build if code coverage drops below 80%. The test framework outputs a coverage report. What is the CORRECT approach?",
     opts: [
       "Configure a post-build phase that calls the coverage API to check the threshold",
       "In the buildspec.yml build phase, run the test command with coverage checks; exit with a non-zero code if coverage is below 80%",
@@ -1434,7 +1485,8 @@ const RAW_QUESTIONS: Question[] = [
   {
     domain: "Security",
     multi: 2,
-    q: "A developer needs to implement fine-grained access control so that DynamoDB users can only read/write their OWN items in a shared table. Each item has a 'userId' attribute. Which TWO mechanisms enable this? (Select TWO.)",
+    question:
+      "A developer needs to implement fine-grained access control so that DynamoDB users can only read/write their OWN items in a shared table. Each item has a 'userId' attribute. Which TWO mechanisms enable this? (Select TWO.)",
     opts: [
       "Cognito Identity Pool with IAM role and a policy using condition: dynamodb:LeadingKeys matching the Cognito sub claim",
       "DynamoDB resource-based policy that checks the userId attribute",
@@ -1508,7 +1560,7 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
   }, [examStarted, paused, done]);
 
   const startExam = () => {
-    const shuffled = buildShuffledExam(RAW_QUESTIONS);
+    const shuffled = buildShuffledExam(rawQuestions);
     setQuestions(shuffled);
     setAnswers(shuffled.map(() => new Set()));
     setChecked(new Array(shuffled.length).fill(false));
@@ -1531,10 +1583,10 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
 
   const pickOption = (optionIndex: number) => {
     if (checked[currentQuestion] || review || paused) return;
-    const q = questions[currentQuestion];
+    const question = questions[currentQuestion];
     const newAnswers = [...answers];
     const sel = new Set(newAnswers[currentQuestion]);
-    if (q.multi === 1) {
+    if (question.multi === 1) {
       sel.clear();
       sel.add(optionIndex);
       newAnswers[currentQuestion] = sel;
@@ -1621,7 +1673,7 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
         <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
           <button
             onClick={onBack}
-            className='mb-8 text-base tracking-wide transition-colors hover:text-[#f2d8e8]'
+            className='mb-8 text-base tracking-wide transition-all hover:text-[#f2d8e8] hover:translate-x-[-4px]'
             style={{ color: "#b89ab8" }}
           >
             ← Back to Dashboard
@@ -1655,7 +1707,7 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
               </h2>
               <div className='space-y-3 text-base tracking-wide' style={{ color: "#9a88b8" }}>
                 {[
-                  `${RAW_QUESTIONS.length} questions`,
+                  `${rawQuestions.length} questions`,
                   "130 minutes (matches real exam duration)",
                   "Passing score: 72%",
                   "Domains: Development with AWS Services · Security · Deployment · Troubleshooting & Optimization · Messaging & Integration · Storage & Databases · Monitoring & Observability · CI/CD & Developer Tools",
@@ -1687,8 +1739,8 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
   if (done && !review) {
     const total = questions.length;
     let correct = 0;
-    questions.forEach((q, i) => {
-      if (q.ans.length === answers[i].size && q.ans.every((a) => answers[i].has(a))) correct++;
+    questions.forEach((question, i) => {
+      if (question.ans.length === answers[i].size && question.ans.every((a) => answers[i].has(a))) correct++;
     });
     const pct = Math.round((correct / total) * 100);
     const passed = pct >= 72;
@@ -1698,10 +1750,11 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
     const scs = used % 60;
 
     const domainScores: Record<string, { correct: number; total: number }> = {};
-    questions.forEach((q, i) => {
-      if (!domainScores[q.domain]) domainScores[q.domain] = { correct: 0, total: 0 };
-      domainScores[q.domain].total++;
-      if (q.ans.length === answers[i].size && q.ans.every((a) => answers[i].has(a))) domainScores[q.domain].correct++;
+    questions.forEach((question, i) => {
+      if (!domainScores[question.domain]) domainScores[question.domain] = { correct: 0, total: 0 };
+      domainScores[question.domain].total++;
+      if (question.ans.length === answers[i].size && question.ans.every((a) => answers[i].has(a)))
+        domainScores[question.domain].correct++;
     });
 
     return (
@@ -1804,11 +1857,11 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
   }
 
   // ─── QUESTION SCREEN ───────────────────────────────────────────────────────
-  const q = questions[currentQuestion];
+  const question = questions[currentQuestion];
   const sel = answers[currentQuestion];
   const locked = checked[currentQuestion] || review;
   const progress = Math.round(((currentQuestion + 1) / questions.length) * 100);
-  const multi = q.multi > 1;
+  const multi = question.multi > 1;
 
   return (
     <div className='relative min-h-screen'>
@@ -1921,20 +1974,20 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
           <div className='flex items-start justify-between mb-4'>
             <div className='flex items-center gap-3 flex-wrap'>
               <span className='text-xs uppercase tracking-wider' style={{ color: "#9a88b8" }}>
-                Q{currentQuestion + 1}
+                question{currentQuestion + 1}
               </span>
               <span
                 className='text-xs px-3 py-1 border border-[rgba(245,166,35,0.4)] bg-[rgba(10,5,20,0.6)]'
                 style={{ color: "#f5a623" }}
               >
-                {q.domain}
+                {question.domain}
               </span>
               {multi && (
                 <span
                   className='text-xs px-3 py-1 border font-semibold'
                   style={{ background: "#fff3e0", color: "#e65100", borderColor: "#ffcc80" }}
                 >
-                  Select {q.multi}
+                  Select {question.multi}
                 </span>
               )}
             </div>
@@ -1948,31 +2001,31 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
           </div>
 
           <div className='text-base leading-relaxed mb-6' style={{ color: "#ede0f5" }}>
-            {q.q}
+            {question.question}
           </div>
 
           {multi && (
             <div className='text-sm italic mb-4' style={{ color: "#9a88b8" }}>
-              Select exactly {q.multi} answers.
+              Select exactly {question.multi} answers.
             </div>
           )}
 
           <div className='space-y-3'>
-            {q.opts.map((opt, i) => {
+            {question.opts.map((opt, i) => {
               let bgColor = "rgba(10,5,20,0.6)";
               let borderColor = "rgba(180,140,200,0.3)";
               let textColor = "#ede0f5";
 
               if (locked) {
-                if (q.ans.includes(i) && sel.has(i)) {
+                if (question.ans.includes(i) && sel.has(i)) {
                   bgColor = "rgba(29,158,117,0.2)";
                   borderColor = "#1D9E75";
                   textColor = "#b4f2d1";
-                } else if (q.ans.includes(i) && !sel.has(i)) {
+                } else if (question.ans.includes(i) && !sel.has(i)) {
                   bgColor = "rgba(243,156,18,0.2)";
                   borderColor = "#f39c12";
                   textColor = "#f8c471";
-                } else if (!q.ans.includes(i) && sel.has(i)) {
+                } else if (!question.ans.includes(i) && sel.has(i)) {
                   bgColor = "rgba(192,57,43,0.2)";
                   borderColor = "#c0392b";
                   textColor = "#f1948a";
@@ -2022,7 +2075,7 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
               className='w-full mt-4 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(74,144,217,0.2)] hover:bg-[rgba(74,144,217,0.3)] border'
               style={{ color: "#4a90d9", borderColor: "#4a90d9" }}
             >
-              Check Answer (select {q.multi})
+              Check Answer (select {question.multi})
             </button>
           )}
 
@@ -2038,7 +2091,7 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
                 className='p-4 text-sm leading-relaxed'
                 style={{ background: "rgba(29,158,117,0.1)", color: "#b4f2d1" }}
               >
-                {q.exp.correct.map((exp, idx) => (
+                {question.exp.correct.map((exp, idx) => (
                   <div key={idx} className='mb-3'>
                     <span className='font-semibold' style={{ color: "#1D9E75" }}>
                       CORRECT:
@@ -2046,7 +2099,7 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
                     {exp}
                   </div>
                 ))}
-                {q.exp.incorrect.map((exp, idx) => (
+                {question.exp.incorrect.map((exp, idx) => (
                   <div key={idx} className='mb-3'>
                     <span className='font-semibold' style={{ color: "#c0392b" }}>
                       INCORRECT:
