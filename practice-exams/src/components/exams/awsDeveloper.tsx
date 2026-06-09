@@ -1673,7 +1673,7 @@ export default function AWSDeveloperAssociate({ onBack }: { onBack: () => void }
         <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
           <button
             onClick={onBack}
-            className='mb-8 text-base tracking-wide transition-all hover:text-[#f2d8e8] hover:translate-x-[-4px]'
+            className='mb-8 text-base tracking-wide transition-all hover:text-[#f2d8e8] hover:translate-x-1'
             style={{ color: "#b89ab8" }}
           >
             ← Back to Dashboard
