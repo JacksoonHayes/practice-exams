@@ -30,9 +30,25 @@ export default function Dashboard({ onSelectExam }: { onSelectExam: (exam: ExamI
       id: 'ielts-academic',
       title: 'IELTS Academic',
       code: 'NZ',
-      description: 'New Zealand practice exam',
+      description: 'Reading & writing practice exam',
       icon: '',
       color: 'border-[#6ec99a]',
+    },
+    {
+      id: 'ielts-general',
+      title: 'IELTS General Training',
+      code: 'NZ · GT',
+      description: 'Reading & writing practice exam',
+      icon: '',
+      color: 'border-[#e0a8c9]',
+    },
+    {
+      id: 'pte-academic',
+      title: 'PTE Academic',
+      code: 'NZ · PTE',
+      description: 'Reading & writing practice exam',
+      icon: '',
+      color: 'border-[#7bc8ea]',
     },
   ];
 
@@ -104,7 +120,7 @@ export default function Dashboard({ onSelectExam }: { onSelectExam: (exam: ExamI
           <div className='flex items-center gap-4 mt-12 mb-8'>
             <div className='flex-1 h-px bg-[rgba(180,140,200,0.22)]'></div>
             <span className='text-sm tracking-wider' style={{ color: '#9a88b8' }}>
-              General Training
+              Language Exams
             </span>
             <div className='flex-1 h-px bg-[rgba(180,140,200,0.22)]'></div>
           </div>

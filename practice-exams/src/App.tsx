@@ -5,7 +5,9 @@ import type { ExamId } from './types';
 const AWSCloudPractitioner = lazy(() => import('./components/exams/awsCloudPractitioner'));
 const AWSDeveloper = lazy(() => import('./components/exams/awsDeveloper'));
 const ClaudeArchitect = lazy(() => import('./components/exams/claudeArchitect'));
-const IELTSAcademic = lazy(() => import('./components/exams/ieltsAcademic'));
+const IELTSAcademic = lazy(() => import('./components/exams/language/ieltsAcademic'));
+const IELTSGeneral = lazy(() => import('./components/exams/language/ieltsGeneral'));
+const PTEAcademic = lazy(() => import('./components/exams/language/pteAcademic'));
 
 function App() {
   const [currentView, setCurrentView] = useState<ExamId | 'dashboard'>('dashboard');
@@ -20,6 +22,10 @@ function App() {
         return <ClaudeArchitect onBack={() => setCurrentView('dashboard')} />;
       case 'ielts-academic':
         return <IELTSAcademic onBack={() => setCurrentView('dashboard')} />;
+      case 'ielts-general':
+        return <IELTSGeneral onBack={() => setCurrentView('dashboard')} />;
+      case 'pte-academic':
+        return <PTEAcademic onBack={() => setCurrentView('dashboard')} />;
       default:
         return <Dashboard onSelectExam={setCurrentView} />;
     }

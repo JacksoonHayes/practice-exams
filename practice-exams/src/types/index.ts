@@ -1,4 +1,10 @@
-export type ExamId = "aws-cloud-practitioner" | "aws-developer" | "claude-architect" | "ielts-academic";
+export type ExamId =
+  | "aws-cloud-practitioner"
+  | "aws-developer"
+  | "claude-architect"
+  | "ielts-academic"
+  | "ielts-general"
+  | "pte-academic";
 
 export type ExamCard = {
   id: ExamId;
