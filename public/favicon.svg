@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="36" height="36">
+  <!-- Argentina flag: three horizontal bands with the Sun of May -->
+  <rect width="36" height="36" fill="#fff"/>
+  <rect width="36" height="12" y="0" fill="#74acdf"/>
+  <rect width="36" height="12" y="24" fill="#74acdf"/>
+  <!-- Sun of May -->
+  <g transform="translate(18 18)" fill="#f6b40e" stroke="#85340a" stroke-width="0.3">
+    <g id="rays">
+      <g id="ray">
+        <polygon points="0,-9 0.9,-4.5 -0.9,-4.5"/>
+        <polygon points="0,-9 1.4,-4.6 0.6,-4.7" transform="rotate(11.25)"/>
+        <polygon points="0,-9 1.4,-4.6 0.6,-4.7" transform="rotate(-11.25)"/>
+      </g>
+      <use href="#ray" transform="rotate(45)"/>
+      <use href="#ray" transform="rotate(90)"/>
+      <use href="#ray" transform="rotate(135)"/>
+      <use href="#ray" transform="rotate(180)"/>
+      <use href="#ray" transform="rotate(225)"/>
+      <use href="#ray" transform="rotate(270)"/>
+      <use href="#ray" transform="rotate(315)"/>
+    </g>
+    <circle r="4.2" fill="#f6b40e" stroke="#85340a" stroke-width="0.4"/>
+  </g>
+</svg>
