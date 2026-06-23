@@ -111,7 +111,13 @@ export default function Dashboard({ onSelectExam }: { onSelectExam: (exam: ExamI
           >
             Practice Exams
           </h1>
-          <p className='text-base tracking-wide' style={{ color: "#9ab0c0" }}>
+          <p
+            className='text-base tracking-wide'
+            style={{
+              color: "#dce8f0",
+              textShadow: "1px 1px 0 #0a2230, 0 0 8px rgba(10,34,48,0.8)",
+            }}
+          >
             Select an exam to begin
           </p>
         </div>
