@@ -39,26 +39,26 @@ function App() {
             <div
               className='fixed inset-0 bg-cover'
               style={{
-                backgroundImage: 'url(/bg.jpg)',
-                backgroundPosition: 'center 0%',
+                backgroundImage: 'url(/CfKUpQS.jpg)',
+                backgroundPosition: 'center center',
                 backgroundAttachment: 'fixed',
-                filter: 'brightness(1) saturate(1)',
+                filter: 'brightness(1.25) saturate(1.05)',
               }}
             />
             <div
               className='fixed inset-0'
               style={{
                 background:
-                  'linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)',
+                  'linear-gradient(to bottom, rgba(15,25,35,0.30) 0%, rgba(10,18,28,0.70) 60%, rgba(8,14,22,0.90) 100%)',
               }}
             />
             <div className='relative z-10 flex items-center justify-center min-h-screen'>
               <div className='flex flex-col items-center gap-4'>
                 <div
                   className='w-12 h-12 border-4 border-t-transparent rounded-full animate-spin'
-                  style={{ borderColor: '#c9a8e0', borderTopColor: 'transparent' }}
+                  style={{ borderColor: '#a8cae0', borderTopColor: 'transparent' }}
                 ></div>
-                <p className='text-base tracking-wider' style={{ color: '#b89ab8' }}>
+                <p className='text-base tracking-wider' style={{ color: '#9ab0c0' }}>
                   Loading...
                 </p>
               </div>

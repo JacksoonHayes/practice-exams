@@ -1,16 +1,11 @@
-import { createContext, useContext, useMemo, useState } from 'react';
-import type { ReactNode } from 'react';
-
-/**
- * Shared UI kit for the language practice exams (IELTS Academic, IELTS General
- * Training, PTE). It keeps the violet/twilight theme of the app consistent and
- * holds the "check answers as you go" state so individual question components
- * can self-wire through context instead of threading props.
- */
+import type { ReactNode } from "react";
+import { createContext, useContext, useMemo, useRef, useState } from "react";
+import { streamWritingFeedback, translateToArgentineSpanish } from "../../../services/feedback";
 
 type Feedback = { correct: boolean; message: string };
 
 type ExamState = {
+  examName: string;
   answers: Record<string, string>;
   feedback: Record<string, Feedback>;
   multi: Record<string, string[]>;
@@ -25,17 +20,20 @@ const ExamContext = createContext<ExamState | null>(null);
 
 function useExam() {
   const ctx = useContext(ExamContext);
-  if (!ctx) throw new Error('Exam components must be rendered inside <ExamShell>');
+  if (!ctx) throw new Error("Exam components must be rendered inside <ExamShell>");
   return ctx;
 }
 
-const wordCount = (text: string) => text.trim().split(/\s+/).filter((w) => w.length > 0).length;
+const wordCount = (text: string) =>
+  text
+    .trim()
+    .split(/\s+/)
+    .filter((w) => w.length > 0).length;
 
-// ── Shared class strings ──────────────────────────────────────────────────
-const card = 'bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] p-6 backdrop-blur-sm';
-const innerBox = 'bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)]';
-const correctClasses = 'bg-[rgba(106,176,76,0.15)] border-[#6ab04c] text-[#b4d99a]';
-const incorrectClasses = 'bg-[rgba(214,48,49,0.15)] border-[#d63031] text-[#ff7675]';
+const card = "bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] p-6 backdrop-blur-sm";
+const innerBox = "bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)]";
+const correctClasses = "bg-[rgba(106,176,76,0.15)] border-[#6ab04c] text-[#b4d99a]";
+const incorrectClasses = "bg-[rgba(214,48,49,0.15)] border-[#d63031] text-[#ff7675]";
 
 function FeedbackBox({ id }: { id: string }) {
   const { feedback } = useExam();
@@ -51,15 +49,13 @@ function CheckButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className='mt-2 px-4 py-2 bg-[rgba(80,50,110,0.55)] hover:bg-[rgba(100,70,130,0.6)] border border-[rgba(180,140,200,0.22)] text-sm'
-      style={{ color: '#ede0f5' }}
+      className='mt-2 px-4 py-2 bg-[rgba(40,75,100,0.55)] hover:bg-[rgba(55,95,120,0.6)] border border-[rgba(150,180,200,0.22)] text-sm'
+      style={{ color: "#eaf2f8" }}
     >
       Check
     </button>
   );
 }
-
-// ── Layout primitives ─────────────────────────────────────────────────────
 
 export function SectionCard({ children }: { children: ReactNode }) {
   return <div className={card}>{children}</div>;
@@ -67,7 +63,7 @@ export function SectionCard({ children }: { children: ReactNode }) {
 
 export function PassageTitle({ children }: { children: ReactNode }) {
   return (
-    <h2 className='text-xl mb-4' style={{ color: '#ede0f5' }}>
+    <h2 className='text-xl mb-4' style={{ color: "#eaf2f8" }}>
       {children}
     </h2>
   );
@@ -75,7 +71,7 @@ export function PassageTitle({ children }: { children: ReactNode }) {
 
 export function Passage({ children }: { children: ReactNode }) {
   return (
-    <div className={`${innerBox} p-4 mb-6 text-sm leading-relaxed`} style={{ color: '#d4b894' }}>
+    <div className={`${innerBox} p-4 mb-6 text-sm leading-relaxed`} style={{ color: "#cdd9c0" }}>
       {children}
     </div>
   );
@@ -84,8 +80,8 @@ export function Passage({ children }: { children: ReactNode }) {
 export function Divider({ children }: { children: ReactNode }) {
   return (
     <div
-      className='text-xs uppercase tracking-wider mb-4 pb-2 border-b border-[rgba(180,140,200,0.22)]'
-      style={{ color: '#9a88b8' }}
+      className='text-xs uppercase tracking-wider mb-4 pb-2 border-b border-[rgba(150,180,200,0.22)]'
+      style={{ color: "#8ba3b8" }}
     >
       {children}
     </div>
@@ -94,7 +90,7 @@ export function Divider({ children }: { children: ReactNode }) {
 
 export function Instruction({ children }: { children: ReactNode }) {
   return (
-    <div className='text-sm mb-4' style={{ color: '#ede0f5' }}>
+    <div className='text-sm mb-4' style={{ color: "#eaf2f8" }}>
       {children}
     </div>
   );
@@ -102,13 +98,14 @@ export function Instruction({ children }: { children: ReactNode }) {
 
 export function TipBox({ accent, children }: { accent: string; children: ReactNode }) {
   return (
-    <div className='bg-[rgba(10,5,20,0.6)] border-l-4 p-4 text-sm' style={{ color: '#9a88b8', borderLeftColor: accent }}>
+    <div
+      className='bg-[rgba(8,16,24,0.6)] border-l-4 p-4 text-sm'
+      style={{ color: "#8ba3b8", borderLeftColor: accent }}
+    >
       {children}
     </div>
   );
 }
-
-// ── Question components ────────────────────────────────────────────────────
 
 export function QuestionInput({
   id,
@@ -125,20 +122,20 @@ export function QuestionInput({
   return (
     <div>
       {questionNum && (
-        <div className='text-xs uppercase tracking-wider mb-2' style={{ color: '#9a88b8' }}>
+        <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#8ba3b8" }}>
           {questionNum}
         </div>
       )}
-      <div className='text-sm mb-3' style={{ color: '#ede0f5' }}>
+      <div className='text-sm mb-3' style={{ color: "#eaf2f8" }}>
         {questionText}
       </div>
       <input
         type='text'
-        value={answers[id] || ''}
+        value={answers[id] || ""}
         onChange={(e) => setAnswer(id, e.target.value)}
         placeholder='Write your answer'
         className={`w-full px-3 py-2 ${innerBox} text-sm`}
-        style={{ color: '#ede0f5' }}
+        style={{ color: "#eaf2f8" }}
       />
       <CheckButton onClick={() => checkText(id, correctAnswers)} />
       <FeedbackBox id={id} />
@@ -163,11 +160,11 @@ export function MultipleChoice({
   return (
     <div>
       {questionNum && (
-        <div className='text-xs uppercase tracking-wider mb-2' style={{ color: '#9a88b8' }}>
+        <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#8ba3b8" }}>
           {questionNum}
         </div>
       )}
-      <div className='text-sm mb-3' style={{ color: '#ede0f5' }}>
+      <div className='text-sm mb-3' style={{ color: "#eaf2f8" }}>
         {questionText}
       </div>
       <div className='space-y-2'>
@@ -182,13 +179,13 @@ export function MultipleChoice({
                   ? feedback[id]?.correct
                     ? correctClasses
                     : incorrectClasses
-                  : 'bg-[rgba(10,5,20,0.6)] border-[rgba(180,140,200,0.3)] hover:bg-[rgba(40,30,50,0.6)]'
+                  : "bg-[rgba(8,16,24,0.6)] border-[rgba(150,180,200,0.3)] hover:bg-[rgba(28,40,52,0.6)]"
               }`}
             >
-              <span className='font-semibold' style={{ color: selected ? 'inherit' : '#9a88b8' }}>
+              <span className='font-semibold' style={{ color: selected ? "inherit" : "#8ba3b8" }}>
                 {option.letter}
               </span>
-              <span style={{ color: selected ? 'inherit' : '#ede0f5' }}>{option.text}</span>
+              <span style={{ color: selected ? "inherit" : "#eaf2f8" }}>{option.text}</span>
             </div>
           );
         })}
@@ -202,18 +199,18 @@ export function TrueFalse({
   id,
   questionText,
   correctAnswer,
-  variant = 'tfng',
+  variant = "tfng",
 }: {
   id: string;
   questionText: string;
   correctAnswer: string;
-  variant?: 'tfng' | 'ynng';
+  variant?: "tfng" | "ynng";
 }) {
   const { answers, feedback, select } = useExam();
-  const options = variant === 'ynng' ? ['Yes', 'No', 'Not Given'] : ['True', 'False', 'Not Given'];
+  const options = variant === "ynng" ? ["Yes", "No", "Not Given"] : ["True", "False", "Not Given"];
   return (
     <div>
-      <div className='text-sm mb-3' style={{ color: '#ede0f5' }}>
+      <div className='text-sm mb-3' style={{ color: "#eaf2f8" }}>
         {questionText}
       </div>
       <div className='flex gap-2 flex-wrap'>
@@ -228,7 +225,7 @@ export function TrueFalse({
                   ? feedback[id]?.correct
                     ? correctClasses
                     : incorrectClasses
-                  : 'bg-[rgba(10,5,20,0.6)] border-[rgba(180,140,200,0.3)] text-[#ede0f5] hover:bg-[rgba(40,30,50,0.6)]'
+                  : "bg-[rgba(8,16,24,0.6)] border-[rgba(150,180,200,0.3)] text-[#eaf2f8] hover:bg-[rgba(28,40,52,0.6)]"
               }`}
             >
               {option}
@@ -260,11 +257,11 @@ export function MultiSelect({
   return (
     <div>
       {questionNum && (
-        <div className='text-xs uppercase tracking-wider mb-2' style={{ color: '#9a88b8' }}>
+        <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#8ba3b8" }}>
           {questionNum}
         </div>
       )}
-      <div className='text-sm mb-3' style={{ color: '#ede0f5' }}>
+      <div className='text-sm mb-3' style={{ color: "#eaf2f8" }}>
         {questionText}
       </div>
       <div className='space-y-2'>
@@ -276,14 +273,14 @@ export function MultiSelect({
               onClick={() => toggleMulti(id, option.letter)}
               className={`flex gap-3 px-4 py-3 border cursor-pointer transition-colors text-sm ${
                 isChosen
-                  ? 'bg-[rgba(80,50,110,0.55)] border-[rgba(200,160,220,0.5)] text-[#ede0f5]'
-                  : 'bg-[rgba(10,5,20,0.6)] border-[rgba(180,140,200,0.3)] hover:bg-[rgba(40,30,50,0.6)]'
+                  ? "bg-[rgba(40,75,100,0.55)] border-[rgba(160,200,225,0.5)] text-[#eaf2f8]"
+                  : "bg-[rgba(8,16,24,0.6)] border-[rgba(150,180,200,0.3)] hover:bg-[rgba(28,40,52,0.6)]"
               }`}
             >
-              <span className='font-semibold' style={{ color: isChosen ? 'inherit' : '#9a88b8' }}>
+              <span className='font-semibold' style={{ color: isChosen ? "inherit" : "#8ba3b8" }}>
                 {option.letter}
               </span>
-              <span style={{ color: isChosen ? 'inherit' : '#ede0f5' }}>{option.text}</span>
+              <span style={{ color: isChosen ? "inherit" : "#eaf2f8" }}>{option.text}</span>
             </div>
           );
         })}
@@ -295,24 +292,16 @@ export function MultiSelect({
 }
 
 /** Inline drop-down used for fill-in-the-blank style questions. */
-export function Dropdown({
-  id,
-  options,
-  correctAnswer,
-}: {
-  id: string;
-  options: string[];
-  correctAnswer: string;
-}) {
+export function Dropdown({ id, options, correctAnswer }: { id: string; options: string[]; correctAnswer: string }) {
   const { answers, feedback, select } = useExam();
   const status = feedback[id];
-  const border = status ? (status.correct ? '#6ab04c' : '#d63031') : 'rgba(180,140,200,0.3)';
+  const border = status ? (status.correct ? "#6ab04c" : "#d63031") : "rgba(150,180,200,0.3)";
   return (
     <select
-      value={answers[id] || ''}
+      value={answers[id] || ""}
       onChange={(e) => select(id, e.target.value, correctAnswer)}
-      className='inline-block mx-1 px-2 py-1 bg-[rgba(10,5,20,0.85)] border text-sm align-middle'
-      style={{ color: '#ede0f5', borderColor: border }}
+      className='inline-block mx-1 px-2 py-1 bg-[rgba(8,16,24,0.85)] border text-sm align-middle'
+      style={{ color: "#eaf2f8", borderColor: border }}
     >
       <option value=''>— select —</option>
       {options.map((opt) => (
@@ -337,18 +326,18 @@ export function Reorder({ items }: { items: { key: string; text: string; correct
   const check = () => {
     const allFilled = items.every((it) => positions[it.key]);
     if (!allFilled) {
-      setResult({ correct: false, message: 'Assign a position to every paragraph first.' });
+      setResult({ correct: false, message: "Assign a position to every paragraph first." });
       return;
     }
     const allCorrect = items.every((it) => Number(positions[it.key]) === it.correctPos);
     setResult({
       correct: allCorrect,
       message: allCorrect
-        ? 'Correct! The paragraphs are in the right order.'
+        ? "Correct! The paragraphs are in the right order."
         : `Not quite. The correct order is: ${[...items]
             .sort((a, b) => a.correctPos - b.correctPos)
             .map((it) => it.key)
-            .join(' → ')}.`,
+            .join(" → ")}.`,
     });
   };
 
@@ -358,10 +347,10 @@ export function Reorder({ items }: { items: { key: string; text: string; correct
         {items.map((it) => (
           <div key={it.key} className={`flex gap-3 items-start px-4 py-3 ${innerBox}`}>
             <select
-              value={positions[it.key] || ''}
+              value={positions[it.key] || ""}
               onChange={(e) => setPositions({ ...positions, [it.key]: e.target.value })}
-              className='px-2 py-1 bg-[rgba(10,5,20,0.85)] border border-[rgba(180,140,200,0.3)] text-sm shrink-0'
-              style={{ color: '#ede0f5' }}
+              className='px-2 py-1 bg-[rgba(8,16,24,0.85)] border border-[rgba(150,180,200,0.3)] text-sm shrink-0'
+              style={{ color: "#eaf2f8" }}
             >
               <option value=''>#</option>
               {Array.from({ length: n }, (_, i) => i + 1).map((pos) => (
@@ -370,10 +359,10 @@ export function Reorder({ items }: { items: { key: string; text: string; correct
                 </option>
               ))}
             </select>
-            <span className='font-semibold shrink-0' style={{ color: '#9a88b8' }}>
+            <span className='font-semibold shrink-0' style={{ color: "#8ba3b8" }}>
               {it.key}
             </span>
-            <span className='text-sm' style={{ color: '#d4b894' }}>
+            <span className='text-sm' style={{ color: "#cdd9c0" }}>
               {it.text}
             </span>
           </div>
@@ -407,32 +396,89 @@ export function WritingTask({
   rows?: number;
   children?: ReactNode;
 }) {
-  const { answers, setAnswer } = useExam();
-  const text = answers[id] || '';
+  const { examName, answers, setAnswer } = useExam();
+  const text = answers[id] || "";
   const count = wordCount(text);
+
+  // Captures the rendered prompt + stimulus (incl. data tables) as plain text,
+  // so the feedback request sees exactly what the candidate saw.
+  const promptRef = useRef<HTMLDivElement>(null);
+
+  const [feedback, setFeedback] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const getFeedback = async () => {
+    if (!text.trim()) {
+      setError("Write your response first, then request feedback.");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    setFeedback("");
+    try {
+      await streamWritingFeedback(
+        {
+          exam: examName,
+          task: title || instructions,
+          prompt: promptRef.current?.textContent?.trim() || "",
+          answer: text,
+          minWords,
+        },
+        (chunk) => setFeedback((prev) => prev + chunk),
+      );
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong requesting feedback.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <SectionCard>
       {title && <PassageTitle>{title}</PassageTitle>}
-      <p className='text-sm mb-4' style={{ color: '#9a88b8' }}>
+      <p className='text-sm mb-4' style={{ color: "#8ba3b8" }}>
         {instructions}
       </p>
-      {prompt && (
-        <div className={`${innerBox} p-4 mb-6 text-sm leading-relaxed`} style={{ color: '#d4b894' }}>
-          {prompt}
-        </div>
-      )}
-      {children}
+      <div ref={promptRef}>
+        {prompt && (
+          <div className={`${innerBox} p-4 mb-6 text-sm leading-relaxed`} style={{ color: "#cdd9c0" }}>
+            {prompt}
+          </div>
+        )}
+        {children}
+      </div>
       <textarea
         value={text}
         onChange={(e) => setAnswer(id, e.target.value)}
         rows={rows}
         placeholder={`Write your response here (at least ${minWords} words)...`}
         className={`w-full px-3 py-2 ${innerBox} text-sm resize-y`}
-        style={{ color: '#ede0f5' }}
+        style={{ color: "#eaf2f8" }}
       />
-      <div className='text-xs text-right mt-2' style={{ color: count >= minWords ? '#b4d99a' : '#9a88b8' }}>
+      <div className='text-xs text-right mt-2' style={{ color: count >= minWords ? "#b4d99a" : "#8ba3b8" }}>
         {count} / {minWords} words
       </div>
+
+      <button
+        onClick={getFeedback}
+        disabled={loading}
+        className='mt-3 px-4 py-2 bg-[rgba(40,75,100,0.55)] hover:bg-[rgba(55,95,120,0.6)] border border-[rgba(150,180,200,0.22)] text-sm disabled:opacity-50 disabled:cursor-not-allowed'
+        style={{ color: "#eaf2f8" }}
+      >
+        {loading ? "Getting feedback…" : "✦ Get AI feedback"}
+      </button>
+
+      {error && <div className={`mt-2 px-3 py-2 text-sm border ${incorrectClasses}`}>{error}</div>}
+
+      {feedback && (
+        <div
+          className={`${innerBox} mt-3 p-4 text-sm leading-relaxed whitespace-pre-wrap`}
+          style={{ color: "#eaf2f8" }}
+        >
+          {feedback}
+        </div>
+      )}
     </SectionCard>
   );
 }
@@ -466,14 +512,15 @@ export function ExamShell<S extends string>({
 
   const value = useMemo<ExamState>(
     () => ({
+      examName: title,
       answers,
       feedback,
       multi,
       setAnswer: (id, val) => setAnswers((prev) => ({ ...prev, [id]: val })),
       checkText: (id, correctAnswers) => {
-        const userAnswer = (answers[id] || '').trim().toLowerCase();
+        const userAnswer = (answers[id] || "").trim().toLowerCase();
         if (!userAnswer) {
-          setFeedback((prev) => ({ ...prev, [id]: { correct: false, message: 'Please write an answer first.' } }));
+          setFeedback((prev) => ({ ...prev, [id]: { correct: false, message: "Please write an answer first." } }));
           return;
         }
         const isCorrect = correctAnswers.some((ans) => userAnswer === ans.toLowerCase());
@@ -481,7 +528,7 @@ export function ExamShell<S extends string>({
           ...prev,
           [id]: {
             correct: isCorrect,
-            message: isCorrect ? 'Correct! Well done.' : `Not quite. The correct answer is: ${correctAnswers[0]}`,
+            message: isCorrect ? "Correct! Well done." : `Not quite. The correct answer is: ${correctAnswers[0]}`,
           },
         }));
       },
@@ -492,7 +539,7 @@ export function ExamShell<S extends string>({
           ...prev,
           [id]: {
             correct: isCorrect,
-            message: isCorrect ? 'Correct!' : `Incorrect. The correct answer is ${correctAnswer}.`,
+            message: isCorrect ? "Correct!" : `Incorrect. The correct answer is ${correctAnswer}.`,
           },
         }));
       },
@@ -505,24 +552,24 @@ export function ExamShell<S extends string>({
       checkMulti: (id, correctAnswers) => {
         const chosen = multi[id] || [];
         if (chosen.length === 0) {
-          setFeedback((prev) => ({ ...prev, [id]: { correct: false, message: 'Select your answer(s) first.' } }));
+          setFeedback((prev) => ({ ...prev, [id]: { correct: false, message: "Select your answer(s) first." } }));
           return;
         }
-        const sortedChosen = [...chosen].sort().join(',');
-        const sortedCorrect = [...correctAnswers].sort().join(',');
+        const sortedChosen = [...chosen].sort().join(",");
+        const sortedCorrect = [...correctAnswers].sort().join(",");
         const isCorrect = sortedChosen === sortedCorrect;
         setFeedback((prev) => ({
           ...prev,
           [id]: {
             correct: isCorrect,
             message: isCorrect
-              ? 'Correct! Well done.'
-              : `Not quite. The correct answer is: ${[...correctAnswers].sort().join(', ')}.`,
+              ? "Correct! Well done."
+              : `Not quite. The correct answer is: ${[...correctAnswers].sort().join(", ")}.`,
           },
         }));
       },
     }),
-    [answers, feedback, multi],
+    [title, answers, feedback, multi],
   );
 
   return (
@@ -531,47 +578,49 @@ export function ExamShell<S extends string>({
         <div
           className='fixed inset-0 bg-cover'
           style={{
-            backgroundImage: 'url(/bg.jpg)',
-            backgroundPosition: 'center 0%',
-            backgroundAttachment: 'fixed',
-            filter: 'brightness(1) saturate(1)',
+            backgroundImage: "url(/CfKUpQS.jpg)",
+            backgroundPosition: "center center",
+            backgroundAttachment: "fixed",
+            filter: "brightness(1.25) saturate(1.05)",
           }}
         />
         <div
           className='fixed inset-0'
           style={{
             background:
-              'linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)',
+              "linear-gradient(to bottom, rgba(15,25,35,0.30) 0%, rgba(10,18,28,0.70) 60%, rgba(8,14,22,0.90) 100%)",
           }}
         />
+
+        <TranslatorPanel accent={accent} />
 
         <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
           <button
             onClick={onBack}
-            className='mb-8 text-base tracking-wide transition-all hover:text-[#f2d8e8] hover:translate-x-[-4px]'
-            style={{ color: '#b89ab8' }}
+            className='mb-8 inline-block px-3 py-2 text-base tracking-wide transition-all bg-[rgba(8,16,24,0.7)] hover:bg-[rgba(28,40,52,0.8)] border border-[rgba(150,180,200,0.3)] backdrop-blur-sm hover:translate-x-1'
+            style={{ color: "#eaf2f8" }}
           >
             ← Back to Dashboard
           </button>
 
           <div
-            className='bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] border-l-4 p-8 backdrop-blur-sm mb-6'
+            className='bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] border-l-4 p-8 backdrop-blur-sm mb-6'
             style={{ borderLeftColor: accent }}
           >
             <div className='mb-8'>
               <span
-                className='inline-block text-sm px-3 py-2 border border-[rgba(180,140,200,0.3)] bg-[rgba(10,5,20,0.6)] tracking-wider'
-                style={{ color: '#c9a8e0' }}
+                className='inline-block text-sm px-3 py-2 border border-[rgba(150,180,200,0.3)] bg-[rgba(8,16,24,0.6)] tracking-wider'
+                style={{ color: "#a8cae0" }}
               >
                 {code}
               </span>
               <h1
                 className='text-4xl mt-4 mb-2 tracking-wider'
-                style={{ color: '#f2d8e8', textShadow: '2px 2px 0 #3a1040, 0 0 12px rgba(200,140,220,0.4)' }}
+                style={{ color: "#e8f4fb", textShadow: "2px 2px 0 #0a2230, 0 0 12px rgba(150,200,225,0.4)" }}
               >
                 {title}
               </h1>
-              <p className='text-base tracking-wide' style={{ color: '#9a88b8' }}>
+              <p className='text-base tracking-wide' style={{ color: "#8ba3b8" }}>
                 {subtitle}
               </p>
             </div>
@@ -581,10 +630,10 @@ export function ExamShell<S extends string>({
                 <button
                   key={section}
                   onClick={() => onSectionChange(section)}
-                  className={`px-4 py-2 text-sm tracking-wide transition-colors border border-[rgba(180,140,200,0.22)] ${
+                  className={`px-4 py-2 text-sm tracking-wide transition-colors border border-[rgba(150,180,200,0.22)] ${
                     activeSection === section
-                      ? 'bg-[rgba(80,50,110,0.55)] text-[#ede0f5]'
-                      : 'bg-[rgba(10,5,20,0.6)] text-[#9a88b8] hover:bg-[rgba(40,30,50,0.6)]'
+                      ? "bg-[rgba(40,75,100,0.55)] text-[#eaf2f8]"
+                      : "bg-[rgba(8,16,24,0.6)] text-[#8ba3b8] hover:bg-[rgba(28,40,52,0.6)]"
                   }`}
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
@@ -597,5 +646,101 @@ export function ExamShell<S extends string>({
         </div>
       </div>
     </ExamContext.Provider>
+  );
+}
+
+/**
+ * Fixed translator panel on the left. The learner pastes/types an English word
+ * or phrase and gets its Argentinian Spanish translation on demand. The OpenAI
+ * call runs only when they submit (and results are cached), keeping costs low.
+ * Collapses to a small tab on narrow screens so it never covers the exam.
+ */
+function TranslatorPanel({ accent }: { accent: string }) {
+  const [term, setTerm] = useState("");
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(true);
+
+  const translate = async () => {
+    const q = term.trim();
+    if (!q) {
+      setError("Type or paste a word to translate.");
+      setResult("");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    setResult("");
+    try {
+      const translation = await translateToArgentineSpanish(q);
+      setResult(translation || "—");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Translation failed. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Hidden on small screens (the exam takes priority); shown from lg up.
+  return (
+    <div className='hidden lg:block fixed left-4 top-12 z-20 w-72'>
+      <div
+        className='bg-[rgba(12,20,28,0.85)] border border-[rgba(150,180,200,0.3)] border-l-4 backdrop-blur-sm'
+        style={{ borderLeftColor: accent }}
+      >
+        <button
+          onClick={() => setOpen((o) => !o)}
+          className='w-full flex items-center justify-between px-4 py-3 text-sm tracking-wide'
+          style={{ color: "#e8f4fb" }}
+        >
+          <span>✦ Translate</span>
+          <span style={{ color: "#8ba3b8" }}>{open ? "−" : "+"}</span>
+        </button>
+
+        {open && (
+          <div className='px-4 pb-4'>
+            <p className='text-xs mb-2' style={{ color: "#8ba3b8" }}>
+              Paste an English word for its Spanish translation.
+            </p>
+            <textarea
+              value={term}
+              onChange={(e) => setTerm(e.target.value)}
+              onKeyDown={(e) => {
+                // Enter translates; Shift+Enter inserts a newline.
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  void translate();
+                }
+              }}
+              rows={5}
+              placeholder='e.g. geothermal'
+              className='w-full px-3 py-2 bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] text-sm resize-none overflow-y-auto'
+              style={{ color: "#eaf2f8" }}
+            />
+            <button
+              onClick={() => void translate()}
+              disabled={loading}
+              className='mt-2 w-full px-3 py-2 text-sm bg-[rgba(40,75,100,0.55)] hover:bg-[rgba(55,95,120,0.6)] border border-[rgba(150,180,200,0.22)] disabled:opacity-50 disabled:cursor-not-allowed'
+              style={{ color: "#eaf2f8" }}
+            >
+              {loading ? "Translating…" : "Translate"}
+            </button>
+
+            {error && (
+              <div className={`mt-2 px-3 py-2 text-xs border ${incorrectClasses}`}>{error}</div>
+            )}
+            {result && (
+              <div
+                className='mt-2 px-3 py-2 text-sm bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)]'
+                style={{ color: "#cdd9c0" }}
+              >
+                {result}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

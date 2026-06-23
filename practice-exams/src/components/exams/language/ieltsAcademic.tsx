@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {
-  Divider,
   ExamShell,
   Instruction,
   MultipleChoice,
@@ -13,7 +12,7 @@ import {
   WritingTask,
 } from './examKit';
 
-type Section = 'reading' | 'writing';
+type Section = 'reading' | 'writing' | 'grammar' | 'connectors';
 
 const ACCENT = '#6ec99a';
 
@@ -23,10 +22,10 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
   return (
     <ExamShell
       accent={ACCENT}
-      code='NZ'
-      title='IELTS Academic — NZ Practice Exam'
-      subtitle='New Zealand context · Reading & Writing · Check answers as you go'
-      sections={['reading', 'writing'] as const}
+      code='ACADEMIC'
+      title='IELTS Academic — Practice Exam'
+      subtitle='Reading & Writing · Check answers as you go'
+      sections={['reading', 'writing', 'grammar', 'connectors'] as const}
       activeSection={activeSection}
       onSectionChange={setActiveSection}
       onBack={onBack}
@@ -34,14 +33,14 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
       {activeSection === 'reading' && (
         <div className='space-y-6'>
           <SectionCard>
-            <PassageTitle>Passage 1 — New Zealand's geothermal energy</PassageTitle>
+            <PassageTitle>Passage 1 — Geothermal energy</PassageTitle>
             <Passage>
               <p className='mb-3'>
-                New Zealand sits on the Pacific Ring of Fire, giving it access to one of the world's most reliable
-                sources of renewable energy: geothermal power. The Waikato region, in particular, hosts the Wairakei
-                Geothermal Power Station — one of the oldest in the world, having generated electricity since 1958.
-                Today, geothermal energy accounts for roughly 17 percent of New Zealand's electricity generation, making
-                it a cornerstone of the country's push toward 100 percent renewable electricity by 2030.
+                Geothermal power is one of the world's most reliable sources of renewable energy. Countries located on
+                volcanic belts have a particular advantage: one of the oldest large geothermal stations in the world has
+                been generating electricity continuously since 1958. Today, geothermal energy supplies a significant
+                share of electricity in several volcanic nations and is regarded as a cornerstone of efforts to reach
+                fully renewable power supplies.
               </p>
               <p className='mb-3'>
                 Geothermal energy is extracted by drilling wells into the earth's crust to access superheated steam and
@@ -50,118 +49,108 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
                 planners call "baseload" power — the steady minimum level of generation needed to meet constant demand.
               </p>
               <p className='mb-3'>
-                However, geothermal development is not without controversy in New Zealand. Several active geothermal
-                fields overlap with areas of deep cultural significance to Māori iwi (tribes). Rotorua's famous
-                geothermal landscape, for example, is considered taonga — a treasure — by local Māori, and any
-                development proposals require extensive consultation under the Resource Management Act 1991 and Treaty of
-                Waitangi principles. Critics argue that past geothermal extraction near Rotorua caused measurable
-                subsidence and the loss of natural geysers, underscoring the need for careful management.
+                However, geothermal development is not without controversy. Active geothermal fields often overlap with
+                areas of deep cultural and natural significance, and many governments now require extensive consultation
+                with local communities before approving new projects. Critics argue that past extraction caused
+                measurable ground subsidence and the loss of natural geysers, underscoring the need for careful
+                management and monitoring.
               </p>
               <p>
-                Despite these challenges, the New Zealand government has signalled support for expanding geothermal
-                capacity. Proponents argue that its minimal land footprint, low greenhouse gas emissions, and
-                reliability make it an ideal complement to variable renewable sources such as wind and solar. With
-                climate change placing mounting pressure on fossil fuel alternatives, New Zealand's geothermal sector is
-                widely seen as a model for other volcanic nations including Iceland and Kenya.
+                Despite these challenges, many governments have signalled support for expanding geothermal capacity.
+                Proponents argue that its minimal land footprint, low greenhouse gas emissions, and reliability make it
+                an ideal complement to variable renewable sources such as wind and solar. With climate change placing
+                mounting pressure on fossil fuel alternatives, the geothermal sector is widely seen as a model for
+                volcanic regions around the world.
               </p>
             </Passage>
 
-            <Divider>Questions 1–4 · True / False / Not Given</Divider>
             <div className='space-y-6'>
               <TrueFalse
                 id='r1'
-                questionText='1. The Wairakei Geothermal Power Station began operating before 1960.'
+                questionText='1. One of the oldest large geothermal stations has been producing electricity since before 1960.'
                 correctAnswer='True'
               />
               <TrueFalse
                 id='r2'
-                questionText="2. Geothermal power currently provides more than 20 percent of New Zealand's electricity."
+                questionText='2. Geothermal plants stop generating electricity during poor weather conditions.'
                 correctAnswer='False'
               />
               <TrueFalse
                 id='r3'
-                questionText='3. The Resource Management Act 1991 requires consultation with Māori before geothermal development.'
+                questionText='3. Many governments require consultation with local communities before approving new geothermal projects.'
                 correctAnswer='True'
               />
               <TrueFalse
                 id='r4'
-                questionText='4. Iceland imports geothermal technology from New Zealand.'
+                questionText='4. Geothermal energy is now the cheapest form of electricity in the world.'
                 correctAnswer='Not Given'
               />
             </div>
 
-            <div className='my-6'>
-              <Divider>Question 5 · Multiple choice</Divider>
-            </div>
-            <MultipleChoice
-              id='r5'
-              questionNum='Question 5'
-              questionText='What is the main advantage of geothermal energy over solar and wind power according to the passage?'
-              options={[
-                { letter: 'A', text: 'It produces no greenhouse gas emissions' },
-                { letter: 'B', text: 'It can operate continuously as baseload power' },
-                { letter: 'C', text: 'It requires less investment to build' },
-                { letter: 'D', text: 'It has no environmental impact' },
-              ]}
-              correctAnswer='B'
-            />
+            <div className='mt-10 space-y-6'>
+              <MultipleChoice
+                id='r5'
+                questionText='What is the main advantage of geothermal energy over solar and wind power according to the passage?'
+                options={[
+                  { letter: 'A', text: 'It produces no greenhouse gas emissions' },
+                  { letter: 'B', text: 'It can operate continuously as baseload power' },
+                  { letter: 'C', text: 'It requires less investment to build' },
+                  { letter: 'D', text: 'It has no environmental impact' },
+                ]}
+                correctAnswer='B'
+              />
 
-            <div className='my-6'>
-              <Divider>Question 6 · Short answer (max 3 words)</Divider>
+              <QuestionInput
+                id='r6'
+                questionText='What single word does the passage use for the steady minimum level of electricity generation needed to meet constant demand?'
+                correctAnswers={['baseload']}
+              />
             </div>
-            <QuestionInput
-              id='r6'
-              questionNum='Question 6'
-              questionText="What word does the passage use to describe Rotorua's geothermal landscape in terms of Māori cultural value?"
-              correctAnswers={['taonga']}
-            />
           </SectionCard>
 
           <SectionCard>
-            <PassageTitle>Passage 2 — The kiwi bird and conservation</PassageTitle>
+            <PassageTitle>Passage 2 — Island birds and invasive predators</PassageTitle>
             <Passage>
               <p className='mb-3'>
-                The kiwi, New Zealand's most iconic bird, is in trouble. Once widespread across both the North and South
-                Islands, kiwi populations have plummeted by roughly 70 percent since European colonisation began in the
-                19th century. Today, fewer than 70,000 kiwi remain in the wild, with all five species listed as either
-                vulnerable or endangered on the International Union for Conservation of Nature (IUCN) Red List.
+                Flightless and ground-nesting birds on remote islands are among the most threatened animals on Earth.
+                On many islands, native bird populations have plummeted by roughly 70 percent since human settlement,
+                and a large number of species are now listed as either vulnerable or endangered on the International
+                Union for Conservation of Nature (IUCN) Red List.
               </p>
               <p className='mb-3'>
-                The primary threat to kiwi survival is predation by introduced mammalian predators — stoats, ferrets,
-                rats, and possums — which were brought to New Zealand deliberately or accidentally by European settlers.
-                These animals were absent from New Zealand's ecosystems for millions of years, meaning native birds had
-                no evolutionary defences against them. Kiwi, being flightless and ground-nesting, are particularly
-                vulnerable; chick survival rates in areas without predator control can be as low as 5 percent.
+                The primary threat to these birds is predation by introduced mammalian predators — such as rats, stoats,
+                and feral cats — which were brought to the islands deliberately or accidentally by settlers. These
+                animals were absent from island ecosystems for millions of years, meaning native birds had no
+                evolutionary defences against them. Flightless, ground-nesting species are particularly vulnerable;
+                chick survival rates in areas without predator control can be as low as 5 percent.
               </p>
               <p className='mb-3'>
-                To combat this crisis, the New Zealand government launched Predator Free 2050 (PF2050) — an ambitious
-                goal to eradicate rats, stoats, and possums from the entire country by mid-century. The programme employs
-                a combination of trapping, 1080 poison aerial drops, and cutting-edge genetic biocontrol research.
-                Community groups, Māori organisations, schools, and businesses have all been enlisted as partners,
-                reflecting a broad societal commitment to ecological restoration.
+                To combat this crisis, several governments have launched ambitious programmes to eradicate introduced
+                predators from entire islands by the middle of this century. These programmes employ a combination of
+                trapping, targeted poison baiting, and cutting-edge genetic biocontrol research. Community groups,
+                schools, and businesses have all been enlisted as partners, reflecting a broad societal commitment to
+                ecological restoration.
               </p>
               <p>
-                Some conservationists remain cautious about timelines. Eradicating predators from large, rugged terrain —
-                including Fiordland's steep valleys — presents enormous logistical difficulties. Critics of 1080 also
-                argue that the poison affects non-target native species such as kea, though the Department of
-                Conservation maintains that the overall benefits of 1080 far outweigh its risks. Kiwi sanctuaries such as
-                Zealandia in Wellington and Maungatautari in the Waikato have demonstrated that, in predator-free
-                enclosures, kiwi populations can recover rapidly.
+                Some conservationists remain cautious about timelines. Eradicating predators from large, rugged terrain
+                presents enormous logistical difficulties. Critics of poison baiting also argue that it can affect
+                non-target native species, though wildlife agencies maintain that the overall benefits far outweigh the
+                risks. Fenced sanctuaries have demonstrated that, in predator-free enclosures, native bird populations
+                can recover rapidly.
               </p>
             </Passage>
 
-            <Divider>Questions 7–9 · Matching headings</Divider>
             <div className='mb-6'>
               <Instruction>Match each paragraph to the correct heading below. Write the Roman numeral (i–iv).</Instruction>
               <div
-                className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-4 mb-4 text-sm'
-                style={{ color: '#d4b894' }}
+                className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4 mb-4 text-sm'
+                style={{ color: '#cdd9c0' }}
               >
                 <strong>Headings:</strong>
                 <br />
                 i. A bold national eradication programme
                 <br />
-                ii. The scale of kiwi's decline
+                ii. The scale of the birds' decline
                 <br />
                 iii. Debate over methods and cautious optimism
                 <br />
@@ -170,136 +159,118 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
               <div className='space-y-4'>
                 <QuestionInput
                   id='r7'
-                  questionNum='Question 7'
                   questionText='Paragraph A (first paragraph):'
                   correctAnswers={['ii']}
                 />
                 <QuestionInput
                   id='r8'
-                  questionNum='Question 8'
                   questionText='Paragraph B (second paragraph):'
                   correctAnswers={['iv']}
                 />
                 <QuestionInput
                   id='r9'
-                  questionNum='Question 9'
                   questionText='Paragraph C (third paragraph):'
                   correctAnswers={['i']}
                 />
               </div>
             </div>
 
-            <Divider>Question 10 · Multiple choice</Divider>
-            <MultipleChoice
-              id='r10'
-              questionNum='Question 10'
-              questionText='What does the passage suggest about kiwi sanctuaries like Zealandia and Maungatautari?'
-              options={[
-                { letter: 'A', text: 'They prove eradication nationwide is impossible' },
-                { letter: 'B', text: 'They show kiwi can recover when predators are removed' },
-                { letter: 'C', text: 'They rely entirely on 1080 poison drops' },
-                { letter: 'D', text: 'They were established by Māori iwi alone' },
-              ]}
-              correctAnswer='B'
-            />
+            <div className='mt-10 space-y-6'>
+              <MultipleChoice
+                id='r10'
+                questionText='What does the passage suggest about fenced predator-free sanctuaries?'
+                options={[
+                  { letter: 'A', text: 'They prove eradication across whole islands is impossible' },
+                  { letter: 'B', text: 'They show native birds can recover when predators are removed' },
+                  { letter: 'C', text: 'They rely entirely on poison baiting' },
+                  { letter: 'D', text: 'They are funded only by local community groups' },
+                ]}
+                correctAnswer='B'
+              />
 
-            <div className='my-6'>
-              <Divider>Question 11 · Sentence completion (max 2 words)</Divider>
+              <QuestionInput
+                id='r11'
+                questionText='According to the passage, eradication programmes aim to remove introduced predators from entire islands by the middle of this _______.'
+                correctAnswers={['century']}
+              />
             </div>
-            <QuestionInput
-              id='r11'
-              questionNum='Question 11'
-              questionText='The programme Predator Free 2050 aims to eliminate three specific predators from New Zealand by the year _______.'
-              correctAnswers={['2050', 'mid-century']}
-            />
           </SectionCard>
 
           <SectionCard>
-            <PassageTitle>Passage 3 — The Māori language revitalisation</PassageTitle>
+            <PassageTitle>Passage 3 — Reviving an endangered language</PassageTitle>
             <Passage>
               <p className='mb-3'>
-                Te reo Māori, the indigenous language of New Zealand, has undergone a remarkable transformation over the
-                past fifty years. In the 1970s, the language was on the brink of extinction, with fewer than 20 percent
-                of Māori people able to speak it fluently. Today, thanks to deliberate policy interventions and
-                grassroots activism, te reo Māori is experiencing a resurgence that has captured international attention
-                as a model for endangered language revival.
+                Many indigenous languages around the world have undergone remarkable transformations over the past fifty
+                years. In numerous communities, a language that was on the brink of extinction in the 1970s — spoken
+                fluently by fewer than 20 percent of its people — has since experienced a resurgence. Thanks to
+                deliberate policy interventions and grassroots activism, several such languages now attract international
+                attention as models for endangered language revival.
               </p>
               <p className='mb-3'>
-                The turning point came in 1987 when te reo Māori was declared an official language of New Zealand under
-                the Māori Language Act. This legislative milestone was preceded by the establishment of kōhanga reo
-                (language nests) in 1982 — Māori-language preschools where children were immersed in te reo from an early
-                age. The kōhanga reo movement, initiated by Māori elders concerned about language loss, proved
-                extraordinarily successful. By 1990, over 800 kōhanga reo were operating nationwide, serving more than
-                14,000 children. These early-childhood centres became the foundation for a complete education pathway,
-                eventually expanding into kura kaupapa Māori (Māori-language primary schools) and wharekura (secondary
-                schools).
+                A common turning point comes when a threatened language is declared an official language and given legal
+                protection. In many cases this milestone was preceded by the establishment of "language nests" —
+                preschools where young children are immersed in the language from an early age. Initiated by community
+                elders concerned about language loss, these nests proved extraordinarily successful, and within a decade
+                hundreds were operating and serving thousands of children. They became the foundation for a complete
+                education pathway, eventually expanding into primary and secondary schools that teach in the language.
               </p>
               <p className='mb-3'>
-                Government support has been crucial but uneven. Te Māngai Pāho, a Crown entity established to promote
-                Māori language broadcasting, has funded radio stations and television programming since 1993. The
-                creation of the dedicated Māori Television channel in 2004 further normalised te reo in public life.
-                However, critics argue that resources remain insufficient. A 2019 review found that while public
-                awareness of te reo has grown significantly — with many New Zealanders now able to use basic greetings
-                and phrases — the number of fluent speakers has plateaued at around 20 percent of the Māori population,
-                roughly the same proportion as in the 1970s.
+                Government support has been crucial but uneven. Public funding for radio stations and television
+                programming in the language has helped normalise it in public life. However, critics argue that
+                resources remain insufficient. Reviews have found that while public awareness has grown significantly —
+                with many people now able to use basic greetings and phrases — the number of truly fluent speakers has
+                plateaued at around the same proportion as in the 1970s.
               </p>
               <p>
                 Linguists attribute the plateau to what they call "passive competence" — widespread recognition and
                 limited vocabulary, but insufficient deep fluency for transmission to the next generation. Addressing
-                this gap will require sustained investment in adult education and creating more domains where te reo is
-                the primary language of communication, not merely a symbolic gesture. Nonetheless, New Zealand's approach
-                has inspired similar initiatives in Hawaii, Scotland, and among Indigenous communities in Canada,
-                demonstrating that language revitalisation, though challenging, is achievable with political will and
-                community leadership.
+                this gap will require sustained investment in adult education and creating more domains where the
+                language is the primary means of communication, not merely a symbolic gesture. Nonetheless, these
+                approaches have inspired similar initiatives among indigenous communities worldwide, demonstrating that
+                language revitalisation, though challenging, is achievable with political will and community leadership.
               </p>
             </Passage>
 
-            <Divider>Questions 12–14 · Summary completion (choose from passage)</Divider>
             <div className='mb-6'>
               <Instruction>Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.</Instruction>
               <div
-                className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-4 mb-4 text-sm leading-relaxed'
-                style={{ color: '#d4b894' }}
+                className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4 mb-4 text-sm leading-relaxed'
+                style={{ color: '#cdd9c0' }}
               >
-                The Māori language was in danger of disappearing in the 1970s. The first major initiative to save it was
-                the creation of <strong>(12) _______</strong>, which were Māori-language preschools. These were
-                established in 1982 after concerns from Māori elders. By 1990, more than 14,000 children attended these
-                centres. The Māori Language Act of 1987 made te reo Māori an <strong>(13) _______</strong> of New
-                Zealand. Despite increased public awareness, the percentage of fluent speakers has remained at about 20
-                percent, which linguists explain is due to <strong>(14) _______</strong> rather than deep fluency.
+                Many indigenous languages were in danger of disappearing in the 1970s. A common first initiative to save
+                them is the creation of <strong>(12) _______</strong>, which are preschools where children are immersed
+                in the language. A key legal milestone comes when the language is declared an{' '}
+                <strong>(13) _______</strong> and given legal protection. Despite increased public awareness, the
+                percentage of fluent speakers has often remained low, which linguists explain is due to{' '}
+                <strong>(14) _______</strong> rather than deep fluency.
               </div>
               <div className='space-y-4'>
                 <QuestionInput
                   id='r12'
-                  questionNum='Question 12'
                   questionText='(12)'
-                  correctAnswers={['kōhanga reo', 'kohanga reo', 'language nests']}
+                  correctAnswers={['language nests', 'language nest']}
                 />
                 <QuestionInput
                   id='r13'
-                  questionNum='Question 13'
                   questionText='(13)'
                   correctAnswers={['official language']}
                 />
                 <QuestionInput
                   id='r14'
-                  questionNum='Question 14'
                   questionText='(14)'
                   correctAnswers={['passive competence']}
                 />
               </div>
             </div>
 
-            <Divider>Question 15 · Multiple choice</Divider>
             <MultipleChoice
               id='r15'
-              questionNum='Question 15'
-              questionText='According to the passage, what is needed to increase the number of fluent te reo Māori speakers beyond current levels?'
+              questionText='According to the passage, what is needed to increase the number of fluent speakers beyond current levels?'
               options={[
-                { letter: 'A', text: 'More Māori Television programming' },
-                { letter: 'B', text: 'Creating environments where te reo is the main language used' },
-                { letter: 'C', text: 'Teaching basic greetings to all New Zealanders' },
-                { letter: 'D', text: 'Establishing more kōhanga reo centres' },
+                { letter: 'A', text: 'More television programming in the language' },
+                { letter: 'B', text: 'Creating environments where the language is the main language used' },
+                { letter: 'C', text: 'Teaching basic greetings to the whole population' },
+                { letter: 'D', text: 'Establishing more language-nest preschools' },
               ]}
               correctAnswer='B'
             />
@@ -322,9 +293,9 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
             minWords={150}
             prompt={
               <>
-                The table below shows the number of international visitors to New Zealand from five countries in 2019 and
-                2023. Summarise the information by selecting and reporting the main features, and make comparisons where
-                relevant.
+                The table below shows the number of international visitors to one country from five source countries in
+                2019 and 2023. Summarise the information by selecting and reporting the main features, and make
+                comparisons where relevant.
               </>
             }
           >
@@ -335,8 +306,8 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
                     {['Country', '2019 (thousands)', '2023 (thousands)', 'Change'].map((h, i) => (
                       <th
                         key={h}
-                        className={`border border-[rgba(180,140,200,0.3)] px-3 py-2 ${i === 0 ? 'text-left' : 'text-right'}`}
-                        style={{ background: 'rgba(10,5,20,0.6)', color: '#9a88b8' }}
+                        className={`border border-[rgba(150,180,200,0.3)] px-3 py-2 ${i === 0 ? 'text-left' : 'text-right'}`}
+                        style={{ background: 'rgba(8,16,24,0.6)', color: '#8ba3b8' }}
                       >
                         {h}
                       </th>
@@ -352,23 +323,23 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
                     { country: 'India', y2019: '90', y2023: '170', change: '+88.9%', up: true },
                   ].map((row) => (
                     <tr key={row.country}>
-                      <td className='border border-[rgba(180,140,200,0.3)] px-3 py-2' style={{ color: '#ede0f5' }}>
+                      <td className='border border-[rgba(150,180,200,0.3)] px-3 py-2' style={{ color: '#eaf2f8' }}>
                         {row.country}
                       </td>
                       <td
-                        className='border border-[rgba(180,140,200,0.3)] px-3 py-2 text-right'
-                        style={{ color: '#ede0f5' }}
+                        className='border border-[rgba(150,180,200,0.3)] px-3 py-2 text-right'
+                        style={{ color: '#eaf2f8' }}
                       >
                         {row.y2019}
                       </td>
                       <td
-                        className='border border-[rgba(180,140,200,0.3)] px-3 py-2 text-right'
-                        style={{ color: '#ede0f5' }}
+                        className='border border-[rgba(150,180,200,0.3)] px-3 py-2 text-right'
+                        style={{ color: '#eaf2f8' }}
                       >
                         {row.y2023}
                       </td>
                       <td
-                        className='border border-[rgba(180,140,200,0.3)] px-3 py-2 text-right'
+                        className='border border-[rgba(150,180,200,0.3)] px-3 py-2 text-right'
                         style={{ color: row.up ? '#b4d99a' : '#ff7675' }}
                       >
                         {row.change}
@@ -395,7 +366,7 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
             prompt={
               <>
                 <strong>
-                  Some people believe that New Zealand should prioritise economic development over environmental
+                  Some people believe that countries should prioritise economic development over environmental
                   conservation. Others argue that protecting the natural environment must come first.
                 </strong>
                 <br />
@@ -418,17 +389,17 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
             minWords={150}
             prompt={
               <>
-                The graph below shows the percentage of households in New Zealand with internet access from 2000 to
+                The graph below shows the percentage of households in one country with internet access from 2000 to
                 2023. Summarise the information by selecting and reporting the main features, and make comparisons where
                 relevant.
               </>
             }
           >
-            <div className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-4 mb-6'>
-              <div className='text-center mb-3 text-sm font-semibold' style={{ color: '#c9a8e0' }}>
-                Percentage of NZ Households with Internet Access
+            <div className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4 mb-6'>
+              <div className='text-center mb-3 text-sm font-semibold' style={{ color: '#a8cae0' }}>
+                Percentage of Households with Internet Access
               </div>
-              <div className='flex items-end justify-around h-48 border-l-2 border-b-2 border-[rgba(180,140,200,0.3)] pl-2 pb-2'>
+              <div className='flex items-end justify-around h-48 border-l-2 border-b-2 border-[rgba(150,180,200,0.3)] pl-2 pb-2'>
                 {[
                   { year: '2000', pct: 37 },
                   { year: '2005', pct: 57 },
@@ -439,10 +410,10 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
                 ].map((bar) => (
                   <div key={bar.year} className='flex flex-col items-center gap-1'>
                     <div className='w-12 bg-[#7bc8ea]' style={{ height: `${bar.pct}%` }}></div>
-                    <div className='text-xs' style={{ color: '#9a88b8' }}>
+                    <div className='text-xs' style={{ color: '#8ba3b8' }}>
                       {bar.year}
                     </div>
-                    <div className='text-xs font-semibold' style={{ color: '#ede0f5' }}>
+                    <div className='text-xs font-semibold' style={{ color: '#eaf2f8' }}>
                       {bar.pct}%
                     </div>
                   </div>
@@ -450,6 +421,265 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
               </div>
             </div>
           </WritingTask>
+
+          <WritingTask
+            id='w4'
+            title='Task 4 — Academic essay'
+            instructions='Spend about 40 minutes on this task. Write at least 250 words. Write your answer in English — that is the skill being assessed.'
+            minWords={250}
+            rows={13}
+            prompt={
+              <>
+                <strong>
+                  In Argentina, football (soccer) plays a central role in social and cultural life. Some people argue that
+                  countries place too much importance on sport, while others believe it brings important social benefits.
+                </strong>
+                <br />
+                <br />
+                Discuss both views and give your own opinion. Support your answer with reasons and relevant examples.
+              </>
+            }
+          />
+
+          <TipBox accent={ACCENT}>
+            <strong>Task 4 tip:</strong> The topic is Argentine culture, but write entirely in English. Present both
+            views fairly before giving your own opinion, and develop each point with a specific example rather than
+            listing several briefly.
+          </TipBox>
+
+          <WritingTask
+            id='w5'
+            title='Task 5 — Problem & solution essay'
+            instructions='Spend about 40 minutes on this task. Write at least 250 words.'
+            minWords={250}
+            rows={13}
+            prompt={
+              <>
+                <strong>
+                  Cities such as Buenos Aires face growing traffic congestion and air pollution as more people move to
+                  urban areas.
+                </strong>
+                <br />
+                <br />
+                What problems does rapid urban growth cause, and what measures could governments and citizens take to
+                address them? Give reasons and examples to support your answer.
+              </>
+            }
+          />
+
+          <TipBox accent={ACCENT}>
+            <strong>Task 5 tip:</strong> For problem–solution essays, devote one paragraph to the problems and one to the
+            solutions, and make sure each solution clearly answers a problem you raised. The AI feedback explains issues
+            in Spanish and shows the improved English wording.
+          </TipBox>
+        </div>
+      )}
+
+      {activeSection === 'grammar' && (
+        <div className='space-y-6'>
+          <SectionCard>
+            <Instruction>
+              Choose the grammatically correct option. The topics are Argentine, but the focus is academic English
+              grammar — tenses, articles, agreement, and word form.
+            </Instruction>
+            <div className='space-y-6'>
+              <MultipleChoice
+                id='ag1'
+                questionText='1. The number of tourists visiting Patagonia ______ increased steadily over the past decade.'
+                options={[
+                  { letter: 'A', text: 'have' },
+                  { letter: 'B', text: 'has' },
+                  { letter: 'C', text: 'are' },
+                  { letter: 'D', text: 'is' },
+                ]}
+                correctAnswer='B'
+              />
+              <MultipleChoice
+                id='ag2'
+                questionText='2. Argentina is one of the world’s largest producers ______ beef.'
+                options={[
+                  { letter: 'A', text: 'of' },
+                  { letter: 'B', text: 'for' },
+                  { letter: 'C', text: 'in' },
+                  { letter: 'D', text: 'about' },
+                ]}
+                correctAnswer='A'
+              />
+              <MultipleChoice
+                id='ag3'
+                questionText='3. The research suggests that mate ______ several health benefits when consumed in moderation.'
+                options={[
+                  { letter: 'A', text: 'have' },
+                  { letter: 'B', text: 'having' },
+                  { letter: 'C', text: 'has' },
+                  { letter: 'D', text: 'is have' },
+                ]}
+                correctAnswer='C'
+              />
+              <MultipleChoice
+                id='ag4'
+                questionText='4. Tango ______ in Buenos Aires in the late nineteenth century.'
+                options={[
+                  { letter: 'A', text: 'originates' },
+                  { letter: 'B', text: 'has originated' },
+                  { letter: 'C', text: 'originated' },
+                  { letter: 'D', text: 'was originating' },
+                ]}
+                correctAnswer='C'
+              />
+              <MultipleChoice
+                id='ag5'
+                questionText='5. The government introduced new policies ______ protect the natural areas of Patagonia.'
+                options={[
+                  { letter: 'A', text: 'for' },
+                  { letter: 'B', text: 'to' },
+                  { letter: 'C', text: 'so' },
+                  { letter: 'D', text: 'that' },
+                ]}
+                correctAnswer='B'
+              />
+            </div>
+          </SectionCard>
+
+          <SectionCard>
+            <Instruction>
+              Write a short answer in English. Press <em>Check</em> to compare your answer and get encouraging AI
+              feedback.
+            </Instruction>
+            <div className='space-y-6'>
+              <QuestionInput
+                id='ag6'
+                questionText='Rewrite in the passive voice: "Argentine families prepare the asado slowly over hot coals."'
+                correctAnswers={[
+                  'The asado is prepared slowly over hot coals by Argentine families.',
+                  'The asado is prepared slowly over hot coals.',
+                ]}
+              />
+              <QuestionInput
+                id='ag7'
+                questionText='Complete with the correct article (a / an / the / —): "______ Iguazú Falls are among the largest waterfall systems in the world."'
+                correctAnswers={['The', 'the']}
+              />
+            </div>
+          </SectionCard>
+
+          <TipBox accent={ACCENT}>
+            <strong>Grammar tip:</strong> In academic writing, watch subject–verb agreement with phrases like "the number
+            of …" (singular) and choose tenses from time markers in the sentence. Read the full sentence before
+            answering.
+          </TipBox>
+        </div>
+      )}
+
+      {activeSection === 'connectors' && (
+        <div className='space-y-6'>
+          <SectionCard>
+            <Instruction>
+              Choose the best connecting word. The questions get harder as you go — from basic linkers to more advanced
+              academic ones.
+            </Instruction>
+            <div className='space-y-6'>
+              <MultipleChoice
+                id='ac1'
+                questionText='1. (Basic) Mate is popular in Argentina ______ it is now becoming popular in other countries too.'
+                options={[
+                  { letter: 'A', text: 'and' },
+                  { letter: 'B', text: 'but' },
+                  { letter: 'C', text: 'or' },
+                  { letter: 'D', text: 'so' },
+                ]}
+                correctAnswer='A'
+              />
+              <MultipleChoice
+                id='ac2'
+                questionText='2. (Basic) The city built more buses and trains, ______ traffic slowly got better.'
+                options={[
+                  { letter: 'A', text: 'so' },
+                  { letter: 'B', text: 'but' },
+                  { letter: 'C', text: 'or' },
+                  { letter: 'D', text: 'because' },
+                ]}
+                correctAnswer='A'
+              />
+              <MultipleChoice
+                id='ac3'
+                questionText='3. (Medium) ______ football is enormously popular, it influences fashion, music, and daily conversation in Argentina.'
+                options={[
+                  { letter: 'A', text: 'Although' },
+                  { letter: 'B', text: 'Because' },
+                  { letter: 'C', text: 'Despite' },
+                  { letter: 'D', text: 'Unless' },
+                ]}
+                correctAnswer='B'
+              />
+              <MultipleChoice
+                id='ac4'
+                questionText='4. (Medium) Tourism creates jobs in Patagonia; ______, it can place pressure on fragile ecosystems.'
+                options={[
+                  { letter: 'A', text: 'therefore' },
+                  { letter: 'B', text: 'however' },
+                  { letter: 'C', text: 'in addition' },
+                  { letter: 'D', text: 'for example' },
+                ]}
+                correctAnswer='B'
+              />
+              <MultipleChoice
+                id='ac5'
+                questionText='5. (Hard) Mate is deeply rooted in Argentine culture; ______, its popularity is now growing rapidly abroad.'
+                options={[
+                  { letter: 'A', text: 'moreover' },
+                  { letter: 'B', text: 'furthermore' },
+                  { letter: 'C', text: 'nevertheless' },
+                  { letter: 'D', text: 'because' },
+                ]}
+                correctAnswer='C'
+              />
+              <MultipleChoice
+                id='ac6'
+                questionText='6. (Hard) The city invested heavily in public transport; ______, traffic congestion began to fall.'
+                options={[
+                  { letter: 'A', text: 'consequently' },
+                  { letter: 'B', text: 'whereas' },
+                  { letter: 'C', text: 'although' },
+                  { letter: 'D', text: 'in contrast' },
+                ]}
+                correctAnswer='A'
+              />
+            </div>
+          </SectionCard>
+
+          <SectionCard>
+            <Instruction>
+              Combine the two ideas into ONE clear sentence using a suitable connector. Write in English and press{' '}
+              <em>Check</em> for AI feedback.
+            </Instruction>
+            <div className='space-y-6'>
+              <QuestionInput
+                id='ac7'
+                questionText='(Medium) Join with "so": "Buenos Aires has many tourists." + "The city must manage traffic carefully."'
+                correctAnswers={[
+                  'Buenos Aires has many tourists, so the city must manage traffic carefully.',
+                  'Buenos Aires has many tourists so the city must manage traffic carefully.',
+                ]}
+              />
+              <QuestionInput
+                id='ac8'
+                questionText='(Hard) Join into one academic sentence showing contrast: "Mate is a centuries-old tradition." + "It remains central to social life in modern Argentina."'
+                correctAnswers={[
+                  'Although mate is a centuries-old tradition, it remains central to social life in modern Argentina.',
+                  'Mate is a centuries-old tradition, yet it remains central to social life in modern Argentina.',
+                  'Mate is a centuries-old tradition; nevertheless, it remains central to social life in modern Argentina.',
+                ]}
+              />
+            </div>
+          </SectionCard>
+
+          <TipBox accent={ACCENT}>
+            <strong>Connecting words tip:</strong> Master the basics first — <em>and</em> (adds), <em>but</em>
+            (difference), <em>because</em> (reason), <em>so</em> (result). Then add academic range with{' '}
+            <em>although</em>, <em>however</em>, <em>nevertheless</em>, and <em>consequently</em>. Overusing one
+            connector lowers your cohesion score.
+          </TipBox>
         </div>
       )}
     </ExamShell>

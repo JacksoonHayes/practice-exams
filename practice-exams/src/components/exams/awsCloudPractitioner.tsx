@@ -1177,10 +1177,10 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
         <div
           className='fixed inset-0 bg-cover'
           style={{
-            backgroundImage: "url(/bg.jpg)",
-            backgroundPosition: "center 0%",
+            backgroundImage: "url(/CfKUpQS.jpg)",
+            backgroundPosition: "center center",
             backgroundAttachment: "fixed",
-            filter: "brightness(1) saturate(1)",
+            filter: "brightness(1.25) saturate(1.05)",
           }}
         />
 
@@ -1188,52 +1188,52 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           className='fixed inset-0'
           style={{
             background:
-              "linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)",
+              "linear-gradient(to bottom, rgba(15,25,35,0.30) 0%, rgba(10,18,28,0.70) 60%, rgba(8,14,22,0.90) 100%)",
           }}
         />
 
         <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
           <button
             onClick={onBack}
-            className='mb-8 text-base tracking-wide transition-all hover:text-[#f2d8e8] hover:translate-x-1'
-            style={{ color: "#b89ab8" }}
+            className='mb-8 inline-block px-3 py-2 text-base tracking-wide transition-all bg-[rgba(8,16,24,0.7)] hover:bg-[rgba(28,40,52,0.8)] border border-[rgba(150,180,200,0.3)] backdrop-blur-sm hover:translate-x-1'
+            style={{ color: "#eaf2f8" }}
           >
             ← Back to Dashboard
           </button>
 
-          <div className='bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] border-l-4 border-l-[#7bc8ea] p-8 backdrop-blur-sm'>
+          <div className='bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] border-l-4 border-l-[#7bc8ea] p-8 backdrop-blur-sm'>
             <div className='mb-8'>
               <span
-                className='inline-block text-sm px-3 py-2 border border-[rgba(180,140,200,0.3)] bg-[rgba(10,5,20,0.6)] tracking-wider'
-                style={{ color: "#c9a8e0" }}
+                className='inline-block text-sm px-3 py-2 border border-[rgba(150,180,200,0.3)] bg-[rgba(8,16,24,0.6)] tracking-wider'
+                style={{ color: "#a8cae0" }}
               >
                 CLF-C02
               </span>
               <h1
                 className='text-4xl mt-4 mb-2 tracking-wider'
                 style={{
-                  color: "#f2d8e8",
-                  textShadow: "2px 2px 0 #3a1040, 0 0 12px rgba(200,140,220,0.4)",
+                  color: "#e8f4fb",
+                  textShadow: "2px 2px 0 #0a2230, 0 0 12px rgba(150,200,225,0.4)",
                 }}
               >
                 AWS Cloud Practitioner
               </h1>
-              <p className='text-base tracking-wide mt-2' style={{ color: "#9a88b8" }}>
+              <p className='text-base tracking-wide mt-2' style={{ color: "#8ba3b8" }}>
                 A challenging practice exam to test your AWS Cloud Practitioner knowledge
               </p>
             </div>
 
-            <div className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-6 mb-8'>
+            <div className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-6 mb-8'>
               <h2
                 className='text-2xl mb-4 tracking-wide'
                 style={{
-                  color: "#ede0f5",
-                  textShadow: "1px 1px 0 #3a1040",
+                  color: "#eaf2f8",
+                  textShadow: "1px 1px 0 #0a2230",
                 }}
               >
                 Exam Details
               </h2>
-              <div className='space-y-3 text-base tracking-wide' style={{ color: "#9a88b8" }}>
+              <div className='space-y-3 text-base tracking-wide' style={{ color: "#8ba3b8" }}>
                 <div className='flex items-start gap-3'>
                   <span style={{ color: "#7bc8ea" }}>•</span>
                   <span>49 questions</span>
@@ -1262,8 +1262,8 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
 
             <button
               onClick={startExam}
-              className='w-full py-4 text-lg font-semibold tracking-wide transition-all bg-[rgba(80,50,110,0.55)] hover:bg-[rgba(100,70,130,0.7)] border border-[rgba(180,140,200,0.22)]'
-              style={{ color: "#ede0f5" }}
+              className='w-full py-4 text-lg font-semibold tracking-wide transition-all bg-[rgba(40,75,100,0.55)] hover:bg-[rgba(55,95,120,0.7)] border border-[rgba(150,180,200,0.22)]'
+              style={{ color: "#eaf2f8" }}
             >
               Start Exam
             </button>
@@ -1304,10 +1304,10 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
         <div
           className='fixed inset-0 bg-cover'
           style={{
-            backgroundImage: "url(/bg.jpg)",
-            backgroundPosition: "center 0%",
+            backgroundImage: "url(/CfKUpQS.jpg)",
+            backgroundPosition: "center center",
             backgroundAttachment: "fixed",
-            filter: "brightness(1) saturate(1)",
+            filter: "brightness(1.25) saturate(1.05)",
           }}
         />
 
@@ -1315,59 +1315,59 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           className='fixed inset-0'
           style={{
             background:
-              "linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)",
+              "linear-gradient(to bottom, rgba(15,25,35,0.30) 0%, rgba(10,18,28,0.70) 60%, rgba(8,14,22,0.90) 100%)",
           }}
         />
 
         <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
-          <div className='bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] p-8 backdrop-blur-sm text-center'>
+          <div className='bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] p-8 backdrop-blur-sm text-center'>
             <div className='text-7xl font-bold mb-4' style={{ color: passed ? "#1D9E75" : "#c0392b" }}>
               {pct}%
             </div>
             <div className='text-2xl font-semibold mb-2' style={{ color: passed ? "#1D9E75" : "#c0392b" }}>
               {passed ? "PASS -- Excellent work!" : "FAIL -- Review your weak areas"}
             </div>
-            <div className='text-base mb-8' style={{ color: "#9a88b8" }}>
+            <div className='text-base mb-8' style={{ color: "#8ba3b8" }}>
               (passing score: 70%)
             </div>
 
             <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-8'>
-              <div className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-4'>
-                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#9a88b8" }}>
+              <div className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4'>
+                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#8ba3b8" }}>
                   Correct
                 </div>
                 <div className='text-3xl font-bold' style={{ color: "#1D9E75" }}>
                   {correct}
                 </div>
               </div>
-              <div className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-4'>
-                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#9a88b8" }}>
+              <div className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4'>
+                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#8ba3b8" }}>
                   Incorrect
                 </div>
                 <div className='text-3xl font-bold' style={{ color: "#c0392b" }}>
                   {total - correct - unanswered}
                 </div>
               </div>
-              <div className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-4'>
-                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#9a88b8" }}>
+              <div className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4'>
+                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#8ba3b8" }}>
                   Unanswered
                 </div>
-                <div className='text-3xl font-bold' style={{ color: "#ede0f5" }}>
+                <div className='text-3xl font-bold' style={{ color: "#eaf2f8" }}>
                   {unanswered}
                 </div>
               </div>
-              <div className='bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)] p-4'>
-                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#9a88b8" }}>
+              <div className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4'>
+                <div className='text-xs uppercase tracking-wider mb-2' style={{ color: "#8ba3b8" }}>
                   Time used
                 </div>
-                <div className='text-3xl font-bold' style={{ color: "#ede0f5" }}>
+                <div className='text-3xl font-bold' style={{ color: "#eaf2f8" }}>
                   {mins}:{String(scs).padStart(2, "0")}
                 </div>
               </div>
             </div>
 
             <div className='text-left mb-8'>
-              <h4 className='text-lg font-semibold mb-4' style={{ color: "#ede0f5" }}>
+              <h4 className='text-lg font-semibold mb-4' style={{ color: "#eaf2f8" }}>
                 Performance by Domain
               </h4>
               <div className='space-y-4'>
@@ -1375,13 +1375,13 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
                   const domainPct = Math.round((score.correct / score.total) * 100);
                   return (
                     <div key={domain}>
-                      <div className='flex justify-between text-sm mb-2' style={{ color: "#9a88b8" }}>
+                      <div className='flex justify-between text-sm mb-2' style={{ color: "#8ba3b8" }}>
                         <span>{domain}</span>
                         <span>
                           {score.correct}/{score.total} ({domainPct}%)
                         </span>
                       </div>
-                      <div className='h-2 bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)]'>
+                      <div className='h-2 bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)]'>
                         <div
                           className='h-full transition-all'
                           style={{
@@ -1399,22 +1399,22 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
             <div className='space-y-3'>
               <button
                 onClick={reviewAll}
-                className='w-full py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(80,50,110,0.55)] hover:bg-[rgba(100,70,130,0.7)] border border-[rgba(180,140,200,0.22)]'
-                style={{ color: "#ede0f5" }}
+                className='w-full py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(40,75,100,0.55)] hover:bg-[rgba(55,95,120,0.7)] border border-[rgba(150,180,200,0.22)]'
+                style={{ color: "#eaf2f8" }}
               >
                 Review All Questions & Explanations
               </button>
               <button
                 onClick={restart}
-                className='w-full py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(10,5,20,0.6)] hover:bg-[rgba(40,30,50,0.6)] border border-[rgba(180,140,200,0.22)]'
-                style={{ color: "#ede0f5" }}
+                className='w-full py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(8,16,24,0.6)] hover:bg-[rgba(28,40,52,0.6)] border border-[rgba(150,180,200,0.22)]'
+                style={{ color: "#eaf2f8" }}
               >
                 New Shuffle & Start Over
               </button>
               <button
                 onClick={onBack}
-                className='w-full py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(10,5,20,0.6)] hover:bg-[rgba(40,30,50,0.6)] border border-[rgba(180,140,200,0.22)]'
-                style={{ color: "#ede0f5" }}
+                className='w-full py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(8,16,24,0.6)] hover:bg-[rgba(28,40,52,0.6)] border border-[rgba(150,180,200,0.22)]'
+                style={{ color: "#eaf2f8" }}
               >
                 Back to Dashboard
               </button>
@@ -1436,10 +1436,10 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
       <div
         className='fixed inset-0 bg-cover'
         style={{
-          backgroundImage: "url(/bg.jpg)",
-          backgroundPosition: "center 0%",
+          backgroundImage: "url(/CfKUpQS.jpg)",
+          backgroundPosition: "center center",
           backgroundAttachment: "fixed",
-          filter: "brightness(1) saturate(1)",
+          filter: "brightness(1.25) saturate(1.05)",
         }}
       />
 
@@ -1447,30 +1447,30 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
         className='fixed inset-0'
         style={{
           background:
-            "linear-gradient(to bottom, rgba(20,12,35,0.25) 0%, rgba(10,6,22,0.72) 60%, rgba(8,4,18,0.92) 100%)",
+            "linear-gradient(to bottom, rgba(15,25,35,0.30) 0%, rgba(10,18,28,0.70) 60%, rgba(8,14,22,0.90) 100%)",
         }}
       />
 
       <div className='relative z-10 container mx-auto px-4 py-8 max-w-5xl'>
-        <div className='flex items-center justify-between mb-4 bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] p-4 backdrop-blur-sm'>
-          <h2 className='text-xl tracking-wide' style={{ color: "#f2d8e8" }}>
+        <div className='flex items-center justify-between mb-4 bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] p-4 backdrop-blur-sm'>
+          <h2 className='text-xl tracking-wide' style={{ color: "#e8f4fb" }}>
             CLF-C02 Hard Practice Exam
           </h2>
           <div className='flex items-center gap-3'>
             <div
               className={`text-base font-bold px-4 py-2 border ${seconds <= 300 ? "animate-pulse" : ""}`}
               style={{
-                color: seconds <= 300 ? "#c0392b" : "#ede0f5",
-                background: seconds <= 300 ? "rgba(192,57,43,0.15)" : "rgba(10,5,20,0.6)",
-                borderColor: seconds <= 300 ? "#c0392b" : "rgba(180,140,200,0.3)",
+                color: seconds <= 300 ? "#c0392b" : "#eaf2f8",
+                background: seconds <= 300 ? "rgba(192,57,43,0.15)" : "rgba(8,16,24,0.6)",
+                borderColor: seconds <= 300 ? "#c0392b" : "rgba(150,180,200,0.3)",
               }}
             >
               {formatTime(seconds)}
             </div>
             <button
               onClick={() => setPaused(!paused)}
-              className='px-4 py-2 text-sm tracking-wide transition-all bg-[rgba(10,5,20,0.6)] hover:bg-[rgba(40,30,50,0.6)] border border-[rgba(180,140,200,0.22)]'
-              style={{ color: "#ede0f5" }}
+              className='px-4 py-2 text-sm tracking-wide transition-all bg-[rgba(8,16,24,0.6)] hover:bg-[rgba(28,40,52,0.6)] border border-[rgba(150,180,200,0.22)]'
+              style={{ color: "#eaf2f8" }}
             >
               {paused ? "Resume" : "Pause"}
             </button>
@@ -1497,8 +1497,8 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           </div>
         </div>
 
-        <div className='bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] p-4 backdrop-blur-sm mb-4'>
-          <div className='flex justify-between text-sm mb-2' style={{ color: "#9a88b8" }}>
+        <div className='bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] p-4 backdrop-blur-sm mb-4'>
+          <div className='flex justify-between text-sm mb-2' style={{ color: "#8ba3b8" }}>
             <span>
               Question {currentQuestion + 1} of {questions.length}
             </span>
@@ -1506,7 +1506,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
               {answeredCount()} answered · {flagged.size} flagged
             </span>
           </div>
-          <div className='h-2 bg-[rgba(10,5,20,0.6)] border border-[rgba(180,140,200,0.3)]'>
+          <div className='h-2 bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)]'>
             <div
               className='h-full transition-all'
               style={{
@@ -1519,17 +1519,17 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
 
         {paused && (
           <div className='fixed inset-0 bg-[rgba(0,0,0,0.8)] z-50 flex items-center justify-center'>
-            <div className='bg-[rgba(15,8,28,0.95)] border border-[rgba(180,140,200,0.22)] p-8 text-center max-w-md'>
-              <h3 className='text-3xl mb-4' style={{ color: "#f2d8e8" }}>
+            <div className='bg-[rgba(12,20,28,0.95)] border border-[rgba(150,180,200,0.22)] p-8 text-center max-w-md'>
+              <h3 className='text-3xl mb-4' style={{ color: "#e8f4fb" }}>
                 Exam Paused
               </h3>
-              <p className='text-base mb-6' style={{ color: "#9a88b8" }}>
+              <p className='text-base mb-6' style={{ color: "#8ba3b8" }}>
                 Timer stopped. Your answers are saved.
               </p>
               <button
                 onClick={() => setPaused(false)}
-                className='px-8 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(80,50,110,0.55)] hover:bg-[rgba(100,70,130,0.7)] border border-[rgba(180,140,200,0.22)]'
-                style={{ color: "#ede0f5" }}
+                className='px-8 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(40,75,100,0.55)] hover:bg-[rgba(55,95,120,0.7)] border border-[rgba(150,180,200,0.22)]'
+                style={{ color: "#eaf2f8" }}
               >
                 Resume Exam
               </button>
@@ -1546,14 +1546,14 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           </div>
         )}
 
-        <div className='bg-[rgba(15,8,28,0.75)] border border-[rgba(180,140,200,0.22)] p-6 backdrop-blur-sm mb-4'>
+        <div className='bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] p-6 backdrop-blur-sm mb-4'>
           <div className='flex items-start justify-between mb-4'>
             <div className='flex items-center gap-3 flex-wrap'>
-              <span className='text-xs uppercase tracking-wider' style={{ color: "#9a88b8" }}>
+              <span className='text-xs uppercase tracking-wider' style={{ color: "#8ba3b8" }}>
                 question{currentQuestion + 1}
               </span>
               <span
-                className='text-xs px-3 py-1 border border-[rgba(180,140,200,0.3)] bg-[rgba(10,5,20,0.6)]'
+                className='text-xs px-3 py-1 border border-[rgba(150,180,200,0.3)] bg-[rgba(8,16,24,0.6)]'
                 style={{ color: "#7bc8ea" }}
               >
                 {question.domain}
@@ -1580,21 +1580,21 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
             </button>
           </div>
 
-          <div className='text-base leading-relaxed mb-6' style={{ color: "#ede0f5" }}>
+          <div className='text-base leading-relaxed mb-6' style={{ color: "#eaf2f8" }}>
             {question.question}
           </div>
 
           {multi && (
-            <div className='text-sm italic mb-4' style={{ color: "#9a88b8" }}>
+            <div className='text-sm italic mb-4' style={{ color: "#8ba3b8" }}>
               Select exactly {question.multi} answers.
             </div>
           )}
 
           <div className='space-y-3'>
             {question.opts.map((opt, i) => {
-              let bgColor = "rgba(10,5,20,0.6)";
-              let borderColor = "rgba(180,140,200,0.3)";
-              let textColor = "#ede0f5";
+              let bgColor = "rgba(8,16,24,0.6)";
+              let borderColor = "rgba(150,180,200,0.3)";
+              let textColor = "#eaf2f8";
 
               if (locked) {
                 if (question.ans.includes(i) && sel.has(i)) {
@@ -1621,7 +1621,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
                   key={i}
                   onClick={() => pickOption(i)}
                   className={`flex items-start gap-3 p-4 border transition-all ${
-                    !locked && !paused ? "cursor-pointer hover:bg-[rgba(80,50,110,0.3)]" : ""
+                    !locked && !paused ? "cursor-pointer hover:bg-[rgba(40,75,100,0.3)]" : ""
                   }`}
                   style={{
                     background: bgColor,
@@ -1664,7 +1664,7 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           )}
 
           {locked && (
-            <div className='mt-6 border border-[rgba(180,140,200,0.22)]'>
+            <div className='mt-6 border border-[rgba(150,180,200,0.22)]'>
               <div
                 className='px-4 py-2 text-xs uppercase tracking-wider font-semibold'
                 style={{
@@ -1706,31 +1706,31 @@ export default function AWSCloudPractitioner({ onBack }: { onBack: () => void })
           <button
             onClick={() => goToQuestion(-1)}
             disabled={currentQuestion === 0}
-            className='flex-1 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(10,5,20,0.6)] hover:bg-[rgba(40,30,50,0.6)] border border-[rgba(180,140,200,0.22)] disabled:opacity-30 disabled:cursor-not-allowed'
-            style={{ color: "#ede0f5" }}
+            className='flex-1 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(8,16,24,0.6)] hover:bg-[rgba(28,40,52,0.6)] border border-[rgba(150,180,200,0.22)] disabled:opacity-30 disabled:cursor-not-allowed'
+            style={{ color: "#eaf2f8" }}
           >
             ← Prev
           </button>
           <button
             onClick={jumpToNextFlagged}
-            className='px-6 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(10,5,20,0.6)] hover:bg-[rgba(40,30,50,0.6)] border border-[rgba(180,140,200,0.22)]'
-            style={{ color: "#ede0f5" }}
+            className='px-6 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(8,16,24,0.6)] hover:bg-[rgba(28,40,52,0.6)] border border-[rgba(150,180,200,0.22)]'
+            style={{ color: "#eaf2f8" }}
           >
             ⚑ ({flagged.size})
           </button>
           {currentQuestion < questions.length - 1 ? (
             <button
               onClick={() => goToQuestion(1)}
-              className='flex-1 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(10,5,20,0.6)] hover:bg-[rgba(40,30,50,0.6)] border border-[rgba(180,140,200,0.22)]'
-              style={{ color: "#ede0f5" }}
+              className='flex-1 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(8,16,24,0.6)] hover:bg-[rgba(28,40,52,0.6)] border border-[rgba(150,180,200,0.22)]'
+              style={{ color: "#eaf2f8" }}
             >
               Next →
             </button>
           ) : (
             <button
               onClick={submitExam}
-              className='flex-1 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(80,50,110,0.55)] hover:bg-[rgba(100,70,130,0.7)] border border-[rgba(180,140,200,0.22)]'
-              style={{ color: "#ede0f5" }}
+              className='flex-1 py-3 text-base font-semibold tracking-wide transition-all bg-[rgba(40,75,100,0.55)] hover:bg-[rgba(55,95,120,0.7)] border border-[rgba(150,180,200,0.22)]'
+              style={{ color: "#eaf2f8" }}
             >
               Submit Exam
             </button>
