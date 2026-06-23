@@ -172,6 +172,11 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
                   questionText='Paragraph C (third paragraph):'
                   correctAnswers={['1']}
                 />
+                <QuestionInput
+                  id='r9b'
+                  questionText='Paragraph D (fourth paragraph):'
+                  correctAnswers={['3']}
+                />
               </div>
             </div>
 
