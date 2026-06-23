@@ -141,36 +141,36 @@ export default function IELTSAcademic({ onBack }: { onBack: () => void }) {
             </Passage>
 
             <div className='mb-6'>
-              <Instruction>Match each paragraph to the correct heading below. Write the Roman numeral (i–iv).</Instruction>
+              <Instruction>Match each paragraph to the correct heading below. Write the number (1–4).</Instruction>
               <div
                 className='bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] p-4 mb-4 text-sm'
                 style={{ color: '#cdd9c0' }}
               >
                 <strong>Headings:</strong>
                 <br />
-                i. A bold national eradication programme
+                1. A bold national eradication programme
                 <br />
-                ii. The scale of the birds' decline
+                2. The scale of the birds' decline
                 <br />
-                iii. Debate over methods and cautious optimism
+                3. Debate over methods and cautious optimism
                 <br />
-                iv. Why introduced species are so deadly
+                4. Why introduced species are so deadly
               </div>
               <div className='space-y-4'>
                 <QuestionInput
                   id='r7'
                   questionText='Paragraph A (first paragraph):'
-                  correctAnswers={['ii']}
+                  correctAnswers={['2']}
                 />
                 <QuestionInput
                   id='r8'
                   questionText='Paragraph B (second paragraph):'
-                  correctAnswers={['iv']}
+                  correctAnswers={['4']}
                 />
                 <QuestionInput
                   id='r9'
                   questionText='Paragraph C (third paragraph):'
-                  correctAnswers={['i']}
+                  correctAnswers={['1']}
                 />
               </div>
             </div>

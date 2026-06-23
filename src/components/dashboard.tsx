@@ -55,25 +55,25 @@ export default function Dashboard({ onSelectExam }: { onSelectExam: (exam: ExamI
   const renderCard = (exam: ExamCard) => (
     <div
       key={exam.id}
-      className={`flex items-center justify-between bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] border-l-4 ${exam.color} px-6 py-6 cursor-pointer transition-all backdrop-blur-sm hover:bg-[rgba(40,75,100,0.55)] hover:border-[rgba(160,200,225,0.5)]`}
+      className={`flex items-center justify-between gap-3 bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] border-l-4 ${exam.color} px-4 py-4 sm:px-6 sm:py-6 cursor-pointer transition-all backdrop-blur-sm hover:bg-[rgba(40,75,100,0.55)] hover:border-[rgba(160,200,225,0.5)]`}
       onClick={() => onSelectExam(exam.id)}
     >
-      <div className='flex flex-col gap-2'>
-        <span className='text-xl tracking-wide' style={{ color: "#eaf2f8" }}>
+      <div className='flex flex-col gap-1 sm:gap-2 min-w-0'>
+        <span className='text-lg sm:text-xl tracking-wide' style={{ color: "#eaf2f8" }}>
           {exam.title}
         </span>
-        <span className='text-base tracking-wide' style={{ color: "#8ba3b8" }}>
+        <span className='text-sm sm:text-base tracking-wide' style={{ color: "#8ba3b8" }}>
           {exam.description}
         </span>
       </div>
-      <div className='flex items-center gap-4'>
+      <div className='flex items-center gap-2 sm:gap-4 shrink-0'>
         <span
-          className='text-sm px-3 py-2 border border-[rgba(150,180,200,0.3)] bg-[rgba(8,16,24,0.6)] tracking-wider'
+          className='hidden sm:inline-block text-sm px-3 py-2 border border-[rgba(150,180,200,0.3)] bg-[rgba(8,16,24,0.6)] tracking-wider'
           style={{ color: "#a8cae0" }}
         >
           {exam.code}
         </span>
-        <span className='text-2xl transition-colors' style={{ color: "rgba(150,180,200,0.4)" }}>
+        <span className='text-xl sm:text-2xl transition-colors' style={{ color: "rgba(150,180,200,0.4)" }}>
           ▶
         </span>
       </div>
@@ -100,10 +100,10 @@ export default function Dashboard({ onSelectExam }: { onSelectExam: (exam: ExamI
         }}
       />
 
-      <div className='relative z-10 container mx-auto px-4 py-16 max-w-5xl'>
-        <div className='text-center mb-16'>
+      <div className='relative z-10 container mx-auto px-4 py-10 sm:py-16 max-w-5xl'>
+        <div className='text-center mb-10 sm:mb-16'>
           <h1
-            className='text-4xl mb-3 tracking-wider'
+            className='text-3xl sm:text-4xl mb-3 tracking-wider'
             style={{
               color: "#e8f4fb",
               textShadow: "2px 2px 0 #0a2230, 0 0 12px rgba(150,200,225,0.4)",

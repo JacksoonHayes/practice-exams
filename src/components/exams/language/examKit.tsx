@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { createContext, useContext, useMemo, useRef, useState } from "react";
+import Markdown from "react-markdown";
 import { streamWritingFeedback, translateToArgentineSpanish } from "../../../services/feedback";
 
 type Feedback = { correct: boolean; message: string };
@@ -473,10 +474,42 @@ export function WritingTask({
 
       {feedback && (
         <div
-          className={`${innerBox} mt-3 p-4 text-sm leading-relaxed whitespace-pre-wrap`}
+          className={`${innerBox} mt-3 p-4 text-sm leading-relaxed`}
           style={{ color: "#eaf2f8" }}
         >
-          {feedback}
+          <Markdown
+            components={{
+              h1: ({ children }) => (
+                <h3 className='text-base font-semibold mt-4 mb-1 first:mt-0' style={{ color: "#a8cae0" }}>
+                  {children}
+                </h3>
+              ),
+              h2: ({ children }) => (
+                <h3 className='text-base font-semibold mt-4 mb-1 first:mt-0' style={{ color: "#a8cae0" }}>
+                  {children}
+                </h3>
+              ),
+              h3: ({ children }) => (
+                <h3 className='text-base font-semibold mt-4 mb-1 first:mt-0' style={{ color: "#a8cae0" }}>
+                  {children}
+                </h3>
+              ),
+              p: ({ children }) => <p className='mb-2 last:mb-0'>{children}</p>,
+              ul: ({ children }) => <ul className='list-disc pl-5 mb-2 space-y-1'>{children}</ul>,
+              ol: ({ children }) => <ol className='list-decimal pl-5 mb-2 space-y-1'>{children}</ol>,
+              li: ({ children }) => <li>{children}</li>,
+              strong: ({ children }) => (
+                <strong className='font-semibold' style={{ color: "#eaf2f8" }}>
+                  {children}
+                </strong>
+              ),
+              em: ({ children }) => (
+                <em style={{ color: "#cdd9c0" }}>{children}</em>
+              ),
+            }}
+          >
+            {feedback}
+          </Markdown>
         </div>
       )}
     </SectionCard>
@@ -594,7 +627,7 @@ export function ExamShell<S extends string>({
 
         <TranslatorPanel accent={accent} />
 
-        <div className='relative z-10 container mx-auto px-4 py-12 max-w-4xl'>
+        <div className='relative z-10 container mx-auto px-4 py-8 sm:py-12 max-w-4xl'>
           <button
             onClick={onBack}
             className='mb-8 inline-block px-3 py-2 text-base tracking-wide transition-all bg-[rgba(8,16,24,0.7)] hover:bg-[rgba(28,40,52,0.8)] border border-[rgba(150,180,200,0.3)] backdrop-blur-sm hover:translate-x-1'
@@ -604,10 +637,10 @@ export function ExamShell<S extends string>({
           </button>
 
           <div
-            className='bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] border-l-4 p-8 backdrop-blur-sm mb-6'
+            className='bg-[rgba(12,20,28,0.75)] border border-[rgba(150,180,200,0.22)] border-l-4 p-5 sm:p-8 backdrop-blur-sm mb-6'
             style={{ borderLeftColor: accent }}
           >
-            <div className='mb-8'>
+            <div className='mb-6 sm:mb-8'>
               <span
                 className='inline-block text-sm px-3 py-2 border border-[rgba(150,180,200,0.3)] bg-[rgba(8,16,24,0.6)] tracking-wider'
                 style={{ color: "#a8cae0" }}
@@ -615,12 +648,12 @@ export function ExamShell<S extends string>({
                 {code}
               </span>
               <h1
-                className='text-4xl mt-4 mb-2 tracking-wider'
+                className='text-2xl sm:text-4xl mt-4 mb-2 tracking-wider'
                 style={{ color: "#e8f4fb", textShadow: "2px 2px 0 #0a2230, 0 0 12px rgba(150,200,225,0.4)" }}
               >
                 {title}
               </h1>
-              <p className='text-base tracking-wide' style={{ color: "#8ba3b8" }}>
+              <p className='text-sm sm:text-base tracking-wide' style={{ color: "#8ba3b8" }}>
                 {subtitle}
               </p>
             </div>
@@ -642,6 +675,8 @@ export function ExamShell<S extends string>({
             </div>
           </div>
 
+          <TranslatorPanel accent={accent} mobile />
+
           {children}
         </div>
       </div>
@@ -650,17 +685,22 @@ export function ExamShell<S extends string>({
 }
 
 /**
- * Fixed translator panel on the left. The learner pastes/types an English word
- * or phrase and gets its Argentinian Spanish translation on demand. The OpenAI
- * call runs only when they submit (and results are cached), keeping costs low.
- * Collapses to a small tab on narrow screens so it never covers the exam.
+ * Translator panel. The learner pastes/types an English word or phrase and gets
+ * its Argentinian Spanish translation on demand. The OpenAI call runs only when
+ * they submit (and results are cached), keeping costs low.
+ *
+ * Two presentations from one component:
+ * - Desktop (default): a fixed panel pinned to the left of the exam.
+ * - Mobile (`mobile`): a sticky bar that sits just under the exam header and
+ *   stays pinned to the top of the viewport as the candidate scrolls. Starts
+ *   collapsed so it doesn't crowd the screen.
  */
-function TranslatorPanel({ accent }: { accent: string }) {
+function TranslatorPanel({ accent, mobile = false }: { accent: string; mobile?: boolean }) {
   const [term, setTerm] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(!mobile);
 
   const translate = async () => {
     const q = term.trim();
@@ -682,9 +722,14 @@ function TranslatorPanel({ accent }: { accent: string }) {
     }
   };
 
-  // Hidden on small screens (the exam takes priority); shown from lg up.
+  // Mobile: sticky bar under the header, shown below lg. Desktop: fixed left
+  // panel, shown from lg up. Each variant is hidden in the other's breakpoint.
+  const wrapperClass = mobile
+    ? "lg:hidden sticky top-2 z-20 mb-6"
+    : "hidden lg:block fixed left-4 top-12 z-20 w-72";
+
   return (
-    <div className='hidden lg:block fixed left-4 top-12 z-20 w-72'>
+    <div className={wrapperClass}>
       <div
         className='bg-[rgba(12,20,28,0.85)] border border-[rgba(150,180,200,0.3)] border-l-4 backdrop-blur-sm'
         style={{ borderLeftColor: accent }}
@@ -713,7 +758,7 @@ function TranslatorPanel({ accent }: { accent: string }) {
                   void translate();
                 }
               }}
-              rows={5}
+              rows={mobile ? 2 : 5}
               placeholder='e.g. geothermal'
               className='w-full px-3 py-2 bg-[rgba(8,16,24,0.6)] border border-[rgba(150,180,200,0.3)] text-sm resize-none overflow-y-auto'
               style={{ color: "#eaf2f8" }}
